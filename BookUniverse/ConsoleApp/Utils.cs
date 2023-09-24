@@ -11,7 +11,7 @@ namespace BookUniverseConsole
                 connection.Open();
                 Console.WriteLine("Connected to PostgreSQL database");
 
-                string sqlScript = File.ReadAllText("../../../SQL/script.sql");
+                string sqlScript = File.ReadAllText("./SQL/script.sql");
                 using (NpgsqlCommand command = new NpgsqlCommand(sqlScript, connection))
                 {
                     command.ExecuteNonQuery();
