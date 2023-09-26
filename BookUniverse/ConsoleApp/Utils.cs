@@ -42,7 +42,7 @@ namespace BookUniverseConsole
             Randomizer.Seed = new Random(54815148);
 
             var categoryFaker = new Faker<Category>()
-            .RuleFor(x => x.Id, f => f.IndexFaker)
+            .RuleFor(x => x.Id, f => f.IndexFaker+1)
             .RuleFor(x => x.CategoryName, f => f.PickRandom("Fantasy", "Novel", "Detective", "Poetry", "Science", "Horror"));
             var category = categoryFaker.Generate(count);
             string sqlScript = "INSERT INTO \"Category\" (category_id, category_name) VALUES ";
@@ -54,7 +54,7 @@ namespace BookUniverseConsole
             Fill(mySecretValue, sqlScript);
 
             var userFaker = new Faker<User>()
-           .RuleFor(x => x.Id, f => f.IndexFaker)
+           .RuleFor(x => x.Id, f => f.IndexFaker+1)
            .RuleFor(x => x.UserName, f => f.Internet.UserName())
            .RuleFor(x => x.Email, f => f.Internet.Email())
            .RuleFor(x => x.Password, f => f.Internet.Password())
@@ -75,7 +75,7 @@ namespace BookUniverseConsole
             Fill(mySecretValue, sqlScript);
 
             var bookFaker = new Faker<Book>()
-            .RuleFor(x => x.Id, f => f.IndexFaker)
+            .RuleFor(x => x.Id, f => f.IndexFaker+1)
             .RuleFor(x => x.Title, f => f.Commerce.ProductName())
             .RuleFor(x => x.Author, f => f.Name.FullName())
             .RuleFor(x => x.Description, f => f.Lorem.Paragraph())
@@ -99,7 +99,7 @@ namespace BookUniverseConsole
             Fill(mySecretValue, sqlScript);
 
             var folderFaker = new Faker<Folder>()
-           .RuleFor(x => x.Id, f => f.IndexFaker)
+           .RuleFor(x => x.Id, f => f.IndexFaker+1)
            .RuleFor(x => x.FolderName, f => f.Commerce.ProductName())
            .RuleFor(x => x.UserId, f => f.Random.Number(1, count - 1));
             var folder = folderFaker.Generate(count);
@@ -112,7 +112,7 @@ namespace BookUniverseConsole
             Fill(mySecretValue, sqlScript);
 
             var userBookFaker = new Faker<UserBook>()
-            .RuleFor(x => x.Id, f => f.IndexFaker)
+            .RuleFor(x => x.Id, f => f.IndexFaker+1)
             .RuleFor(x => x.UserId, f => f.Random.Number(1, count - 1))
             .RuleFor(x => x.BookId, f => f.Random.Number(1, count - 1));
             var userBook = userBookFaker.Generate(count);
@@ -125,7 +125,7 @@ namespace BookUniverseConsole
             Fill(mySecretValue, sqlScript);
 
             var favouritesFaker = new Faker<Favourites>()
-            .RuleFor(x => x.Id, f => f.IndexFaker)
+            .RuleFor(x => x.Id, f => f.IndexFaker+1)
             .RuleFor(x => x.BookId, f => f.Random.Number(1, count - 1))
             .RuleFor(x => x.UserId, f => f.Random.Number(1, count - 1));
             var favourites = favouritesFaker.Generate(count);
@@ -138,7 +138,7 @@ namespace BookUniverseConsole
             Fill(mySecretValue, sqlScript);
 
             var bookFolderFaker = new Faker<BookFolder>()
-            .RuleFor(x => x.Id, f => f.IndexFaker)
+            .RuleFor(x => x.Id, f => f.IndexFaker+1)
             .RuleFor(x => x.BookId, f => f.Random.Number(1, count - 1))
             .RuleFor(x => x.FolderId, f => f.Random.Number(1, count - 1));
             var bookFolder = bookFolderFaker.Generate(count);
