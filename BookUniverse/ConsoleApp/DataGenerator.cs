@@ -23,14 +23,16 @@ namespace BookUniverseConsole.ConsoleApp
 
         public static Faker<Book> GetBookRule(int count)
         {
+            string googleDriveDomain = "www.googleapis.com";
             return new Faker<Book>()
             .RuleFor(x => x.Book_id, f => f.IndexFaker + 1)
             .RuleFor(x => x.Title, f => f.Commerce.ProductName())
             .RuleFor(x => x.Author, f => f.Name.FullName())
+            .RuleFor(x => x.Path, f => f.Internet.UrlWithPath(domain: googleDriveDomain))
             .RuleFor(x => x.Description, f => f.Lorem.Paragraph())
             .RuleFor(x => x.Number_of_pages, f => f.Random.Number(50, 800))
             .RuleFor(x => x.Rating, f => f.Random.Double(1, 5))
-            .RuleFor(x => x.Category_id, f => f.Random.Number(1, count - 1));
+            .RuleFor(x => x.Category_id, f => f.Random.Number(1, count));
         }
 
         public static Faker<Folder> GetFolderRule(int count)
@@ -38,31 +40,31 @@ namespace BookUniverseConsole.ConsoleApp
             return new Faker<Folder>()
              .RuleFor(x => x.Folder_id, f => f.IndexFaker + 1)
              .RuleFor(x => x.Folder_name, f => f.Commerce.ProductName())
-             .RuleFor(x => x.User_id, f => f.Random.Number(1, count - 1));
+             .RuleFor(x => x.User_id, f => f.Random.Number(1, count));
         }
 
         public static Faker<UserBook> GetUserBookRule(int count)
         {
             return new Faker<UserBook>()
              .RuleFor(x => x.Id, f => f.IndexFaker + 1)
-             .RuleFor(x => x.User_id, f => f.Random.Number(1, count - 1))
-             .RuleFor(x => x.Book_id, f => f.Random.Number(1, count - 1));
+             .RuleFor(x => x.User_id, f => f.Random.Number(1, count))
+             .RuleFor(x => x.Book_id, f => f.Random.Number(1, count));
         }
 
         public static Faker<Favourites> GetFavouritesRule(int count)
         {
             return new Faker<Favourites>()
              .RuleFor(x => x.Favorites_id, f => f.IndexFaker + 1)
-             .RuleFor(x => x.Book_id, f => f.Random.Number(1, count - 1))
-             .RuleFor(x => x.User_id, f => f.Random.Number(1, count - 1));
+             .RuleFor(x => x.Book_id, f => f.Random.Number(1, count))
+             .RuleFor(x => x.User_id, f => f.Random.Number(1, count));
         }
 
         public static Faker<BookFolder> GetBookFolderRule(int count)
         {
             return new Faker<BookFolder>()
              .RuleFor(x => x.Id, f => f.IndexFaker + 1)
-             .RuleFor(x => x.Book_id, f => f.Random.Number(1, count - 1))
-             .RuleFor(x => x.Folder_id, f => f.Random.Number(1, count - 1));
+             .RuleFor(x => x.Book_id, f => f.Random.Number(1, count))
+             .RuleFor(x => x.Folder_id, f => f.Random.Number(1, count));
         }
     }
 }

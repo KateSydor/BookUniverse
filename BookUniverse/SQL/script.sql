@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS "Book"
     book_id serial PRIMARY KEY,
     title character varying(100) NOT NULL,
     author character varying(50) NOT NULL,
+    path character varying(255) NOT NULL,
     description character varying(500) NOT NULL,
     number_of_pages integer NOT NULL,
     rating double precision NOT NULL,
@@ -20,8 +21,8 @@ CREATE TABLE IF NOT EXISTS "Book"
 CREATE TABLE IF NOT EXISTS "User"
 (
     user_id serial PRIMARY KEY,
-    username character varying(50) NOT NULL,
-    email character varying(255) NOT NULL,
+    username character varying(50) UNIQUE NOT NULL,
+    email character varying(255) UNIQUE NOT NULL,
     password character varying(255) NOT NULL,
     role integer NOT NULL
 );

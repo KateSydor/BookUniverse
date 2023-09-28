@@ -21,6 +21,7 @@ namespace BookUniverseConsole
         public int Book_id { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }
+        public string Path { get; set; }
         public string Description { get; set; }
         public int Number_of_pages { get; set; }
         public double Rating { get; set; }
@@ -28,7 +29,7 @@ namespace BookUniverseConsole
 
         public override string ToString()
         {
-            return $"User: Id: {Book_id}\tTitle: {Title}\tAuthor: {Author}\tDescription: {Description}\tNumberOfPages: {Number_of_pages}\tRating: {Rating}\tCategoryId: {Category_id}\n";
+            return $"User: Id: {Book_id}\tTitle: {Title}\tAuthor: {Author}\tPath: {Path}\tDescription: {Description}\tNumberOfPages: {Number_of_pages}\tRating: {Rating}\tCategoryId: {Category_id}\n";
         }
     }
 
