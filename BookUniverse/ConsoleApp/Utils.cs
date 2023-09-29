@@ -67,10 +67,6 @@ namespace BookUniverseConsole
             var userBook = userBookFaker.Generate(count);
             Fill(mySecretValue, userBook, "UserBook");
 
-            var favouritesFaker = DataGenerator.GetFavouritesRule(count);
-            var favourites = favouritesFaker.Generate(count);
-            Fill(mySecretValue, favourites, "Favourites");
-
             var bookFolderFaker = DataGenerator.GetBookFolderRule(count);
             var bookFolder = bookFolderFaker.Generate(count);
             Fill(mySecretValue, bookFolder, "BookFolder");
@@ -132,7 +128,6 @@ namespace BookUniverseConsole
             ReadAndPrintTableData(connection, "Book");
             ReadAndPrintTableData(connection, "Folder");
             ReadAndPrintTableData(connection, "UserBook");
-            ReadAndPrintTableData(connection, "Favourites");
             ReadAndPrintTableData(connection, "BookFolder");
         }
     }

@@ -5,7 +5,7 @@ namespace BookUniverseConsole
 {
     class Program
     {
-        const int NUMBER_TO_GENERATE = 30;
+        const int NUMBER_TO_GENERATE = 6;
         static void Main(string[] args)
         {
             var builder = new ConfigurationBuilder()
