@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BookUniverseDesktop", "Book
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookUniverse.Client", "BookUniverse.Client\BookUniverse.Client.csproj", "{403850B2-4D0D-4021-A62B-9CC71CA41973}"
 	ProjectSection(ProjectDependencies) = postProject
+		{B11C38A6-8DB6-49E3-979E-8BBCD65C8B8F} = {B11C38A6-8DB6-49E3-979E-8BBCD65C8B8F}
 		{B3565E01-B728-415D-BC9C-6DC3E267C323} = {B3565E01-B728-415D-BC9C-6DC3E267C323}
 	EndProjectSection
 EndProject
