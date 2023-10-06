@@ -7,4 +7,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BookUniverse.BLL\BookUniverse.BLL.csproj" />
+  </ItemGroup>
+
 </Project>
