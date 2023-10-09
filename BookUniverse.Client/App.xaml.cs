@@ -34,8 +34,8 @@ namespace BookUniverse.Client
         {
             base.OnStartup(e);
 
-            var mainWindow = new MainWindow();
-            mainWindow.Show();
+            //var mainWindow = new MainWindow();
+           // mainWindow.Show();
         }
     }
 }
