@@ -34,7 +34,7 @@ namespace BookUniverse.Client
 
         private void CloseWindow(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            Application.Current.MainWindow.Close();
             Application.Current.Shutdown();
 
         }
