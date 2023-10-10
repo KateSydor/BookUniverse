@@ -10,26 +10,26 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BookUniverse.Client
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for SignInWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SignInWindow : Window
     {
-        public MainWindow()
+        public SignInWindow()
         {
             InitializeComponent();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            SignInWindow signInWindow = new SignInWindow();
+            MainWindow signUpWindow = new MainWindow();
             this.Visibility = Visibility.Hidden;
-            signInWindow.Show();
+            signUpWindow.Show();
         }
 
         private void CloseWindow(object sender, RoutedEventArgs e)
