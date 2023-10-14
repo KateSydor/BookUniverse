@@ -10,33 +10,30 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BookUniverse.Client
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for HomeWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class HomeWindow : Window
     {
-        public MainWindow()
+        public HomeWindow()
         {
             InitializeComponent();
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
         {
-            HomeWindow signInWindow = new HomeWindow();
-            this.Visibility = Visibility.Hidden;
-            signInWindow.Show();
+            ButtonCloseMenu.Visibility = Visibility.Visible;
+            ButtonOpenMenu.Visibility = Visibility.Collapsed;
         }
 
-        private void CloseWindow(object sender, RoutedEventArgs e)
+        private void ButtonCloseMenu_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.MainWindow.Close();
-            Application.Current.Shutdown();
-
+            ButtonCloseMenu.Visibility = Visibility.Collapsed;
+            ButtonOpenMenu.Visibility = Visibility.Visible;
         }
     }
 }
