@@ -1,18 +1,20 @@
-﻿using BookUniverse.BLL.Interfaces;
-using BookUniverse.Client.Commands;
-using System.Windows.Input;
-
-namespace BookUniverse.Client.ViewModels
+﻿namespace BookUniverse.Client.ViewModels
 {
+    using System.Windows.Input;
+    using BookUniverse.BLL.Interfaces;
+    using BookUniverse.Client.Commands;
+
     public class LoginViewModel : ViewModelBase
     {
         private string _username;
+
         public string Username
         {
             get
             {
                 return _username;
             }
+
             set
             {
                 _username = value;
@@ -22,12 +24,14 @@ namespace BookUniverse.Client.ViewModels
         }
 
         private string _password;
+
         public string Password
         {
             get
             {
                 return _password;
             }
+
             set
             {
                 _password = value;
@@ -46,6 +50,7 @@ namespace BookUniverse.Client.ViewModels
         }
 
         public ICommand LoginCommand { get; }
+
         public ICommand ViewRegisterCommand { get; }
 
         public LoginViewModel(IAuthenticator authenticator)
@@ -54,6 +59,7 @@ namespace BookUniverse.Client.ViewModels
 
             LoginCommand = new LoginCommand(this, authenticator);
         }
+
         public LoginViewModel()
         {
         }

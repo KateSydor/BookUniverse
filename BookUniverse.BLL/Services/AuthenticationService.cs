@@ -1,11 +1,10 @@
-﻿using BookUniverse.BLL.Interfaces;
-using BookUniverse.BLL.Utils;
-using BookUniverse.DAL.Entities;
-using BookUniverse.DAL.Repositories.UserRepository;
-using System.Collections.Generic;
-
-namespace BookUniverse.BLL.Services
+﻿namespace BookUniverse.BLL.Services
 {
+    using BookUniverse.BLL.Interfaces;
+    using BookUniverse.BLL.Utils;
+    using BookUniverse.DAL.Entities;
+    using BookUniverse.DAL.Repositories.UserRepository;
+
     public class AuthenticationService : IAuthenticationService
     {
         private readonly IUserRepository _userRepository;

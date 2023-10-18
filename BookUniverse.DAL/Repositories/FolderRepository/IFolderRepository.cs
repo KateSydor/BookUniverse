@@ -1,8 +1,8 @@
-﻿using BookUniverse.DAL.Entities;
-using BookUniverse.DAL.Repositories.Base;
-
-namespace BookUniverse.DAL.Repositories.FolderRepository
+﻿namespace BookUniverse.DAL.Repositories.FolderRepository
 {
+    using BookUniverse.DAL.Entities;
+    using BookUniverse.DAL.Repositories.Base;
+
     public interface IFolderRepository : IRepository<Folder>
     {
     }

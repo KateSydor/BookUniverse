@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BookUniverse.BLL.Utils
+﻿namespace BookUniverse.BLL.Utils
 {
+    using System.Security.Cryptography;
+    using System.Text;
+
     public static class Hasher
     {
         public static string ComputeHash(string password)

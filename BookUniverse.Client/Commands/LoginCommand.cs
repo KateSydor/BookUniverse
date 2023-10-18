@@ -1,11 +1,10 @@
-﻿using BookUniverse.BLL.Interfaces;
-using BookUniverse.Client.ViewModels;
-using System;
-using System.ComponentModel;
-using System.Threading.Tasks;
-
-namespace BookUniverse.Client.Commands
+﻿namespace BookUniverse.Client.Commands
 {
+    using System.ComponentModel;
+    using System.Threading.Tasks;
+    using BookUniverse.BLL.Interfaces;
+    using BookUniverse.Client.ViewModels;
+
     public class LoginCommand : AsyncCommandBase
     {
         private readonly LoginViewModel _loginViewModel;

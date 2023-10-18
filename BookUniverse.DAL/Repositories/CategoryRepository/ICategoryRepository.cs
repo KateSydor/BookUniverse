@@ -1,8 +1,8 @@
-﻿using BookUniverse.DAL.Entities;
-using BookUniverse.DAL.Repositories.Base;
-
-namespace BookUniverse.DAL.Repositories.CategoryRepository
+﻿namespace BookUniverse.DAL.Repositories.CategoryRepository
 {
+    using BookUniverse.DAL.Entities;
+    using BookUniverse.DAL.Repositories.Base;
+
     public interface ICategoryRepository : IRepository<Category>
     {
     }

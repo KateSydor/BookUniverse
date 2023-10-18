@@ -1,13 +1,9 @@
-﻿using BookUniverse.BLL.Interfaces;
-using BookUniverse.DAL.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BookUniverse.BLL.Services
+﻿namespace BookUniverse.BLL.Services
 {
+    using System.Threading.Tasks;
+    using BookUniverse.BLL.Interfaces;
+    using BookUniverse.DAL.Entities;
+
     public class Authenticator : IAuthenticator
     {
         private readonly IAuthenticationService _authenticationService;

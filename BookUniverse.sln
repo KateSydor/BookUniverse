@@ -7,18 +7,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookUniverseConsole", "Book
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BookUniverseDesktop", "BookUniverseDesktop", "{F9C7D7AB-D513-49B4-AD65-8876E9EAFF0E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookUniverse.Client", "BookUniverse.Client\BookUniverse.Client.csproj", "{403850B2-4D0D-4021-A62B-9CC71CA41973}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookUniverse.Client", "BookUniverse.Client\BookUniverse.Client.csproj", "{403850B2-4D0D-4021-A62B-9CC71CA41973}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B11C38A6-8DB6-49E3-979E-8BBCD65C8B8F} = {B11C38A6-8DB6-49E3-979E-8BBCD65C8B8F}
 		{B3565E01-B728-415D-BC9C-6DC3E267C323} = {B3565E01-B728-415D-BC9C-6DC3E267C323}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookUniverse.BLL", "BookUniverse.BLL\BookUniverse.BLL.csproj", "{B3565E01-B728-415D-BC9C-6DC3E267C323}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookUniverse.BLL", "BookUniverse.BLL\BookUniverse.BLL.csproj", "{B3565E01-B728-415D-BC9C-6DC3E267C323}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B11C38A6-8DB6-49E3-979E-8BBCD65C8B8F} = {B11C38A6-8DB6-49E3-979E-8BBCD65C8B8F}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookUniverse.DAL", "BookUniverse.DAL\BookUniverse.DAL.csproj", "{B11C38A6-8DB6-49E3-979E-8BBCD65C8B8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookUniverse.DAL", "BookUniverse.DAL\BookUniverse.DAL.csproj", "{B11C38A6-8DB6-49E3-979E-8BBCD65C8B8F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{013779EF-3A68-4C5E-A799-178382099493}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

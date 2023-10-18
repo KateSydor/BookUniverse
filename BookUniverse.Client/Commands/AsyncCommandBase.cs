@@ -1,18 +1,20 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Windows.Input;
-
-namespace BookUniverse.Client.Commands
+﻿namespace BookUniverse.Client.Commands
 {
+    using System;
+    using System.Threading.Tasks;
+    using System.Windows.Input;
+
     public abstract class AsyncCommandBase : ICommand
     {
         private bool _isExecuting;
+
         public bool IsExecuting
         {
             get
             {
                 return _isExecuting;
             }
+
             set
             {
                 _isExecuting = value;
