@@ -1,4 +1,8 @@
-﻿using BookUniverse.DAL.Persistence;
+﻿using BookUniverse.BLL.Interfaces;
+using BookUniverse.BLL.Services;
+using BookUniverse.Client.ViewModels.Factories;
+using BookUniverse.Client.ViewModels;
+using BookUniverse.DAL.Persistence;
 using BookUniverse.DAL.Repositories.Base;
 using BookUniverse.DAL.Repositories.BookFolderRepository;
 using BookUniverse.DAL.Repositories.BookRepository;
@@ -42,6 +46,12 @@ namespace BookUniverse.Client
                     services.AddScoped<IFolderRepository, FolderRepository>();
                     services.AddScoped<IUserBookRepository, UserBookRepository>();
                     services.AddScoped<IUserRepository, UserRepository>();
+
+                    services.AddSingleton<IRootSimpleTraderViewModelFactory, RootSimpleTraderViewModelFactory>();
+                    services.AddSingleton<ISimpleTraderViewModelFactory<LoginViewModel>, LoginViewModelFactory>();
+
+                    services.AddScoped<IAuthenticator, Authenticator>();
+                    services.AddScoped<IAuthenticationService, AuthenticationService>();
                 }).Build();
         }
 
