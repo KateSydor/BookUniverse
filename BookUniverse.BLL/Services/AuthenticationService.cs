@@ -19,9 +19,9 @@
             get; set;
         }
 
-        public async Task<User> Login(string email, string password)
+        public async Task<User> Login(string userName, string password)
         {
-            User storedAccount = await _userRepository.Get(u => u.Email == email);
+            User storedAccount = await _userRepository.Get(u => u.Username == userName);
 
             if (storedAccount == null)
             {

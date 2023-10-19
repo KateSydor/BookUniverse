@@ -21,9 +21,9 @@
 
         public bool IsLoggedIn => _authenticationService.IsLoggedIn();
 
-        public async Task<User> Login(string email, string password)
+        public async Task<User> Login(string userName, string password)
         {
-            return await _authenticationService.Login(email, password);
+            return await _authenticationService.Login(userName, password);
         }
 
         public void Logout()

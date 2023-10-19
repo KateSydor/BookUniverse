@@ -8,7 +8,7 @@
 
         bool IsLoggedIn { get; }
 
-        Task<User> Login(string email, string password);
+        Task<User> Login(string userName, string password);
 
         void Logout();
     }

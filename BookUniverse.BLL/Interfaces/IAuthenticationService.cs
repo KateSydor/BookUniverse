@@ -5,7 +5,7 @@
 
     public interface IAuthenticationService
     {
-        Task<User> Login(string email, string password);
+        Task<User> Login(string userName, string password);
 
         User? CurrentAccount { get; set; }
 
