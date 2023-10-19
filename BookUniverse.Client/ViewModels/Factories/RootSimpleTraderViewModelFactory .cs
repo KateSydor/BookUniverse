@@ -1,12 +1,14 @@
 ﻿using System;
+using BookUniverse.Client.ViewModels.Factories.Enums;
+using BookUniverse.Client.ViewModels.Factories.Interfaces;
 
 namespace BookUniverse.Client.ViewModels.Factories
 {
-    public class RootSimpleTraderViewModelFactory : IRootSimpleTraderViewModelFactory
+    public class RootViewModelFactory : IRootViewModelFactory
     {
-        private readonly ISimpleTraderViewModelFactory<LoginViewModel> _loginViewModelFactory;
+        private readonly IBaseViewModelFactory<LoginViewModel> _loginViewModelFactory;
 
-        public RootSimpleTraderViewModelFactory(ISimpleTraderViewModelFactory<LoginViewModel> loginViewModelFactory)
+        public RootViewModelFactory(IBaseViewModelFactory<LoginViewModel> loginViewModelFactory)
         {
             _loginViewModelFactory = loginViewModelFactory;
         }

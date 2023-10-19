@@ -4,6 +4,7 @@
     using BookUniverse.BLL.Services;
     using BookUniverse.Client.ViewModels;
     using BookUniverse.Client.ViewModels.Factories;
+    using BookUniverse.Client.ViewModels.Factories.Interfaces;
     using BookUniverse.DAL.Persistence;
     using BookUniverse.DAL.Repositories.Base;
     using BookUniverse.DAL.Repositories.BookFolderRepository;
@@ -36,8 +37,8 @@
 
         public static void AddViewModelFactories(this IServiceCollection services)
         {
-            services.AddSingleton<IRootSimpleTraderViewModelFactory, RootSimpleTraderViewModelFactory>();
-            services.AddSingleton<ISimpleTraderViewModelFactory<LoginViewModel>, LoginViewModelFactory>();
+            services.AddSingleton<IRootViewModelFactory, RootViewModelFactory>();
+            services.AddSingleton<IBaseViewModelFactory<LoginViewModel>, LoginViewModelFactory>();
         }
 
         public static void AddAuthenticationServices(this IServiceCollection services)

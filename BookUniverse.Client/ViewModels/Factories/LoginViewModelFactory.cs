@@ -1,13 +1,9 @@
-﻿using BookUniverse.BLL.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BookUniverse.Client.ViewModels.Factories
+﻿namespace BookUniverse.Client.ViewModels.Factories
 {
-    public class LoginViewModelFactory : ISimpleTraderViewModelFactory<LoginViewModel>
+    using BookUniverse.BLL.Interfaces;
+    using BookUniverse.Client.ViewModels.Factories.Interfaces;
+
+    public class LoginViewModelFactory : IBaseViewModelFactory<LoginViewModel>
     {
         private readonly IAuthenticator _authenticator;
 
