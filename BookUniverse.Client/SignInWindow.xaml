@@ -18,9 +18,9 @@
         </Grid.ColumnDefinitions>
 
         <!--Left Section-->
-        <Border Background="#011638" CornerRadius="10 0 0 10" ClipToBounds="True">
+        <Border Background="#011638" ClipToBounds="True">
             <Border.Clip>
-                <RectangleGeometry RadiusX="10" RadiusY="10" Rect="0,0,400,605"/>
+                <RectangleGeometry Rect="0,0,400,605"/>
             </Border.Clip>
 
             <Grid>
@@ -76,7 +76,7 @@
         </Border>
 
         <!--Right Section-->
-        <Border Grid.Column="1" Background="#ffffff" CornerRadius="0 10 10 0">
+        <Border Grid.Column="1" Background="#ffffff">
             <Grid>
                 <!--Close Icon-->
                 <materialDesign:PackIcon Kind="Close" VerticalAlignment="Top" Width="20" Height="20" HorizontalAlignment="Right" Margin="0 13 14 0" Opacity="0.3" MouseDoubleClick="CloseWindow"/>

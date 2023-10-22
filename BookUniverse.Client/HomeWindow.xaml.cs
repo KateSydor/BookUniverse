@@ -35,5 +35,12 @@ namespace BookUniverse.Client
             ButtonCloseMenu.Visibility = Visibility.Collapsed;
             ButtonOpenMenu.Visibility = Visibility.Visible;
         }
+
+        private void CloseWindow(object sender, RoutedEventArgs e)
+        {
+            Application.Current.MainWindow.Close();
+            Application.Current.Shutdown();
+
+        }
     }
 }

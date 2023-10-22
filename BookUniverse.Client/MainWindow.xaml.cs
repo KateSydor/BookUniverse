@@ -27,7 +27,7 @@ namespace BookUniverse.Client
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            HomeWindow signInWindow = new HomeWindow();
+            SignInWindow signInWindow = new SignInWindow();
             this.Visibility = Visibility.Hidden;
             signInWindow.Show();
         }
