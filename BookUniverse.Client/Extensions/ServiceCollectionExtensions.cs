@@ -39,8 +39,8 @@
 
         public static void AddViews(this IServiceCollection services)
         {
-            services.AddSingleton<MainWindow>();
-            services.AddSingleton<SignInWindow>();
+            services.AddScoped<MainWindow>();
+            services.AddScoped<SignInWindow>();
         }
     }
 }

@@ -56,5 +56,10 @@
             Application.Current.Shutdown();
 
         }
+
+        private void username_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
+        }
     }
 }
