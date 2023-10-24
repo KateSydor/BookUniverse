@@ -1,35 +1,53 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
-namespace BookUniverse.Client
+﻿namespace BookUniverse.Client
 {
+    using System;
+    using System.Windows;
+    using BookUniverse.BLL.DTOs;
+    using BookUniverse.BLL.Interfaces;
+
     /// <summary>
-    /// Interaction logic for SignInWindow.xaml
+    /// Interaction logic for SignInWindow.xaml.
     /// </summary>
     public partial class SignInWindow : Window
     {
-        public SignInWindow()
+        private readonly IAuthenticationService _authenticationService;
+        private readonly LoginDto user;
+
+        public SignInWindow(IAuthenticationService authenticationService)
         {
             InitializeComponent();
-        }
+            _authenticationService = authenticationService;
 
+            user = new LoginDto();
+            this.DataContext = user;
+        }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow signUpWindow = new MainWindow();
+            MainWindow signUpWindow = new MainWindow(_authenticationService);
             this.Visibility = Visibility.Hidden;
             signUpWindow.Show();
+        }
+
+        private async void Login_Click(object sender, RoutedEventArgs e)
+        {
+            string pass = password.Password.Trim();
+
+            try
+            {
+                await _authenticationService.Login(username.Text, pass);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Помилка");
+            }
+
+            if (_authenticationService.IsLoggedIn())
+            {
+                MainWindow homePage = new(_authenticationService);
+                homePage.Show();
+                Hide();
+            }
         }
 
         private void CloseWindow(object sender, RoutedEventArgs e)

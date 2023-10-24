@@ -2,9 +2,6 @@
 {
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.BLL.Services;
-    using BookUniverse.Client.ViewModels;
-    using BookUniverse.Client.ViewModels.Factories;
-    using BookUniverse.Client.ViewModels.Factories.Interfaces;
     using BookUniverse.DAL.Persistence;
     using BookUniverse.DAL.Repositories.Base;
     using BookUniverse.DAL.Repositories.BookFolderRepository;
@@ -35,16 +32,15 @@
             services.AddScoped<IUserRepository, UserRepository>();
         }
 
-        public static void AddViewModelFactories(this IServiceCollection services)
-        {
-            services.AddSingleton<IRootViewModelFactory, RootViewModelFactory>();
-            services.AddSingleton<IBaseViewModelFactory<LoginViewModel>, LoginViewModelFactory>();
-        }
-
         public static void AddAuthenticationServices(this IServiceCollection services)
         {
-            services.AddScoped<IAuthenticator, Authenticator>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
+        }
+
+        public static void AddViews(this IServiceCollection services)
+        {
+            services.AddSingleton<MainWindow>();
+            services.AddSingleton<SignInWindow>();
         }
     }
 }

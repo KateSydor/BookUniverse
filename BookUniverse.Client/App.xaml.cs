@@ -3,6 +3,7 @@
     using System.Windows;
     using BookUniverse.Client.Extensions;
     using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
 
     /// <summary>
@@ -27,12 +28,27 @@
 
                     services.AddRepositories();
 
-                    services.AddViewModelFactories();
-
                     services.AddAuthenticationServices();
+
+                    services.AddViews();
+
                 }).Build();
         }
 
-        protected override void OnStartup(StartupEventArgs e) => base.OnStartup(e);
+        protected override async void OnStartup(StartupEventArgs e)
+        {
+            await AppHost!.StartAsync();
+
+            var startupForm = AppHost.Services.GetRequiredService<SignInWindow>();
+            startupForm.Show();
+
+            base.OnStartup(e);
+        }
+
+        protected override async void OnExit(ExitEventArgs e)
+        {
+            await AppHost!.StopAsync();
+            base.OnExit(e);
+        }
     }
 }

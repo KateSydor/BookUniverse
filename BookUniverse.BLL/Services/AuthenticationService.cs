@@ -25,13 +25,13 @@
 
             if (storedAccount == null)
             {
-                throw new Exception("Користувача з вказаною поштою не існує.");
+                throw new Exception("Not valid username.");
             }
 
             string storedHashedPasssword = Hasher.ComputeHash(password);
             if (storedHashedPasssword != storedAccount.Password)
             {
-                throw new Exception("Неправильний пароль.");
+                throw new Exception("Not valid password.");
             }
 
             CurrentAccount = storedAccount;
@@ -41,7 +41,10 @@
         public bool IsLoggedIn()
         {
             if (CurrentAccount is null)
+            {
                 return false;
+            }
+
             return true;
         }
 
