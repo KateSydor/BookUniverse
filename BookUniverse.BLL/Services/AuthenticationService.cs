@@ -8,6 +8,7 @@
     public class AuthenticationService : IAuthenticationService
     {
         private readonly IUserRepository _userRepository;
+        const string error = "Not valid credentials.";
 
         public AuthenticationService(IUserRepository userService)
         {
@@ -25,13 +26,13 @@
 
             if (storedAccount == null)
             {
-                throw new Exception("Not valid username.");
+                throw new Exception(error);
             }
 
             string storedHashedPasssword = Hasher.ComputeHash(password);
             if (storedHashedPasssword != storedAccount.Password)
             {
-                throw new Exception("Not valid password.");
+                throw new Exception(error);
             }
 
             CurrentAccount = storedAccount;
