@@ -227,7 +227,7 @@
                                                      materialDesign:HintAssist.Hint="Repeat password"
                                                      Margin="0 27 0 27">
                         <customcontrols:BindablePassword.Password>
-                            <Binding Path="Repeat password"
+                            <Binding Path="RepeatPassword"
                                      Mode="TwoWay"
                                      UpdateSourceTrigger="PropertyChanged">
                                 <Binding.ValidationRules>
