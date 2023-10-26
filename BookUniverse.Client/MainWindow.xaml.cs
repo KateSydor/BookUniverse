@@ -37,6 +37,12 @@
             try
             {
                 await _authenticationService.Register(username.Text, email.Text, pass, repeatPass);
+                if (_authenticationService.IsLoggedIn())
+                {
+                    SignInWindow homePage = new(_authenticationService);
+                    homePage.Show();
+                    Hide();
+                }
             }
             catch (ArgumentException argEx)
             {
@@ -45,13 +51,6 @@
             catch
             {
                 MessageBox.Show("Not valid data", "Error");
-            }
-
-            if (_authenticationService.IsLoggedIn())
-            {
-                SignInWindow homePage = new(_authenticationService);
-                homePage.Show();
-                Hide();
             }
         }
 

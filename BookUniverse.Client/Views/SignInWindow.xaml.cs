@@ -36,17 +36,16 @@
             try
             {
                 await _authenticationService.Login(username.Text, pass);
+                if (_authenticationService.IsLoggedIn())
+                {
+                    MainWindow homePage = new(_authenticationService);
+                    homePage.Show();
+                    Hide();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error");
-            }
-
-            if (_authenticationService.IsLoggedIn())
-            {
-                MainWindow homePage = new(_authenticationService);
-                homePage.Show();
-                Hide();
             }
         }
 
