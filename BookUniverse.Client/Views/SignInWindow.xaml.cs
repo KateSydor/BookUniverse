@@ -39,7 +39,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Помилка");
+                MessageBox.Show(ex.Message, "Error");
             }
 
             if (_authenticationService.IsLoggedIn())
@@ -54,11 +54,6 @@
         {
             Application.Current.MainWindow.Close();
             Application.Current.Shutdown();
-
-        }
-
-        private void username_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
 
         }
     }

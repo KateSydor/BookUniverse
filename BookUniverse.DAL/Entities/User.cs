@@ -11,12 +11,17 @@
         public int Id { get; set; }
 
         [Required]
+        [MaxLength(30)]
+        [MinLength(6)]
         public string Username { get; set; }
 
         [Required]
+        [MinLength(15)]
+        [MaxLength(256)]
         public string Email { get; set; }
 
         [Required]
+        [MaxLength(256)]
         public string Password { get; set; }
 
         [Required]

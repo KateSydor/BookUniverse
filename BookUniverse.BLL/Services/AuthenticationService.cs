@@ -20,6 +20,25 @@
             get; set;
         }
 
+        public async Task Register(string userName, string email, string password, string repeatPassword)
+        {
+            if (password != repeatPassword)
+            {
+                throw new ArgumentException("Passwords don't match");
+            }
+            string storedHashedPasssword = Hasher.ComputeHash(password);
+            User newUser = new User
+            {
+                Username = userName,
+                Email = email,
+                Password = storedHashedPasssword
+            };
+
+            await _userRepository.Create(newUser);
+
+            CurrentAccount = newUser;
+        }
+
         public async Task<User> Login(string userName, string password)
         {
             User storedAccount = await _userRepository.Get(u => u.Username == userName);

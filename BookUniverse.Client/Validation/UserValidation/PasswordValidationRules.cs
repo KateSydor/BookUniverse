@@ -1,4 +1,4 @@
-﻿namespace BookUniverse.Client.Validation.LoginValidation
+﻿namespace BookUniverse.Client.Validation.UserValidation
 {
     using System.Globalization;
     using System.Text.RegularExpressions;
