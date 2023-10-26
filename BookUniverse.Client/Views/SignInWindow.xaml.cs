@@ -39,7 +39,7 @@
                 await _authenticationService.Login(user);
                 if (_authenticationService.IsLoggedIn())
                 {
-                    MainWindow homePage = new(_authenticationService);
+                    HomeWindow homePage = new HomeWindow();
                     homePage.Show();
                     Hide();
                 }

@@ -41,6 +41,7 @@
         {
             services.AddScoped<MainWindow>();
             services.AddScoped<SignInWindow>();
+            services.AddScoped<HomeWindow>();
         }
     }
 }
