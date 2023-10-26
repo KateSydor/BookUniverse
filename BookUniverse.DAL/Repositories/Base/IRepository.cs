@@ -1,7 +1,7 @@
-﻿using System.Linq.Expressions;
-
-namespace BookUniverse.DAL.Repositories.Base
+﻿namespace BookUniverse.DAL.Repositories.Base
 {
+    using System.Linq.Expressions;
+
     public interface IRepository<T>
         where T : class
     {

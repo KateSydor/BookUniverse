@@ -6,51 +6,47 @@
     using BookUniverse.BLL.Interfaces;
 
     /// <summary>
-    /// Interaction logic for MainWindow.xaml.
+    /// Interaction logic for SignInWindow.xaml.
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SignInWindow : Window
     {
         private readonly IAuthenticationService _authenticationService;
-        private readonly RegistrationDto user;
+        private readonly LoginDto user;
 
-        public MainWindow(IAuthenticationService authenticationService)
+        public SignInWindow(IAuthenticationService authenticationService)
         {
             InitializeComponent();
             _authenticationService = authenticationService;
 
-            user = new RegistrationDto();
+            user = new LoginDto();
             this.DataContext = user;
         }
 
-        private void Redirect_Signin_Button_Click(object sender, RoutedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            SignInWindow signInWindow = new SignInWindow(_authenticationService);
+            MainWindow signUpWindow = new MainWindow(_authenticationService);
             this.Visibility = Visibility.Hidden;
-            signInWindow.Show();
+            signUpWindow.Show();
         }
 
-        private async void Signup_Button_Click(object sender, RoutedEventArgs e)
+        private async void Login_Click(object sender, RoutedEventArgs e)
         {
             string pass = password.Password.Trim();
-            string repeatPass = repeatPassword.Password.Trim();
+
 
             try
             {
-                await _authenticationService.Register(user);
+                await _authenticationService.Login(user);
                 if (_authenticationService.IsLoggedIn())
                 {
-                    SignInWindow homePage = new(_authenticationService);
+                    MainWindow homePage = new(_authenticationService);
                     homePage.Show();
                     Hide();
                 }
             }
-            catch (ArgumentException argEx)
+            catch (Exception ex)
             {
-                MessageBox.Show(argEx.Message, "Error");
-            }
-            catch
-            {
-                MessageBox.Show("Not valid data", "Error");
+                MessageBox.Show(ex.Message, "Error");
             }
         }
 

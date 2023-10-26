@@ -1,4 +1,4 @@
-﻿<Window x:Class="BookUniverse.Client.MainWindow"
+﻿<Window x:Class="BookUniverse.Client.SignInWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -16,6 +16,25 @@
         mc:Ignorable="d"
         Height="645"
         Width="875">
+
+    <Window.Resources>
+        <Style x:Key="SignInButtonStyle"
+               TargetType="Button">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=username, Path=Text.Length, UpdateSourceTrigger=PropertyChanged}"
+                             Value="0">
+                    <Setter Property="IsEnabled"
+                            Value="False" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=password, Path=Password.Length, UpdateSourceTrigger=PropertyChanged}"
+                             Value="0">
+                    <Setter Property="IsEnabled"
+                            Value="False" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
     <Grid Margin="20">
         <Grid.Effect>
             <DropShadowEffect BlurRadius="30"
@@ -176,6 +195,7 @@
                              BorderBrush="#C5C8CC"
                              materialDesign:HintAssist.FloatingOffset="0,-20"
                              materialDesign:HintAssist.Hint="Username"
+                             Margin="0 27 0 27"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}">
                         <TextBox.Text>
                             <Binding Path="Username"
@@ -186,26 +206,9 @@
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
-
-                    <TextBox x:Name="email"
-                             BorderThickness="0 0 0 1.5"
-                             BorderBrush="#C5C8CC"
-                             materialDesign:HintAssist.FloatingOffset="0,-20"
-                             materialDesign:HintAssist.Hint="Email"
-                             Margin="0 27 0 27"
-                             Style="{StaticResource MaterialDesignFloatingHintTextBox}">
-                        <TextBox.Text>
-                            <Binding Path="Email"
-                                     UpdateSourceTrigger="PropertyChanged">
-                                <Binding.ValidationRules>
-                                    <local:EmailValidationRules />
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox.Text>
-                    </TextBox>
-
                     <customcontrols:BindablePassword x:Name="password"
-                                                     materialDesign:HintAssist.Hint="Password">
+                                                     materialDesign:HintAssist.Hint="Password"
+                                                     Margin="0 0 0 3">
                         <customcontrols:BindablePassword.Password>
                             <Binding Path="Password"
                                      Mode="TwoWay"
@@ -222,38 +225,24 @@
                             </ControlTemplate>
                         </Validation.ErrorTemplate>
                     </customcontrols:BindablePassword>
-
-                    <customcontrols:BindablePassword x:Name="repeatPassword"
-                                                     materialDesign:HintAssist.Hint="Repeat password"
-                                                     Margin="0 27 0 27">
-                        <customcontrols:BindablePassword.Password>
-                            <Binding Path="RepeatPassword"
-                                     Mode="TwoWay"
-                                     UpdateSourceTrigger="PropertyChanged">
-                                <Binding.ValidationRules>
-                                    <local:PasswordValidationRules />
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </customcontrols:BindablePassword.Password>
-                        <Validation.ErrorTemplate>
-                            <ControlTemplate>
-                                <StackPanel>
-                                </StackPanel>
-                            </ControlTemplate>
-                        </Validation.ErrorTemplate>
-                    </customcontrols:BindablePassword>
-
-
-                    <StackPanel Orientation="Horizontal">
-                        <Button Content="Sign up"
+                    <TextBlock x:Name="passwordError"
+                               Text=""
+                               Foreground="DarkRed"
+                               FontSize="10"
+                               Visibility="Collapsed"
+                               Margin="0,0,0,0" />
+                    <StackPanel Orientation="Horizontal"
+                                Margin="0 27 0 0">
+                        <Button Content="Sign in"
                                 Background="#011638"
                                 Foreground="#ffffff"
                                 FontSize="18"
                                 materialDesign:ButtonAssist.CornerRadius="22"
                                 Height="45"
                                 Width="120"
-                                Click="Signup_Button_Click" />
-                        <Button Content="or Sign in"
+                                Click="Login_Click"
+                                Style="{StaticResource SignInButtonStyle}" />
+                        <Button Content="or Sign up"
                                 materialDesign:ButtonAssist.CornerRadius="22"
                                 Foreground="#011638"
                                 FontSize="16"
@@ -261,7 +250,7 @@
                                 Width="120"
                                 Margin="5 0 0 0"
                                 Style="{StaticResource MaterialDesignFlatButton}"
-                                Click="Redirect_Signin_Button_Click" />
+                                Click="Button_Click" />
                     </StackPanel>
                 </StackPanel>
             </Grid>

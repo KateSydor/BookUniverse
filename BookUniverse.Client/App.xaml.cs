@@ -1,21 +1,13 @@
-﻿using BookUniverse.DAL.Persistence;
-using BookUniverse.DAL.Repositories.Base;
-using BookUniverse.DAL.Repositories.BookFolderRepository;
-using BookUniverse.DAL.Repositories.BookRepository;
-using BookUniverse.DAL.Repositories.CategoryRepository;
-using BookUniverse.DAL.Repositories.FolderRepository;
-using BookUniverse.DAL.Repositories.UserBookRepository;
-using BookUniverse.DAL.Repositories.UserRepository;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using System.Windows;
-
-namespace BookUniverse.Client
+﻿namespace BookUniverse.Client
 {
+    using System.Windows;
+    using BookUniverse.Client.Extensions;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+
     /// <summary>
-    /// Interaction logic for App.xaml
+    /// Interaction logic for App.xaml.
     /// </summary>
     public partial class App : Application
     {
@@ -32,22 +24,31 @@ namespace BookUniverse.Client
 
                     string sqlConnectionString = configuration["ConnectionString"];
 
-                    services.AddDbContext<DatabaseContext>(options =>
-                        options.UseNpgsql(sqlConnectionString));
+                    services.AddDatabaseContext(sqlConnectionString);
 
-                    services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-                    services.AddScoped<IBookFolderRepository, BookFolderRepository>();
-                    services.AddScoped<IBookRepository, BookRepository>();
-                    services.AddScoped<ICategoryRepository, CategoryRepository>();
-                    services.AddScoped<IFolderRepository, FolderRepository>();
-                    services.AddScoped<IUserBookRepository, UserBookRepository>();
-                    services.AddScoped<IUserRepository, UserRepository>();
+                    services.AddRepositories();
+
+                    services.AddAuthenticationServices();
+
+                    services.AddViews();
+
                 }).Build();
         }
 
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
+            await AppHost!.StartAsync();
+
+            var startupForm = AppHost.Services.GetRequiredService<SignInWindow>();
+            startupForm.Show();
+
             base.OnStartup(e);
+        }
+
+        protected override async void OnExit(ExitEventArgs e)
+        {
+            await AppHost!.StopAsync();
+            base.OnExit(e);
         }
     }
 }

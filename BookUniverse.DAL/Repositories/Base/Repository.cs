@@ -1,10 +1,9 @@
-﻿using BookUniverse.DAL.Persistence;
-using BookUniverse.DAL.Repositories.Base;
-using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
-
-namespace BookUniverse.DAL.Repositories.Base
+﻿namespace BookUniverse.DAL.Repositories.Base
 {
+    using System.Linq.Expressions;
+    using BookUniverse.DAL.Persistence;
+    using Microsoft.EntityFrameworkCore;
+
     public class Repository<T> : IRepository<T>
          where T : class
     {
