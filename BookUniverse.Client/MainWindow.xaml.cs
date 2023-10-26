@@ -36,7 +36,7 @@
 
             try
             {
-                await _authenticationService.Register(username.Text, email.Text, pass, repeatPass);
+                await _authenticationService.Register(user);
                 if (_authenticationService.IsLoggedIn())
                 {
                     SignInWindow homePage = new(_authenticationService);

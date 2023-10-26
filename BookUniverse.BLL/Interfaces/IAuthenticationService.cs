@@ -1,13 +1,14 @@
 ﻿namespace BookUniverse.BLL.Interfaces
 {
     using System.Threading.Tasks;
+    using BookUniverse.BLL.DTOs;
     using BookUniverse.DAL.Entities;
 
     public interface IAuthenticationService
     {
-        Task<User> Login(string userName, string password);
+        Task<User> Login(LoginDto user);
 
-        Task Register(string userName, string email, string password, string repeatPassword);
+        Task Register(RegistrationDto user);
 
         User? CurrentAccount { get; set; }
 

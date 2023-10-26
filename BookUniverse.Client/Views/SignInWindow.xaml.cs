@@ -33,9 +33,10 @@
         {
             string pass = password.Password.Trim();
 
+
             try
             {
-                await _authenticationService.Login(username.Text, pass);
+                await _authenticationService.Login(user);
                 if (_authenticationService.IsLoggedIn())
                 {
                     MainWindow homePage = new(_authenticationService);
