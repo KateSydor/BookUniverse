@@ -2,6 +2,7 @@
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using BookUniverse.DAL.Constants.ValidationConstants;
     using BookUniverse.DAL.Enums;
 
     public class User
@@ -11,17 +12,17 @@
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(30)]
-        [MinLength(6)]
+        [MinLength(UserValidationConstants.USERNAME_MIN_LENGTH)]
+        [MaxLength(UserValidationConstants.USERNAME_MAX_LENGTH)]
         public string Username { get; set; }
 
         [Required]
-        [MinLength(15)]
-        [MaxLength(256)]
+        [MinLength(UserValidationConstants.EMAIL_MIN_LENGTH)]
+        [MaxLength(UserValidationConstants.EMAIL_MAX_LENGTH)]
         public string Email { get; set; }
 
         [Required]
-        [MaxLength(256)]
+        [MaxLength(UserValidationConstants.PASSWORD_MAX_LENGTH)]
         public string Password { get; set; }
 
         [Required]

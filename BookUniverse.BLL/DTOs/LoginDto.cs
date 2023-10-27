@@ -1,12 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace BookUniverse.BLL.DTOs
+﻿namespace BookUniverse.BLL.DTOs
 {
+    using System.ComponentModel.DataAnnotations;
+    using BookUniverse.DAL.Constants.ValidationConstants;
+
     public class LoginDto
     {
         public string? Username { get; set; }
 
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,15}$", ErrorMessage = "Not valid password.")]
+        [RegularExpression(UserValidationConstants.PASSWORD_PATTERN, ErrorMessage = UserValidationConstants.NOT_VALID_PASSWORD)]
         public string? Password { get; set; }
     }
 }

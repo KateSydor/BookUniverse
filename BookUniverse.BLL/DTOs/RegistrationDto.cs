@@ -1,18 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace BookUniverse.BLL.DTOs
+﻿namespace BookUniverse.BLL.DTOs
 {
+    using System.ComponentModel.DataAnnotations;
+    using BookUniverse.DAL.Constants.ValidationConstants;
+
     public class RegistrationDto
     {
         public string? Username { get; set; }
 
-        [RegularExpression(@"^[a-zA-Z0-9.]{3,20}@(?:[a-zA-Z0-9]{2,20}\.){1,30}[a-zA-Z]{2,10}$", ErrorMessage = "Not valid email.")]
+        [RegularExpression(UserValidationConstants.EMAIL_PATTERN, ErrorMessage = UserValidationConstants.NOT_VALID_EMAIL)]
         public string? Email { get; set; }
 
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,15}$", ErrorMessage = "Not valid password.")]
+        [RegularExpression(UserValidationConstants.PASSWORD_PATTERN, ErrorMessage = UserValidationConstants.NOT_VALID_PASSWORD)]
         public string? Password { get; set; }
 
-        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,15}$", ErrorMessage = "Not valid password.")]
+        [RegularExpression(UserValidationConstants.PASSWORD_PATTERN, ErrorMessage = UserValidationConstants.NOT_VALID_PASSWORD)]
         public string? RepeatPassword { get; set; }
     }
 }
