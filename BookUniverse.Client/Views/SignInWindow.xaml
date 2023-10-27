@@ -66,7 +66,7 @@
                                FontWeight="Light"
                                Foreground="#ffffff"
                                TextAlignment="Center" />
-                    <TextBlock Text="Sign up to use all features"
+                    <TextBlock Text="Sign in to use all features"
                                FontWeight="Light"
                                FontSize="16"
                                Foreground="#D1F2EB"
@@ -208,7 +208,7 @@
                     </TextBox>
                     <customcontrols:BindablePassword x:Name="password"
                                                      materialDesign:HintAssist.Hint="Password"
-                                                     Margin="0 0 0 3">
+                                                     Margin="0 0 0 27">
                         <customcontrols:BindablePassword.Password>
                             <Binding Path="Password"
                                      Mode="TwoWay"
@@ -221,16 +221,12 @@
                         <Validation.ErrorTemplate>
                             <ControlTemplate>
                                 <StackPanel>
+                                    <TextBlock Text="{Binding [0].ErrorContent}" Foreground="DarkRed" FontSize="10" Margin="0,50,0,0" />
                                 </StackPanel>
                             </ControlTemplate>
                         </Validation.ErrorTemplate>
                     </customcontrols:BindablePassword>
-                    <TextBlock x:Name="passwordError"
-                               Text=""
-                               Foreground="DarkRed"
-                               FontSize="10"
-                               Visibility="Collapsed"
-                               Margin="0,0,0,0" />
+                   
                     <StackPanel Orientation="Horizontal"
                                 Margin="0 27 0 0">
                         <Button Content="Sign in"

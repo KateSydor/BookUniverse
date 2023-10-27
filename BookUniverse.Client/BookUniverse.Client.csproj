@@ -38,4 +38,10 @@
     <ProjectReference Include="..\BookUniverse.DAL\BookUniverse.DAL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="CustomControls\BindablePassword.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>

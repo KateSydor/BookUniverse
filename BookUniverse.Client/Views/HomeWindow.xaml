@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookUniverse.Client"
        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d" Height="645" Width="875" Foreground="#FFE3E0" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+        mc:Ignorable="d" Height="1000" Width="1800" Foreground="#FFE3E0" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
     <Window.Resources>
         <Storyboard x:Key="OpenMenu">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
@@ -90,14 +90,15 @@
                     <ListViewItem x:Name="ItemCreate" Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Category" Height="25" Width="25" Margin="10"/>
-                            <TextBlock Text="Categories" VerticalAlignment="Center" Margin="20 10"/>
-                            <ComboBox Width="100" Margin="20 10">
-                                <ComboBoxItem Content="Option 1" />
+                            <ComboBox Width="115" Margin="20 10 0 10" materialDesign:HintAssist.HelperText="Categories" materialDesign:TextFieldAssist.UnderlineBrush="#182043" >
+                                <ComboBoxItem IsSelected="True" Content="Option 1" />
                                 <ComboBoxItem Content="Option 2" />
                                 <ComboBoxItem Content="Option 3" />
                             </ComboBox>
                         </StackPanel>
                     </ListViewItem>
+
+
                     <ListViewItem Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Favorite" Height="25" Width="25" Margin="10"/>
@@ -107,9 +108,8 @@
                     <ListViewItem Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Folder" Height="25" Width="25" Margin="10"/>
-                            <TextBlock Text="Folders" VerticalAlignment="Center"  Margin="20 10"/>
-                            <ComboBox Width="100" Margin="20 10">
-                                <ComboBoxItem Content="Option 1" />
+                            <ComboBox Width="115" Margin="20 10 0 10" materialDesign:HintAssist.HelperText="Folders" materialDesign:TextFieldAssist.UnderlineBrush="#182043" >
+                                <ComboBoxItem IsSelected="True" Content="Option 1" />
                                 <ComboBoxItem Content="Option 2" />
                                 <ComboBoxItem Content="Option 3" />
                             </ComboBox>

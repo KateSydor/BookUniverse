@@ -218,6 +218,7 @@
                         <Validation.ErrorTemplate>
                             <ControlTemplate>
                                 <StackPanel>
+                                    <TextBlock Text="{Binding [0].ErrorContent}" Foreground="DarkRed" FontSize="10" Margin="0,50,0,0" />
                                 </StackPanel>
                             </ControlTemplate>
                         </Validation.ErrorTemplate>
@@ -238,6 +239,8 @@
                         <Validation.ErrorTemplate>
                             <ControlTemplate>
                                 <StackPanel>
+                                    <TextBlock Text="{Binding [0].ErrorContent}" Foreground="DarkRed" FontSize="10" Margin="0,50,0,0" />
+
                                 </StackPanel>
                             </ControlTemplate>
                         </Validation.ErrorTemplate>
@@ -246,13 +249,32 @@
 
                     <StackPanel Orientation="Horizontal">
                         <Button Content="Sign up"
-                                Background="#011638"
-                                Foreground="#ffffff"
-                                FontSize="18"
-                                materialDesign:ButtonAssist.CornerRadius="22"
-                                Height="45"
-                                Width="120"
-                                Click="Signup_Button_Click" />
+        Background="#011638"
+        Foreground="#ffffff"
+        FontSize="18"
+        materialDesign:ButtonAssist.CornerRadius="22"
+        Height="45"
+        Width="120"
+        Click="Signup_Button_Click">
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text.Length, ElementName=email, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Text.Length, ElementName=username, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                            <Setter Property="IsEnabled" Value="False"/>
+                                        </DataTrigger>
+                                        <Trigger Property="IsPressed" Value="True">
+                                            <Setter Property="Background" Value="Black" />
+                                            <Setter Property="Foreground" Value="#ffffff" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+
                         <Button Content="or Sign in"
                                 materialDesign:ButtonAssist.CornerRadius="22"
                                 Foreground="#011638"

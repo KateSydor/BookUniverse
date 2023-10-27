@@ -2,6 +2,7 @@
 {
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
 
     /// <summary>
     /// Interaction logic for BindablePassword.xaml.
@@ -33,5 +34,6 @@
         {
             Password = UserPassword.Password;
         }
+
     }
 }
