@@ -1,14 +1,25 @@
-﻿namespace BookUniverse.Client
-{
-    using BookUniverse.Client;
-    using System.Windows;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
+namespace BookUniverse.Client
+{
     /// <summary>
-    /// Interaction logic for HomeWindow.xaml
+    /// Interaction logic for UserAccount.xaml
     /// </summary>
-    public partial class HomeWindow : Window
+    public partial class UserAccount : Window
     {
-        public HomeWindow()
+        public UserAccount()
         {
             InitializeComponent();
         }
@@ -32,11 +43,11 @@
 
         }
 
-        private void AccountButton_Click(object sender, RoutedEventArgs e)
+        private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            UserAccount userAccount = new UserAccount();
+            HomeWindow homeWindow = new HomeWindow();
             this.Visibility = Visibility.Hidden;
-            userAccount.Show();
+            homeWindow.Show();
         }
     }
 }
