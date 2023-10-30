@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d" Height="1000" Width="1800" Foreground="#FFE3E0" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+        mc:Ignorable="d" Height="900" Width="1500" Foreground="#FFE3E0" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
     <Window.Resources>
         <Storyboard x:Key="OpenMenu">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
@@ -37,7 +37,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Margin="-208,-31,100,-91" Background="#FBC3BC" Grid.ColumnSpan="2">
+            <StackPanel Margin="-154,-73,46,-113" Background="#FBC3BC" Grid.ColumnSpan="2">
                 <TextBlock Foreground="#011638" FontSize="40" TextAlignment="Center" Margin="30">Book Universe</TextBlock>
                 <TextBox Width="336" Height="60" Margin="0 10 0 10" BorderThickness="0 0 0 1.5" BorderBrush="#011638" Text="Abel Dultra" Foreground="Black" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
                 <TextBox Width="336" Height="60" Margin="0 20 0 10" BorderThickness="0 0 0 1.5" BorderBrush="#011638" Text="abel_dultra@gmail.com" Foreground="Black" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
@@ -49,7 +49,7 @@
         <!-- Right Side -->
         <Grid Width="400" Margin="0 0" HorizontalAlignment="Right">
             <!-- Add your picture here -->
-            <Image Source="\Images\book_universe2.jpg" Margin="-40,-7,-416,-64" />
+            <Image Source="\Images\book_universe2.jpg" Margin="71,93,-341,30" />
         </Grid>
 
         <Grid x:Name="GridMain" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="540" Width="1010" Grid.ColumnSpan="2"/>
