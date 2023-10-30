@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d" Height="900" Width="1500" Foreground="#FFE3E0" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+        mc:Ignorable="d" Height="750" Width="1400" Foreground="#FFE3E0" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
     <Window.Resources>
         <Storyboard x:Key="OpenMenu">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
@@ -37,19 +37,19 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Margin="-154,-73,46,-113" Background="#FBC3BC" Grid.ColumnSpan="2">
+            <StackPanel Margin="-54,-119,0,-171" Background="#FBC3BC" Grid.ColumnSpan="2">
                 <TextBlock Foreground="#011638" FontSize="40" TextAlignment="Center" Margin="30">Book Universe</TextBlock>
-                <TextBox Width="336" Height="60" Margin="0 10 0 10" BorderThickness="0 0 0 1.5" BorderBrush="#011638" Text="Abel Dultra" Foreground="Black" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                <TextBox Width="336" Height="60" Margin="0 20 0 10" BorderThickness="0 0 0 1.5" BorderBrush="#011638" Text="abel_dultra@gmail.com" Foreground="Black" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                <Button Width="250" Height="45" Content="Save Changes" Margin="0 30 0 10" Background="#011638" Foreground="#ffffff" FontSize="16" />
-                <Button Width="250" Height="45" Content="Change Password" Margin="0 30 0 10" Background="#011638" Foreground="#ffffff" FontSize="16"/>
+                <TextBox Width="236" Height="50" Margin="0 10 0 10" BorderThickness="0 0 0 1.5" BorderBrush="#011638" Text="Abel Dultra" Foreground="Black" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                <TextBox Width="236" Height="50" Margin="0 20 0 10" BorderThickness="0 0 0 1.5" BorderBrush="#011638" Text="abel_dultra@gmail.com" Foreground="Black" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                <Button Width="150" Height="35" Content="Save Changes" Margin="0 30 0 10" Background="#011638" Foreground="#ffffff" FontSize="16" />
+                <Button Width="150" Height="35" Content="Change Password" Margin="0 30 0 10" Background="#011638" Foreground="#ffffff" FontSize="16"/>
             </StackPanel>
         </Grid>
 
         <!-- Right Side -->
         <Grid Width="400" Margin="0 0" HorizontalAlignment="Right">
             <!-- Add your picture here -->
-            <Image Source="\Images\book_universe2.jpg" Margin="71,93,-341,30" />
+            <Image Source="\Images\book_universe2.jpg" Margin="102,145,-325,73" />
         </Grid>
 
         <Grid x:Name="GridMain" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="540" Width="1010" Grid.ColumnSpan="2"/>
