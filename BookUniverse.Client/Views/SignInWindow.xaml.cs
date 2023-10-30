@@ -11,12 +11,14 @@
     public partial class SignInWindow : Window
     {
         private readonly IAuthenticationService _authenticationService;
+        private readonly IUserService _userService;
         private readonly LoginDto user;
 
-        public SignInWindow(IAuthenticationService authenticationService)
+        public SignInWindow(IAuthenticationService authenticationService, IUserService userService)
         {
             InitializeComponent();
             _authenticationService = authenticationService;
+            _userService = userService;
 
             user = new LoginDto();
             this.DataContext = user;
@@ -24,7 +26,7 @@
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow signUpWindow = new MainWindow(_authenticationService);
+            MainWindow signUpWindow = new MainWindow(_authenticationService, _userService);
             this.Visibility = Visibility.Hidden;
             signUpWindow.Show();
         }
@@ -33,13 +35,12 @@
         {
             string pass = password.Password.Trim();
 
-
             try
             {
                 await _authenticationService.Login(user);
                 if (_authenticationService.IsLoggedIn())
                 {
-                    HomeWindow homePage = new HomeWindow();
+                    HomeWindow homePage = new HomeWindow(_authenticationService, _userService);
                     homePage.Show();
                     Hide();
                 }
@@ -54,7 +55,6 @@
         {
             Application.Current.MainWindow.Close();
             Application.Current.Shutdown();
-
         }
     }
 }

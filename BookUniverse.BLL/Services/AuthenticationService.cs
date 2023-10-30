@@ -3,6 +3,7 @@
     using BookUniverse.BLL.DTOs;
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.BLL.Utils;
+    using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
     using BookUniverse.DAL.Repositories.UserRepository;
 
@@ -32,12 +33,13 @@
             {
                 Username = user.Username,
                 Email = user.Email,
-                Password = storedHashedPasssword
+                Password = storedHashedPasssword,
             };
 
             await _userRepository.Create(newUser);
 
             CurrentAccount = newUser;
+            SerializeUser(CurrentAccount, UtilsConstants.FILE_PATH);
         }
 
         public async Task<User> Login(LoginDto user)
@@ -56,6 +58,7 @@
             }
 
             CurrentAccount = storedAccount;
+            SerializeUser(CurrentAccount, UtilsConstants.FILE_PATH);
             return storedAccount;
         }
 
@@ -72,6 +75,35 @@
         public void Logout()
         {
             CurrentAccount = null;
+            ClearAuthFile(UtilsConstants.FILE_PATH);
+        }
+
+        private void ClearAuthFile(string filePath)
+        {
+            try
+            {
+                File.WriteAllText(filePath, string.Empty);
+            }
+            catch
+            {
+                throw new Exception("Error during logout");
+            }
+        }
+
+        private void SerializeUser(User user, string filePath)
+        {
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(filePath))
+                {
+                    writer.WriteLine(user.Id.ToString());
+                    writer.WriteLine(user.Email.ToString());
+                }
+            }
+            catch
+            {
+                throw new Exception("Error during sign in");
+            }
         }
     }
 }

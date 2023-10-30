@@ -4,94 +4,185 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookUniverse.Client"
-       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d" Height="645" Width="875" Foreground="#FFE3E0" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Height="645"
+        Width="875"
+        Foreground="#FFE3E0"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent">
     <Window.Resources>
         <Storyboard x:Key="OpenMenu">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
-                <EasingDoubleKeyFrame KeyTime="0" Value="70"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="200"/>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)"
+                                           Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0"
+                                      Value="70" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5"
+                                      Value="200" />
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
         <Storyboard x:Key="CloseMenu">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
-                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="70"/>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)"
+                                           Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0"
+                                      Value="200" />
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5"
+                                      Value="70" />
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
     </Window.Resources>
     <Window.Triggers>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonOpenMenu">
-            <BeginStoryboard Storyboard="{StaticResource OpenMenu}"/>
+        <EventTrigger RoutedEvent="ButtonBase.Click"
+                      SourceName="ButtonOpenMenu">
+            <BeginStoryboard Storyboard="{StaticResource OpenMenu}" />
         </EventTrigger>
-        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonCloseMenu">
-            <BeginStoryboard Storyboard="{StaticResource CloseMenu}"/>
+        <EventTrigger RoutedEvent="ButtonBase.Click"
+                      SourceName="ButtonCloseMenu">
+            <BeginStoryboard Storyboard="{StaticResource CloseMenu}" />
         </EventTrigger>
     </Window.Triggers>
     <Grid Background="#FFDEDEDE">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="72*"/>
-            <ColumnDefinition Width="103*"/>
+            <ColumnDefinition Width="72*" />
+            <ColumnDefinition Width="103*" />
         </Grid.ColumnDefinitions>
-        <Grid x:Name="GridMain" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="540" Width="1010" Grid.ColumnSpan="2"/>
-        <Grid Height="60" VerticalAlignment="Top" Background="#2E294E" Grid.ColumnSpan="2">
+        <Grid x:Name="GridMain"
+              HorizontalAlignment="Right"
+              VerticalAlignment="Bottom"
+              Height="540"
+              Width="1010"
+              Grid.ColumnSpan="2" />
+        <Grid Height="60"
+              VerticalAlignment="Top"
+              Background="#2E294E"
+              Grid.ColumnSpan="2">
             <Grid.Effect>
-                <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="#FFE3E0"/>
+                <DropShadowEffect BlurRadius="10"
+                                  ShadowDepth="0"
+                                  Color="#FFE3E0" />
             </Grid.Effect>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBlock Text="Abel Dutra" VerticalAlignment="Center" FontSize="16"/>
-                <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Margin="10">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <TextBlock x:Name="username"
+                           Text="{Binding Username}"
+                           VerticalAlignment="Center"
+                           FontSize="16" />
+                <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges"
+                                         StaysOpen="False"
+                                         Margin="10">
                     <StackPanel Width="150">
-                        <Button Content="Home"/>
-                        <Button Content="Account"/>
-                        <Separator/>
-                        <Button Content="Logout"/>
+                        <Button Content="Home" />
+                        <Button Content="Account" />
+                        <Separator />
+                        <Button Content="Logout" Click="ButtonLogout_Click"/>
                     </StackPanel>
                 </materialDesign:PopupBox>
-                <materialDesign:PackIcon Kind="Close" VerticalAlignment="Top" Width="20" Height="20" HorizontalAlignment="Right" Margin="0 20 14 0" Opacity="0.3" MouseDoubleClick="CloseWindow"/>
+                <materialDesign:PackIcon Kind="Close"
+                                         VerticalAlignment="Top"
+                                         Width="20"
+                                         Height="20"
+                                         HorizontalAlignment="Right"
+                                         Margin="0 20 14 0"
+                                         Opacity="0.3"
+                                         MouseDoubleClick="CloseWindow" />
             </StackPanel>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">Book Universe</TextBlock>
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       FontSize="22">Book Universe</TextBlock>
         </Grid>
-        <Grid x:Name="GridMenu" Width="70" HorizontalAlignment="Left" Background="#2E294E">
+        <Grid x:Name="GridMenu"
+              Width="70"
+              HorizontalAlignment="Left"
+              Background="#2E294E">
             <Grid.Effect>
-                <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="#011638"/>
+                <DropShadowEffect BlurRadius="10"
+                                  ShadowDepth="0"
+                                  Color="#011638" />
             </Grid.Effect>
             <StackPanel>
                 <Border CornerRadius="10">
-                    <Grid Height="60" Background="White" RenderTransformOrigin="0.5,0.5">
+                    <Grid Height="60"
+                          Background="White"
+                          RenderTransformOrigin="0.5,0.5">
                         <Grid.Effect>
-                            <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="#011638"/>
+                            <DropShadowEffect BlurRadius="10"
+                                              ShadowDepth="0"
+                                              Color="#011638" />
                         </Grid.Effect>
                         <Grid.RenderTransform>
                             <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform/>
-                                <TranslateTransform/>
+                                <ScaleTransform />
+                                <SkewTransform />
+                                <RotateTransform />
+                                <TranslateTransform />
                             </TransformGroup>
                         </Grid.RenderTransform>
-                        <Button x:Name="ButtonOpenMenu" Height="60" Width="60" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF31577E" Click="ButtonOpenMenu_Click">
-                            <materialDesign:PackIcon Kind="Menu" Width="25" Height="25"/>
+                        <Button x:Name="ButtonOpenMenu"
+                                Height="60"
+                                Width="60"
+                                Margin="5"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                                Background="{x:Null}"
+                                BorderBrush="{x:Null}"
+                                Foreground="#FF31577E"
+                                Click="ButtonOpenMenu_Click">
+                            <materialDesign:PackIcon Kind="Menu"
+                                                     Width="25"
+                                                     Height="25" />
                         </Button>
-                        <Button x:Name="ButtonCloseMenu" Visibility="Collapsed" Height="60" Width="60" Margin="5" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF31577E" Click="ButtonCloseMenu_Click">
-                            <materialDesign:PackIcon Kind="ArrowLeft" Width="25" Height="25"/>
+                        <Button x:Name="ButtonCloseMenu"
+                                Visibility="Collapsed"
+                                Height="60"
+                                Width="60"
+                                Margin="5"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+                                Background="{x:Null}"
+                                BorderBrush="{x:Null}"
+                                Foreground="#FF31577E"
+                                Click="ButtonCloseMenu_Click">
+                            <materialDesign:PackIcon Kind="ArrowLeft"
+                                                     Width="25"
+                                                     Height="25" />
                         </Button>
 
-                        <Image Height="10" VerticalAlignment="Bottom"/>
+                        <Image Height="10"
+                               VerticalAlignment="Bottom" />
                     </Grid>
                 </Border>
-                <ListView x:Name="ListViewMenu" Foreground="#FF5C99D6" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                    <ListViewItem x:Name="ItemHome" Height="60">
+                <ListView x:Name="ListViewMenu"
+                          Foreground="#FF5C99D6"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListViewItem x:Name="ItemHome"
+                                  Height="60">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Bookshelf" Height="25" Width="25" Margin="10"/>
-                            <TextBlock Text="All books" VerticalAlignment="Center" Margin="20 10"/>
+                            <materialDesign:PackIcon Kind="Bookshelf"
+                                                     Height="25"
+                                                     Width="25"
+                                                     Margin="10" />
+                            <TextBlock Text="All books"
+                                       VerticalAlignment="Center"
+                                       Margin="20 10" />
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem x:Name="ItemCreate" Height="60">
+                    <ListViewItem x:Name="ItemCreate"
+                                  Height="60">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Category" Height="25" Width="25" Margin="10"/>
-                            <TextBlock Text="Categories" VerticalAlignment="Center" Margin="20 10"/>
-                            <ComboBox Width="100" Margin="20 10">
+                            <materialDesign:PackIcon Kind="Category"
+                                                     Height="25"
+                                                     Width="25"
+                                                     Margin="10" />
+                            <TextBlock Text="Categories"
+                                       VerticalAlignment="Center"
+                                       Margin="20 10" />
+                            <ComboBox Width="100"
+                                      Margin="20 10">
                                 <ComboBoxItem Content="Option 1" />
                                 <ComboBoxItem Content="Option 2" />
                                 <ComboBoxItem Content="Option 3" />
@@ -100,15 +191,26 @@
                     </ListViewItem>
                     <ListViewItem Height="60">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Favorite" Height="25" Width="25" Margin="10"/>
-                            <TextBlock Text="Favourites" VerticalAlignment="Center"  Margin="20 10"/>
+                            <materialDesign:PackIcon Kind="Favorite"
+                                                     Height="25"
+                                                     Width="25"
+                                                     Margin="10" />
+                            <TextBlock Text="Favourites"
+                                       VerticalAlignment="Center"
+                                       Margin="20 10" />
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="60">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Folder" Height="25" Width="25" Margin="10"/>
-                            <TextBlock Text="Folders" VerticalAlignment="Center"  Margin="20 10"/>
-                            <ComboBox Width="100" Margin="20 10">
+                            <materialDesign:PackIcon Kind="Folder"
+                                                     Height="25"
+                                                     Width="25"
+                                                     Margin="10" />
+                            <TextBlock Text="Folders"
+                                       VerticalAlignment="Center"
+                                       Margin="20 10" />
+                            <ComboBox Width="100"
+                                      Margin="20 10">
                                 <ComboBoxItem Content="Option 1" />
                                 <ComboBoxItem Content="Option 2" />
                                 <ComboBoxItem Content="Option 3" />
@@ -117,8 +219,13 @@
                     </ListViewItem>
                     <ListViewItem Height="60">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Search" Height="25" Width="25" Margin="10"/>
-                            <TextBlock Text="Search" VerticalAlignment="Center"  Margin="20 10"/>
+                            <materialDesign:PackIcon Kind="Search"
+                                                     Height="25"
+                                                     Width="25"
+                                                     Margin="10" />
+                            <TextBlock Text="Search"
+                                       VerticalAlignment="Center"
+                                       Margin="20 10" />
                         </StackPanel>
                     </ListViewItem>
                 </ListView>
