@@ -11,12 +11,14 @@
     public partial class MainWindow : Window
     {
         private readonly IAuthenticationService _authenticationService;
+        private readonly IUserService _userService;
         private readonly RegistrationDto user;
 
-        public MainWindow(IAuthenticationService authenticationService)
+        public MainWindow(IAuthenticationService authenticationService, IUserService userService)
         {
             InitializeComponent();
             _authenticationService = authenticationService;
+            _userService = userService;
 
             user = new RegistrationDto();
             this.DataContext = user;
@@ -24,22 +26,19 @@
 
         private void Redirect_Signin_Button_Click(object sender, RoutedEventArgs e)
         {
-            SignInWindow signInWindow = new SignInWindow(_authenticationService);
+            SignInWindow signInWindow = new SignInWindow(_authenticationService, _userService);
             this.Visibility = Visibility.Hidden;
             signInWindow.Show();
         }
 
         private async void Signup_Button_Click(object sender, RoutedEventArgs e)
         {
-            string pass = password.Password.Trim();
-            string repeatPass = repeatPassword.Password.Trim();
-
             try
             {
                 await _authenticationService.Register(user);
                 if (_authenticationService.IsLoggedIn())
                 {
-                    HomeWindow homePage = new HomeWindow();
+                    HomeWindow homePage = new HomeWindow(_authenticationService, _userService);
                     homePage.Show();
                     Hide();
                 }
@@ -58,7 +57,6 @@
         {
             Application.Current.MainWindow.Close();
             Application.Current.Shutdown();
-
         }
     }
 }

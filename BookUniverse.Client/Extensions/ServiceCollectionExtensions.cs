@@ -32,9 +32,10 @@
             services.AddScoped<IUserRepository, UserRepository>();
         }
 
-        public static void AddAuthenticationServices(this IServiceCollection services)
+        public static void AddServices(this IServiceCollection services)
         {
             services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         public static void AddViews(this IServiceCollection services)

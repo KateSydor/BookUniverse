@@ -28,7 +28,7 @@
 
                     services.AddRepositories();
 
-                    services.AddAuthenticationServices();
+                    services.AddServices();
 
                     services.AddViews();
 
@@ -39,7 +39,7 @@
         {
             await AppHost!.StartAsync();
 
-            var startupForm = AppHost.Services.GetRequiredService<SignInWindow>();
+            var startupForm = AppHost.Services.GetRequiredService<HomeWindow>();
             startupForm.Show();
 
             base.OnStartup(e);
