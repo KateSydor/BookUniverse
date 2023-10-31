@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookUniverse.BLL.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,9 @@ namespace BookUniverse.Client
     /// </summary>
     public partial class UserAccount : Window
     {
+        private readonly IAuthenticationService _authenticationService;
+        private readonly IUserService _userService;
+
         public UserAccount()
         {
             InitializeComponent();
@@ -45,7 +49,7 @@ namespace BookUniverse.Client
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            HomeWindow homeWindow = new HomeWindow();
+            HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService);
             this.Visibility = Visibility.Hidden;
             homeWindow.Show();
         }
