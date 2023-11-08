@@ -7,6 +7,7 @@
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
+    using BookUniverse.DAL.Repositories.GoogleDriveRepository;
 
     /// <summary>
     /// Interaction logic for HomeWindow.xaml.
@@ -15,16 +16,19 @@
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
+        private readonly IGoogleDriveRepository _googleDriveRepository;
         private User currentUser;
 
-        public HomeWindow(IAuthenticationService authenticationService, IUserService userService)
+        public HomeWindow(IAuthenticationService authenticationService, IUserService userService, IGoogleDriveRepository googleDriveRepository)
         {
             _authenticationService = authenticationService;
             _userService = userService;
+            _googleDriveRepository = googleDriveRepository;
 
             Loaded += HomeWindow_Loaded;
 
             this.DataContext = currentUser;
+
             InitializeComponent();
         }
 
@@ -40,6 +44,9 @@
 
                     currentUser = await _userService.GetUser(userEmail);
                     username.Text = currentUser.Username;
+
+                    
+                    _googleDriveRepository.GetDriveFiles();
                 }
                 else
                 {
@@ -48,7 +55,7 @@
             }
             catch
             {
-                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService);
+                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _googleDriveRepository);
                 signInPage.Show();
                 Hide();
             }
@@ -64,14 +71,14 @@
         private void ButtonLogout_Click(object sender, RoutedEventArgs e)
         {
             _authenticationService.Logout();
-            SignInWindow signInPage = new SignInWindow(_authenticationService, _userService);
+            SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _googleDriveRepository);
             signInPage.Show();
             Hide();
         }
 
         private void AccountButton_Click(object sender, RoutedEventArgs e)
         {
-            UserAccount userAccount = new UserAccount(_authenticationService, _userService);
+            UserAccount userAccount = new UserAccount(_authenticationService, _userService, _googleDriveRepository);
             this.Visibility = Visibility.Hidden;
             userAccount.Show();
         }

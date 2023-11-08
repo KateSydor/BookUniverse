@@ -7,6 +7,7 @@ namespace BookUniverse.Client
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
+    using BookUniverse.DAL.Repositories.GoogleDriveRepository;
 
     /// <summary>
     /// Interaction logic for UserAccount.xaml
@@ -15,15 +16,18 @@ namespace BookUniverse.Client
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
+        private readonly IGoogleDriveRepository _googleDriveRepository;
         private User currentUser;
 
-        public UserAccount(IAuthenticationService authenticationService, IUserService userService)
+        public UserAccount(IAuthenticationService authenticationService, IUserService userService, IGoogleDriveRepository googleDriveRepository)
         {
             _authenticationService = authenticationService;
             _userService = userService;
 
             Loaded += UserAccount_Loaded;
             this.DataContext = currentUser;
+            _googleDriveRepository = googleDriveRepository;
+
 
             InitializeComponent();
         }
@@ -52,7 +56,7 @@ namespace BookUniverse.Client
             }
             catch
             {
-                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService);
+                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _googleDriveRepository);
                 signInPage.Show();
                 Hide();
             }
@@ -67,7 +71,7 @@ namespace BookUniverse.Client
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService);
+            HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _googleDriveRepository);
             this.Visibility = Visibility.Hidden;
             homeWindow.Show();
         }

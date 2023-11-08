@@ -4,6 +4,7 @@
     using System.Windows;
     using BookUniverse.BLL.DTOs;
     using BookUniverse.BLL.Interfaces;
+    using BookUniverse.DAL.Repositories.GoogleDriveRepository;
 
     /// <summary>
     /// Interaction logic for SignInWindow.xaml.
@@ -12,13 +13,15 @@
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
+        private readonly IGoogleDriveRepository _googleDriveRepository;
         private readonly LoginDto user;
 
-        public SignInWindow(IAuthenticationService authenticationService, IUserService userService)
+        public SignInWindow(IAuthenticationService authenticationService, IUserService userService, IGoogleDriveRepository googleDriveRepository)
         {
             InitializeComponent();
             _authenticationService = authenticationService;
             _userService = userService;
+            _googleDriveRepository = googleDriveRepository;
 
             user = new LoginDto();
             this.DataContext = user;
@@ -26,7 +29,7 @@
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow signUpWindow = new MainWindow(_authenticationService, _userService);
+            MainWindow signUpWindow = new MainWindow(_authenticationService, _userService, _googleDriveRepository);
             this.Visibility = Visibility.Hidden;
             signUpWindow.Show();
         }
@@ -40,7 +43,7 @@
                 await _authenticationService.Login(user);
                 if (_authenticationService.IsLoggedIn())
                 {
-                    HomeWindow homePage = new HomeWindow(_authenticationService, _userService);
+                    HomeWindow homePage = new HomeWindow(_authenticationService, _userService, _googleDriveRepository);
                     homePage.Show();
                     Hide();
                 }
