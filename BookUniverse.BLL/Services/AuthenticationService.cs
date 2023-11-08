@@ -62,28 +62,6 @@
             return storedAccount;
         }
 
-        public async Task EditUser(int userId, EditUserDto newUser)
-        {
-            if (userId == null)
-            {
-                throw new ArgumentNullException("Id is null");
-            }
-
-            User userToUpdate = await _userRepository.Get(u => u.Id == userId);
-            if (newUser == null || userToUpdate == null)
-            {
-                throw new Exception("Error");
-            }
-
-            userToUpdate.Username = newUser.Username;
-            userToUpdate.Email = newUser.Email;
-
-            await _userRepository.Update(userToUpdate);
-
-            CurrentAccount = userToUpdate;
-            SerializeUser(CurrentAccount, UtilsConstants.FILE_PATH);
-        }
-
         public bool IsLoggedIn()
         {
             if (CurrentAccount is null)

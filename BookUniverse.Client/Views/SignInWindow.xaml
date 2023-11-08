@@ -17,6 +17,24 @@
         Height="645"
         Width="875">
 
+    <Window.Resources>
+        <Style x:Key="SignInButtonStyle"
+               TargetType="Button">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ElementName=username, Path=Text.Length, UpdateSourceTrigger=PropertyChanged}"
+                             Value="0">
+                    <Setter Property="IsEnabled"
+                            Value="False" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ElementName=password, Path=Password.Length, UpdateSourceTrigger=PropertyChanged}"
+                             Value="0">
+                    <Setter Property="IsEnabled"
+                            Value="False" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
     <Grid Margin="20">
         <Grid.Effect>
             <DropShadowEffect BlurRadius="30"
@@ -48,7 +66,7 @@
                                FontWeight="Light"
                                Foreground="#ffffff"
                                TextAlignment="Center" />
-                    <TextBlock Text="Sign in to use all features"
+                    <TextBlock Text="Sign up to use all features"
                                FontWeight="Light"
                                FontSize="16"
                                Foreground="#D1F2EB"
@@ -190,7 +208,7 @@
                     </TextBox>
                     <customcontrols:BindablePassword x:Name="password"
                                                      materialDesign:HintAssist.Hint="Password"
-                                                     Margin="0 0 0 27">
+                                                     Margin="0 0 0 3">
                         <customcontrols:BindablePassword.Password>
                             <Binding Path="Password"
                                      Mode="TwoWay"
@@ -203,12 +221,16 @@
                         <Validation.ErrorTemplate>
                             <ControlTemplate>
                                 <StackPanel>
-                                    <TextBlock Text="{Binding [0].ErrorContent}" Foreground="DarkRed" FontSize="10" Margin="0,50,0,0" />
                                 </StackPanel>
                             </ControlTemplate>
                         </Validation.ErrorTemplate>
                     </customcontrols:BindablePassword>
-                   
+                    <TextBlock x:Name="passwordError"
+                               Text=""
+                               Foreground="DarkRed"
+                               FontSize="10"
+                               Visibility="Collapsed"
+                               Margin="0,0,0,0" />
                     <StackPanel Orientation="Horizontal"
                                 Margin="0 27 0 0">
                         <Button Content="Sign in"
@@ -218,23 +240,8 @@
                                 materialDesign:ButtonAssist.CornerRadius="22"
                                 Height="45"
                                 Width="120"
-                                Click="Login_Click">
-                            <Button.Style>
-                                <Style TargetType="{x:Type Button}">
-
-                                    <Style.Triggers>
-                                    
-                                        <DataTrigger Binding="{Binding Text.Length, ElementName=username, UpdateSourceTrigger=PropertyChanged}" Value="0">
-                                            <Setter Property="IsHitTestVisible" Value="False"/>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding Text.Length, ElementName=password, UpdateSourceTrigger=PropertyChanged}" Value="0">
-                                            <Setter Property="IsHitTestVisible" Value="False"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Button.Style>
-
-                        </Button>
+                                Click="Login_Click"
+                                Style="{StaticResource SignInButtonStyle}" />
                         <Button Content="or Sign up"
                                 materialDesign:ButtonAssist.CornerRadius="22"
                                 Foreground="#011638"

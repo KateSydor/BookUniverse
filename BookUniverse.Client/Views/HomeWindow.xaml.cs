@@ -1,6 +1,5 @@
 ﻿namespace BookUniverse.Client
 {
-    using BookUniverse.Client;
     using System;
     using System.IO;
     using System.Windows;
@@ -43,7 +42,7 @@
                 }
                 else
                 {
-                    throw new Exception(UtilsConstants.FILE_ERROR);
+                    throw new Exception("File does not contain necessary information.");
                 }
             }
             catch
@@ -54,6 +53,17 @@
             }
         }
 
+        private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonCloseMenu.Visibility = Visibility.Visible;
+            ButtonOpenMenu.Visibility = Visibility.Collapsed;
+        }
+
+        private void ButtonCloseMenu_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonCloseMenu.Visibility = Visibility.Collapsed;
+            ButtonOpenMenu.Visibility = Visibility.Visible;
+        }
 
         private void CloseWindow(object sender, RoutedEventArgs e)
         {
@@ -67,13 +77,6 @@
             SignInWindow signInPage = new SignInWindow(_authenticationService, _userService);
             signInPage.Show();
             Hide();
-        }
-
-        private void AccountButton_Click(object sender, RoutedEventArgs e)
-        {
-            UserAccount userAccount = new UserAccount(_authenticationService, _userService);
-            this.Visibility = Visibility.Hidden;
-            userAccount.Show();
         }
     }
 }

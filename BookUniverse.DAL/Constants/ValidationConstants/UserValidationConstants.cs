@@ -16,7 +16,7 @@
         public const int PASSWORD_MAX_LENGTH = 256;
         public const int PASSWORD_DTO_MIN_LENGTH = 8;
         public const int PASSWORD_DTO_MAX_LENGTH = 15;
-        public const string PASSWORD_CRITERIA = "At least 1 uppdercase & lowercase letter and digit";
+        public const string PASSWORD_CRITERIA = "Password should contain at least 1 uppdercase & lowercase letter and digit";
         public const string PASSWORD_PATTERN = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,15}$";
         public const string NOT_VALID_PASSWORD = "Not valid password.";
 
