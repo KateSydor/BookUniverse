@@ -2,12 +2,18 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
+    <Compile Update="CustomControls\Menu.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\UserAccount.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="CustomControls\BindablePassword.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="CustomControls\Menu.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\UserAccount.xaml">
