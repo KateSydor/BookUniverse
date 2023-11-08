@@ -4,6 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:BookUniverse.Client.Validation.UserValidation"
+        xmlns:customcontrols="clr-namespace:BookUniverse.Client.CustomControls"
         mc:Ignorable="d" Height="750" Width="1400" Foreground="#FFE3E0" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
     <Window.Resources>
         <Storyboard x:Key="OpenMenu">
@@ -39,10 +41,56 @@
             </Grid.ColumnDefinitions>
             <StackPanel Margin="-54,-119,0,-171" Background="#FBC3BC" Grid.ColumnSpan="2">
                 <TextBlock Foreground="#011638" FontSize="40" TextAlignment="Center" Margin="30">Book Universe</TextBlock>
-                <TextBox Width="236" Height="55" Margin="0 10 0 0" BorderThickness="0 0 0 1.5" BorderBrush="#011638" Text="Abel Dultra" Foreground="Black" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
-                <TextBox Width="236" Height="55" Margin="0 20 0 10" BorderThickness="0 0 0 1.5" BorderBrush="#011638" Text="abel_dultra@gmail.com" Foreground="Black" FontSize="20" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                <Button Width="150" Height="40" Content="Save Changes" Margin="0 20 0 10" Background="#011638" Foreground="#ffffff" FontSize="16" />
-                <Button Width="150" Height="40" Content="Change Password" Margin="0 20 0 10" Background="#011638" Foreground="#ffffff" FontSize="16"/>
+                <TextBox 
+                    x:Name="edit_username" 
+                    Width="236" 
+                    Height="55" 
+                    Margin="0 10 0 0" 
+                    BorderThickness="0 0 0 1.5" 
+                    BorderBrush="#011638"
+                    Text=" "
+                    Foreground="Black" 
+                    FontSize="20" 
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                    
+                </TextBox>
+
+                <TextBox x:Name="edit_email" 
+                         Width="236" Height="55" 
+                         Margin="0 20 0 10" 
+                         BorderThickness="0 0 0 1.5" 
+                         BorderBrush="#011638" 
+                         Text=""
+                         Foreground="Black" 
+                         FontSize="20" 
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                    
+                </TextBox>
+                
+                <Button 
+                    Width="150" 
+                    Height="40" 
+                    Content="Save Changes" 
+                    Margin="0 20 0 10" 
+                    Background="#011638" 
+                    Foreground="#ffffff" 
+                    FontSize="16" 
+                    Click="SaveButton_Click">
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text.Length, ElementName=edit_username, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                    <Setter Property="IsHitTestVisible" Value="False"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Text.Length, ElementName=edit_email, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                    <Setter Property="IsHitTestVisible" Value="False"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    </Button>
+
+                    <Button Width="150" Height="40" Content="Change Password" Margin="0 20 0 10" Background="#011638" Foreground="#ffffff" FontSize="16"/>
             </StackPanel>
         </Grid>
 
@@ -58,7 +106,7 @@
                 <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="#FFE3E0"/>
             </Grid.Effect>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBlock Text="Abel Dutra" VerticalAlignment="Center" FontSize="16"/>
+                <TextBlock x:Name="Username_on_top" Text="" VerticalAlignment="Center" FontSize="16"/>
                 <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Margin="10">
                     <StackPanel Width="150">
                         <Button Content="Home" Click="HomeButton_Click"/>

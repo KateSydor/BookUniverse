@@ -62,7 +62,22 @@
             return storedAccount;
         }
 
-        public bool IsLoggedIn()
+        public async Task EditUser(EditUserDto new_user)
+        {
+            User newUser = new User
+            {
+                Username = new_user.Username,
+                Email = new_user.Email,
+                Password = CurrentAccount.Password,
+            };
+
+            await _userRepository.Create(newUser);
+
+            CurrentAccount = newUser;
+            SerializeUser(CurrentAccount, UtilsConstants.FILE_PATH);
+        }
+
+            public bool IsLoggedIn()
         {
             if (CurrentAccount is null)
             {
