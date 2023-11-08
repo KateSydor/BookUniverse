@@ -9,6 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\book_universe2.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
@@ -36,6 +40,16 @@
   <ItemGroup>
     <ProjectReference Include="..\BookUniverse.BLL\BookUniverse.BLL.csproj" />
     <ProjectReference Include="..\BookUniverse.DAL\BookUniverse.DAL.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\book_universe2.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="CustomControls\BindablePassword.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>

@@ -14,6 +14,8 @@
 
         bool IsLoggedIn();
 
+        Task EditUser(int userId, EditUserDto new_user);
+
         void Logout();
     }
 }

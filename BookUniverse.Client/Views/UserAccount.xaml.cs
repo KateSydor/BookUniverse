@@ -1,34 +1,34 @@
-﻿namespace BookUniverse.Client
+namespace BookUniverse.Client
 {
-    using BookUniverse.Client;
     using System;
     using System.IO;
     using System.Windows;
+    using BookUniverse.BLL.DTOs;
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
 
     /// <summary>
-    /// Interaction logic for HomeWindow.xaml.
+    /// Interaction logic for UserAccount.xaml
     /// </summary>
-    public partial class HomeWindow : Window
+    public partial class UserAccount : Window
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
         private User currentUser;
 
-        public HomeWindow(IAuthenticationService authenticationService, IUserService userService)
+        public UserAccount(IAuthenticationService authenticationService, IUserService userService)
         {
             _authenticationService = authenticationService;
             _userService = userService;
 
-            Loaded += HomeWindow_Loaded;
-
+            Loaded += UserAccount_Loaded;
             this.DataContext = currentUser;
+
             InitializeComponent();
         }
 
-        private async void HomeWindow_Loaded(object sender, RoutedEventArgs e)
+        private async void UserAccount_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -39,7 +39,11 @@
                     string userEmail = lines[1];
 
                     currentUser = await _userService.GetUser(userEmail);
-                    username.Text = currentUser.Username;
+                    UsernameOnTop.Text = currentUser.Username;
+                    editUsername.Text = currentUser.Username;
+                    editEmail.Text = currentUser.Email;
+                    _authenticationService.CurrentAccount = currentUser;
+
                 }
                 else
                 {
@@ -54,26 +58,36 @@
             }
         }
 
-
         private void CloseWindow(object sender, RoutedEventArgs e)
         {
             Application.Current.MainWindow.Close();
             Application.Current.Shutdown();
+
         }
 
-        private void ButtonLogout_Click(object sender, RoutedEventArgs e)
+        private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            _authenticationService.Logout();
-            SignInWindow signInPage = new SignInWindow(_authenticationService, _userService);
-            signInPage.Show();
-            Hide();
-        }
-
-        private void AccountButton_Click(object sender, RoutedEventArgs e)
-        {
-            UserAccount userAccount = new UserAccount(_authenticationService, _userService);
+            HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService);
             this.Visibility = Visibility.Hidden;
-            userAccount.Show();
+            homeWindow.Show();
+        }
+
+        private async void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditUserDto newUser = new EditUserDto
+            {
+                Username = editUsername.Text,
+                Email = editEmail.Text
+            };
+            try
+            {
+                await _authenticationService.EditUser(currentUser.Id, newUser);
+                currentUser = _authenticationService.CurrentAccount;
+            }
+            catch
+            {
+                MessageBox.Show("Error");
+            }
         }
     }
 }

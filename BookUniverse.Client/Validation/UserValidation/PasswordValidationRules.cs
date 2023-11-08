@@ -11,17 +11,12 @@
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             string password = value as string;
-            if (password == null)
-            {
-                SetError(UserValidationConstants.NOT_EMPTY_FIELDS);
-                return new ValidationResult(false, UserValidationConstants.NOT_EMPTY_FIELDS);
-            }
 
             if (password.Length < UserValidationConstants.PASSWORD_DTO_MIN_LENGTH || password.Length > UserValidationConstants.PASSWORD_DTO_MAX_LENGTH)
             {
                 string errorMessage = $"Password should be between range {UserValidationConstants.PASSWORD_DTO_MIN_LENGTH}-{UserValidationConstants.PASSWORD_DTO_MAX_LENGTH}";
                 SetError(errorMessage);
-                return new ValidationResult(false, $"Password should be between range {UserValidationConstants.PASSWORD_DTO_MIN_LENGTH}-{UserValidationConstants.PASSWORD_DTO_MAX_LENGTH}");
+                return new ValidationResult(false, errorMessage);
             }
             else if (!IsValidPasswrod(password))
             {
