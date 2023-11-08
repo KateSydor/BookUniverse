@@ -43,7 +43,7 @@
                 }
                 else
                 {
-                    throw new Exception("File does not contain necessary information.");
+                    throw new Exception(UtilsConstants.FILE_ERROR);
                 }
             }
             catch
@@ -71,7 +71,7 @@
 
         private void AccountButton_Click(object sender, RoutedEventArgs e)
         {
-            UserAccount userAccount = new UserAccount();
+            UserAccount userAccount = new UserAccount(_authenticationService, _userService);
             this.Visibility = Visibility.Hidden;
             userAccount.Show();
         }
