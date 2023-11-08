@@ -1,24 +1,13 @@
-﻿using BookUniverse.BLL.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using BookUniverse.DAL.Entities;
-using BookUniverse.DAL.Constants.UtilsConstants;
-using System.IO;
-
-
-namespace BookUniverse.Client
+﻿namespace BookUniverse.Client
 {
+    using System;
+    using System.IO;
+    using System.Windows;
+    using BookUniverse.BLL.DTOs;
+    using BookUniverse.BLL.Interfaces;
+    using BookUniverse.DAL.Constants.UtilsConstants;
+    using BookUniverse.DAL.Entities;
+
     /// <summary>
     /// Interaction logic for UserAccount.xaml
     /// </summary>
@@ -50,14 +39,15 @@ namespace BookUniverse.Client
                     string userEmail = lines[1];
 
                     currentUser = await _userService.GetUser(userEmail);
-                    Username_on_top.Text = currentUser.Username;
-                    edit_username.Text = currentUser.Username;
-                    edit_email.Text = currentUser.Email;
+                    UsernameOnTop.Text = currentUser.Username;
+                    editUsername.Text = currentUser.Username;
+                    editEmail.Text = currentUser.Email;
+                    _authenticationService.CurrentAccount = currentUser;
 
                 }
                 else
                 {
-                    throw new Exception("File does not contain necessary information.");
+                    throw new Exception(UtilsConstants.FILE_ERROR);
                 }
             }
             catch
@@ -95,7 +85,22 @@ namespace BookUniverse.Client
             homeWindow.Show();
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
-        { }
+        private async void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            EditUserDto newUser = new EditUserDto
+            {
+                Username = editUsername.Text,
+                Email = editEmail.Text
+            };
+            try
+            {
+                await _authenticationService.EditUser(currentUser.Id, newUser);
+                currentUser = _authenticationService.CurrentAccount;
+            }
+            catch
+            {
+                MessageBox.Show("Error");
+            }
         }
+    }
 }

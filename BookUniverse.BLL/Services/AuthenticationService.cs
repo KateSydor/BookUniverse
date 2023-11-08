@@ -62,22 +62,29 @@
             return storedAccount;
         }
 
-        public async Task EditUser(EditUserDto new_user)
+        public async Task EditUser(int userId, EditUserDto newUser)
         {
-            User newUser = new User
+            if (userId == null)
             {
-                Username = new_user.Username,
-                Email = new_user.Email,
-                Password = CurrentAccount.Password,
-            };
+                throw new ArgumentNullException("Id is null");
+            }
 
-            await _userRepository.Create(newUser);
+            User userToUpdate = await _userRepository.Get(u => u.Id == userId);
+            if (newUser == null || userToUpdate == null)
+            {
+                throw new Exception("Error");
+            }
 
-            CurrentAccount = newUser;
+            userToUpdate.Username = newUser.Username;
+            userToUpdate.Email = newUser.Email;
+
+            await _userRepository.Update(userToUpdate);
+
+            CurrentAccount = userToUpdate;
             SerializeUser(CurrentAccount, UtilsConstants.FILE_PATH);
         }
 
-            public bool IsLoggedIn()
+        public bool IsLoggedIn()
         {
             if (CurrentAccount is null)
             {

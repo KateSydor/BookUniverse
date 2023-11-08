@@ -43,7 +43,7 @@
                 }
                 else
                 {
-                    throw new Exception("File does not contain necessary information.");
+                    throw new Exception(UtilsConstants.FILE_ERROR);
                 }
             }
             catch
