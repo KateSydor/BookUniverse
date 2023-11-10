@@ -71,7 +71,7 @@
 
         private void AccountButton_Click(object sender, RoutedEventArgs e)
         {
-            UserAccount userAccount = new UserAccount(_authenticationService, _userService);
+            ListOfBooks userAccount = new ListOfBooks(_authenticationService, _userService);
             this.Visibility = Visibility.Hidden;
             userAccount.Show();
         }

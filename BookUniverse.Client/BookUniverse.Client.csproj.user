@@ -5,6 +5,9 @@
     <Compile Update="CustomControls\Menu.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\ListOfBooks.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\UserAccount.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -14,6 +17,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="CustomControls\Menu.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ListOfBooks.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Styles\Pallete.xaml">
