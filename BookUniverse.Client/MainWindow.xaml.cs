@@ -4,7 +4,6 @@
     using System.Windows;
     using BookUniverse.BLL.DTOs;
     using BookUniverse.BLL.Interfaces;
-    using BookUniverse.DAL.Repositories.GoogleDriveRepository;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml.
@@ -13,10 +12,10 @@
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
-        private readonly IGoogleDriveRepository _googleDriveRepository;
+        private readonly IGoogleDriveService _googleDriveRepository;
         private readonly RegistrationDto user;
 
-        public MainWindow(IAuthenticationService authenticationService, IUserService userService, IGoogleDriveRepository googleDriveRepository)
+        public MainWindow(IAuthenticationService authenticationService, IUserService userService, IGoogleDriveService googleDriveRepository)
         {
             InitializeComponent();
             _authenticationService = authenticationService;

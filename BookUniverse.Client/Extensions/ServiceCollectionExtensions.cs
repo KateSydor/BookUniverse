@@ -8,7 +8,6 @@
     using BookUniverse.DAL.Repositories.BookRepository;
     using BookUniverse.DAL.Repositories.CategoryRepository;
     using BookUniverse.DAL.Repositories.FolderRepository;
-    using BookUniverse.DAL.Repositories.GoogleDriveRepository;
     using BookUniverse.DAL.Repositories.UserBookRepository;
     using BookUniverse.DAL.Repositories.UserRepository;
     using Microsoft.EntityFrameworkCore;
@@ -31,13 +30,13 @@
             services.AddScoped<IFolderRepository, FolderRepository>();
             services.AddScoped<IUserBookRepository, UserBookRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IGoogleDriveRepository, GoogleDriveRepository>();
         }
 
         public static void AddServices(this IServiceCollection services)
         {
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IGoogleDriveService, GoogleDriveService>();
         }
 
         public static void AddViews(this IServiceCollection services)

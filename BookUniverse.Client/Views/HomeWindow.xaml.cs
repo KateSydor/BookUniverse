@@ -1,13 +1,11 @@
 ﻿namespace BookUniverse.Client
 {
-    using BookUniverse.Client;
     using System;
     using System.IO;
     using System.Windows;
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
-    using BookUniverse.DAL.Repositories.GoogleDriveRepository;
 
     /// <summary>
     /// Interaction logic for HomeWindow.xaml.
@@ -16,10 +14,11 @@
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
-        private readonly IGoogleDriveRepository _googleDriveRepository;
+        private readonly IGoogleDriveService _googleDriveRepository;
         private User currentUser;
+        private string filepath;
 
-        public HomeWindow(IAuthenticationService authenticationService, IUserService userService, IGoogleDriveRepository googleDriveRepository)
+        public HomeWindow(IAuthenticationService authenticationService, IUserService userService, IGoogleDriveService googleDriveRepository)
         {
             _authenticationService = authenticationService;
             _userService = userService;
@@ -44,9 +43,6 @@
 
                     currentUser = await _userService.GetUser(userEmail);
                     username.Text = currentUser.Username;
-
-                    
-                    _googleDriveRepository.GetDriveFiles();
                 }
                 else
                 {
@@ -81,6 +77,32 @@
             UserAccount userAccount = new UserAccount(_authenticationService, _userService, _googleDriveRepository);
             this.Visibility = Visibility.Hidden;
             userAccount.Show();
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                _googleDriveRepository.uploadFile(filepath);
+                MessageBox.Show("File successfully uploaded");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btBrowse_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.DefaultExt = "All Files|*.*";
+            bool? result = dlg.ShowDialog();
+
+            if (result == true)
+            {
+                filepath = dlg.FileName;
+                tbFilepath.Text = filepath;
+            }
         }
     }
 }

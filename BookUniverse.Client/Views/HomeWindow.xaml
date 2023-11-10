@@ -4,9 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookUniverse.Client"
-       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:customcontrols="clr-namespace:BookUniverse.Client.CustomControls"
-        mc:Ignorable="d" Height="750" Width="1400" Foreground="#FFE3E0" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+        mc:Ignorable="d"
+        Height="750"
+        Width="1400"
+        Foreground="#FFE3E0"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent">
     <Grid Background="#FFDEDEDE">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="72*" />
@@ -32,9 +40,11 @@
                                          Margin="10">
                     <StackPanel Width="150">
                         <Button Content="Home" />
-                            <Button Content="Account"  Click="AccountButton_Click"/>
+                        <Button Content="Account"
+                                Click="AccountButton_Click" />
                         <Separator />
-                        <Button Content="Logout" Click="ButtonLogout_Click"/>
+                        <Button Content="Logout"
+                                Click="ButtonLogout_Click" />
                     </StackPanel>
                 </materialDesign:PopupBox>
                 <materialDesign:PackIcon Kind="Close"
@@ -50,6 +60,29 @@
                        VerticalAlignment="Center"
                        FontSize="22">Book Universe</TextBlock>
         </Grid>
-        <customcontrols:Menu/>
+        <customcontrols:Menu />
+        <TextBox x:Name="tbFilepath"
+                 HorizontalAlignment="Left"
+                 Height="23"
+                 Margin="167,115,0,0"
+                 Text=""
+                 VerticalAlignment="Top"
+                 Width="322" />
+        <Button x:Name="btBrowse"
+                Content="Browse"
+                HorizontalAlignment="Left"
+                Margin="188,158,0,0"
+                VerticalAlignment="Top"
+                Width="100"
+                Height="31"
+                Click="btBrowse_Click" />
+        <Button x:Name="button"
+                Content="Upload"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Width="120"
+                Height="31"
+                Click="button_Click"
+                Margin="342,158,0,0" />
     </Grid>
 </Window>

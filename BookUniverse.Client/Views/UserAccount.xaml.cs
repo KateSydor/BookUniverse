@@ -7,7 +7,6 @@ namespace BookUniverse.Client
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
-    using BookUniverse.DAL.Repositories.GoogleDriveRepository;
 
     /// <summary>
     /// Interaction logic for UserAccount.xaml
@@ -16,10 +15,10 @@ namespace BookUniverse.Client
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
-        private readonly IGoogleDriveRepository _googleDriveRepository;
+        private readonly IGoogleDriveService _googleDriveRepository;
         private User currentUser;
 
-        public UserAccount(IAuthenticationService authenticationService, IUserService userService, IGoogleDriveRepository googleDriveRepository)
+        public UserAccount(IAuthenticationService authenticationService, IUserService userService, IGoogleDriveService googleDriveRepository)
         {
             _authenticationService = authenticationService;
             _userService = userService;
