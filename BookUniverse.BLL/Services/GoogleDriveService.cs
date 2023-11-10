@@ -3,8 +3,6 @@
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.DAL.Entities;
     using Google.Apis.Auth.OAuth2;
-    using Google.Apis.Auth.OAuth2.Flows;
-    using Google.Apis.Auth.OAuth2.Responses;
     using Google.Apis.Drive.v3;
     using Google.Apis.Services;
     using Google.Apis.Util.Store;
@@ -18,7 +16,8 @@
             var applicationName = "Book Universe";
             var username = "bookuniverse34@gmail.com";
 
-            var credential = GoogleWebAuthorizationBroker.AuthorizeAsync(new ClientSecrets
+            var credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
+            new ClientSecrets
             {
                 ClientId = "our client id",
                 ClientSecret = "our client secret"
@@ -54,7 +53,7 @@
                         Name = file.Name,
                         Size = file.Size,
                         Version = file.Version,
-                        CreatedTime = file.CreatedTime
+                        CreatedTime = file.CreatedTime,
                     };
                     FileList.Add(File);
                 }
@@ -95,6 +94,17 @@
             }
         }
 
-        private static string GetMimeType(string fileName) { string mimeType = "application/unknown"; string ext = Path.GetExtension(fileName).ToLower(); Microsoft.Win32.RegistryKey regKey = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(ext); if (regKey != null && regKey.GetValue("Content Type") != null) mimeType = regKey.GetValue("Content Type").ToString(); System.Diagnostics.Debug.WriteLine(mimeType); return mimeType; }
+        private static string GetMimeType(string fileName)
+        {
+            string mimeType = "application/unknown";
+            string ext = Path.GetExtension(fileName).ToLower();
+            Microsoft.Win32.RegistryKey regKey = Microsoft.Win32.Registry.ClassesRoot.OpenSubKey(ext);
+
+            if (regKey != null && regKey.GetValue("Content Type") != null)
+                mimeType = regKey.GetValue("Content Type").ToString();
+
+            System.Diagnostics.Debug.WriteLine(mimeType);
+            return mimeType;
+        }
     }
 }
