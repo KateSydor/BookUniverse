@@ -13,7 +13,7 @@
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
         private readonly RegistrationDto user;
-
+        private NotifyWindow _notifyWindow = new NotifyWindow();
         public MainWindow(IAuthenticationService authenticationService, IUserService userService)
         {
             InitializeComponent();
@@ -45,11 +45,11 @@
             }
             catch (ArgumentException argEx)
             {
-                MessageBox.Show(argEx.Message, "Error");
+                _notifyWindow.ShowNotification("Error: " +  argEx.Message.ToString());
             }
             catch
             {
-                MessageBox.Show("Not valid data", "Error");
+                _notifyWindow.ShowNotification("Error: Not valid data");
             }
         }
 
