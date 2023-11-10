@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:BookUniverse.Client.Validation.UserValidation"
         xmlns:customcontrols="clr-namespace:BookUniverse.Client.CustomControls"
-        mc:Ignorable="d" Height="750" Width="1400" Foreground="{StaticResource color5}" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+        mc:Ignorable="d" Height="750" Width="1400" Foreground="#FFE3E0" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
