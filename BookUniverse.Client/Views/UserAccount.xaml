@@ -65,7 +65,7 @@
                 </TextBox>
 
                 <Button 
-             Width="150" 
+             Width="160" 
              Height="40" 
              Content="Save Changes" 
              Margin="0 20 0 10" 
@@ -87,12 +87,15 @@
                     </Button.Style>
                 </Button>
 
-                <Button Width="150" Height="40" Content="Change Password" Margin="0 20 0 10" Background="#011638" Foreground="#ffffff" FontSize="16"/>
+                <Button Width="160" Height="40" Content="Change Password" Margin="0 20 0 10" Background="#011638" Foreground="#ffffff" FontSize="16"/>
             </StackPanel>
+           
         </Grid>
 
         <Grid Width="400" Margin="0 0" HorizontalAlignment="Right">
             <Image Source="\Images\book_universe2.jpg" Margin="102,145,-325,73" />
+            
         </Grid>
+        
     </Grid>
 </Window>
