@@ -32,7 +32,7 @@
                                          Margin="10">
                     <StackPanel Width="150">
                         <Button Content="Home" />
-                            <Button Content="Account"  Click="AccountButton_Click"/>
+                        <Button Content="Account"  Click="AccountButton_Click"/>
                         <Separator />
                         <Button Content="Logout" Click="ButtonLogout_Click"/>
                     </StackPanel>
@@ -49,10 +49,7 @@
             <TextBlock HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        FontSize="22">Book Universe</TextBlock>
-            
-        </Grid>
-        <Grid>
-            
+
         </Grid>
         <customcontrols:Menu/>
         

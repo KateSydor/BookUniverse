@@ -42,7 +42,7 @@
                 {
                     HomeWindow homePage = new HomeWindow(_authenticationService, _userService);
                     homePage.Show();
-                    Application.Current.Shutdown();
+                    Hide();
                 }
             }
             catch (Exception ex)
