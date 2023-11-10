@@ -1,5 +1,6 @@
 ﻿namespace BookUniverse.BLL.Services
 {
+    using AutoMapper;
     using BookUniverse.BLL.DTOs;
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.BLL.Utils;
@@ -10,11 +11,13 @@
     public class AuthenticationService : IAuthenticationService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
         const string error = "Not valid credentials.";
 
-        public AuthenticationService(IUserRepository userService)
+        public AuthenticationService(IUserRepository userService, IMapper mapper)
         {
             _userRepository = userService;
+            _mapper = mapper;
         }
 
         public User? CurrentAccount
@@ -28,13 +31,10 @@
             {
                 throw new ArgumentException("Passwords don't match");
             }
-            string storedHashedPasssword = Hasher.ComputeHash(user.Password);
-            User newUser = new User
-            {
-                Username = user.Username,
-                Email = user.Email,
-                Password = storedHashedPasssword,
-            };
+
+            string storedHashedPassword = Hasher.ComputeHash(user.Password);
+
+            User newUser = _mapper.Map<User>(user, opt => opt.Items["hashedPassword"] = storedHashedPassword);
 
             await _userRepository.Create(newUser);
 
@@ -51,8 +51,8 @@
                 throw new Exception(error);
             }
 
-            string storedHashedPasssword = Hasher.ComputeHash(user.Password);
-            if (storedHashedPasssword != storedAccount.Password)
+            string storedHashedPassword = Hasher.ComputeHash(user.Password);
+            if (storedHashedPassword != storedAccount.Password)
             {
                 throw new Exception(error);
             }
@@ -75,8 +75,7 @@
                 throw new Exception("Error");
             }
 
-            userToUpdate.Username = newUser.Username;
-            userToUpdate.Email = newUser.Email;
+            _mapper.Map(newUser, userToUpdate);
 
             await _userRepository.Update(userToUpdate);
 

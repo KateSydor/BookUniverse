@@ -12,6 +12,7 @@
     using BookUniverse.DAL.Repositories.UserRepository;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
+    using System;
 
     public static class ServiceCollectionExtensions
     {
@@ -34,6 +35,8 @@
 
         public static void AddServices(this IServiceCollection services)
         {
+            var currentAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+            services.AddAutoMapper(currentAssemblies);
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IUserService, UserService>();
         }
