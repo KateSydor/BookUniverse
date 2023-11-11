@@ -16,14 +16,21 @@ namespace BookUniverse.Client
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
         private readonly IBookService _bookService;
+        private readonly ICategoryService _categoryService;
         private readonly IGoogleDriveService _googleDriveRepository;
         private User currentUser;
 
-        public UserAccount(IAuthenticationService authenticationService, IUserService userService, IBookService bookService, IGoogleDriveService googleDriveRepository)
+        public UserAccount(
+            IAuthenticationService authenticationService,
+            IUserService userService,
+            IBookService bookService,
+            ICategoryService categoryService,
+            IGoogleDriveService googleDriveRepository)
         {
             _authenticationService = authenticationService;
             _userService = userService;
             _bookService = bookService;
+            _categoryService = categoryService;
 
             Loaded += UserAccount_Loaded;
             this.DataContext = currentUser;
@@ -56,7 +63,7 @@ namespace BookUniverse.Client
             }
             catch
             {
-                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _googleDriveRepository);
+                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository);
                 signInPage.Show();
                 Hide();
             }
@@ -70,7 +77,7 @@ namespace BookUniverse.Client
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _bookService, _googleDriveRepository);
+            HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository);
             this.Visibility = Visibility.Hidden;
             homeWindow.Show();
         }

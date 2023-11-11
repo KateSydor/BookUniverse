@@ -5,7 +5,7 @@
 
     public interface IBookService
     {
-        void AddBook(AddBookDto newBook);
+        void AddBook(AddBookDto newBook, Category category);
 
         List<Book> GetAllBooks();
 

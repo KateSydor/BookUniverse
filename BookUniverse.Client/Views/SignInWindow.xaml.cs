@@ -14,15 +14,22 @@
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
         private readonly IBookService _bookService;
+        private readonly ICategoryService _categoryService;
         private readonly IGoogleDriveService _googleDriveRepository;
         private readonly LoginDto user;
 
-        public SignInWindow(IAuthenticationService authenticationService, IUserService userService, IBookService bookService, IGoogleDriveService googleDriveRepository)
+        public SignInWindow(
+            IAuthenticationService authenticationService,
+            IUserService userService,
+            IBookService bookService,
+            ICategoryService categoryService,
+            IGoogleDriveService googleDriveRepository)
         {
             InitializeComponent();
             _authenticationService = authenticationService;
             _userService = userService;
             _bookService = bookService;
+            _categoryService = categoryService;
             _googleDriveRepository = googleDriveRepository;
 
             user = new LoginDto();
@@ -31,7 +38,7 @@
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow signUpWindow = new MainWindow(_authenticationService, _userService, _bookService, _googleDriveRepository);
+            MainWindow signUpWindow = new MainWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository);
             this.Visibility = Visibility.Hidden;
             signUpWindow.Show();
         }
@@ -45,7 +52,7 @@
                 await _authenticationService.Login(user);
                 if (_authenticationService.IsLoggedIn())
                 {
-                    HomeWindow homePage = new HomeWindow(_authenticationService, _userService, _bookService, _googleDriveRepository);
+                    HomeWindow homePage = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository);
                     homePage.Show();
                     Hide();
                 }
