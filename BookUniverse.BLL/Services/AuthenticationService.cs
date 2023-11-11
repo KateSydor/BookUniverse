@@ -1,7 +1,7 @@
 ﻿namespace BookUniverse.BLL.Services
 {
     using AutoMapper;
-    using BookUniverse.BLL.DTOs;
+    using BookUniverse.BLL.DTOs.UserDTOs;
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.BLL.Utils;
     using BookUniverse.DAL.Constants.UtilsConstants;
@@ -72,7 +72,7 @@
             User userToUpdate = await _userRepository.Get(u => u.Id == userId);
             if (newUser == null || userToUpdate == null)
             {
-                throw new Exception("Error");
+                throw new Exception(UtilsConstants.ERROR);
             }
 
             _mapper.Map(newUser, userToUpdate);

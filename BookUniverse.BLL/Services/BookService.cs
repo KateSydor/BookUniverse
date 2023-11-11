@@ -1,14 +1,14 @@
 ﻿namespace BookUniverse.BLL.Services
 {
     using AutoMapper;
-    using BookUniverse.BLL.DTOs;
+    using BookUniverse.BLL.DTOs.BookDTOs;
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.DAL.Entities;
     using BookUniverse.DAL.Repositories.BookRepository;
     using BookUniverse.DAL.Repositories.CategoryRepository;
-	using BookUniverse.DAL.Repositories.UserBookRepository;
+    using BookUniverse.DAL.Repositories.UserBookRepository;
 
-	public class BookService : IBookService
+    public class BookService : IBookService
 	{
 		private readonly IBookRepository _bookRepository;
 		private readonly ICategoryRepository _categoryRepository;
@@ -28,7 +28,7 @@
 			Category category = await _categoryRepository.Get(u => u.CategoryName == newBook.CategoryName);
 			if (category == null)
 			{
-				throw new Exception("Such category doesn`t exists");
+				throw new Exception("Such category doesn't exists");
 			}
 
 			Book book = _mapper.Map<Book>(newBook, opt => opt.Items["CategoryId"] = category.Id);

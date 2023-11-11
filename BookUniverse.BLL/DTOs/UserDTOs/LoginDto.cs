@@ -1,4 +1,4 @@
-﻿namespace BookUniverse.BLL.DTOs
+﻿namespace BookUniverse.BLL.DTOs.UserDTOs
 {
     using System.ComponentModel.DataAnnotations;
     using BookUniverse.DAL.Constants.ValidationConstants;

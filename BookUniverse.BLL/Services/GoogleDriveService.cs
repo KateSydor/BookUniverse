@@ -1,14 +1,13 @@
 ﻿namespace BookUniverse.BLL.Services
 {
     using BookUniverse.BLL.Interfaces;
-    using BookUniverse.DAL.Entities;
     using Google.Apis.Auth.OAuth2;
     using Google.Apis.Drive.v3;
     using Google.Apis.Services;
     using Google.Apis.Util.Store;
-	using PdfSharp.Pdf.IO;
+    using PdfSharp.Pdf.IO;
 
-	public class GoogleDriveService : IGoogleDriveService
+    public class GoogleDriveService : IGoogleDriveService
     {
         public static string[] Scopes = { DriveService.Scope.Drive, DriveService.Scope.DriveFile };
 
@@ -22,7 +21,7 @@
             {
                 ClientId = "our client id",
                 ClientSecret = "our client secret"
-			}, Scopes,
+            }, Scopes,
             username, CancellationToken.None, new FileDataStore("token")).Result;
 
             DriveService service = new DriveService(new BaseClientService.Initializer()
@@ -31,7 +30,7 @@
                 ApplicationName = applicationName,
             });
 
-			return service;
+            return service;
         }
 
    //     public List<GoogleDrive> GetDriveFiles()
@@ -60,13 +59,13 @@
             DriveService _service = GetService();
             if (File.Exists(_uploadFile))
             {
-				Google.Apis.Drive.v3.Data.File body = new Google.Apis.Drive.v3.Data.File();
+                Google.Apis.Drive.v3.Data.File body = new Google.Apis.Drive.v3.Data.File();
                 body.Name = Path.GetFileName(_uploadFile);
                 body.MimeType = GetMimeType(_uploadFile);
                 byte[] byteArray = File.ReadAllBytes(_uploadFile);
                 MemoryStream stream = new MemoryStream(byteArray);
-				int pageCount = GetPageCount(body, stream);
-				try
+                int pageCount = GetPageCount(body, stream);
+                try
                 {
                     FilesResource.CreateMediaUpload request = _service.Files.Create(body, stream, body.MimeType);
                     request.SupportsTeamDrives = true;
@@ -99,14 +98,13 @@
 
         private int GetPageCount(Google.Apis.Drive.v3.Data.File body, MemoryStream stream)
         {
-			if (body.MimeType == "application/pdf")
-			{
-				using (var pdfDocument = PdfReader.Open(stream, PdfDocumentOpenMode.ReadOnly))
-				{
-					return pdfDocument.PageCount;
-				}
-			}
+            if (body.MimeType == "application/pdf")
+            {
+                using var pdfDocument = PdfReader.Open(stream, PdfDocumentOpenMode.ReadOnly);
+                return pdfDocument.PageCount;
+            }
+
             return -1;
-		}
-	}
+        }
+    }
 }

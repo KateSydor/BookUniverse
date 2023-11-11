@@ -1,10 +1,10 @@
 ﻿namespace BookUniverse.BLL.Mapping.Books
 {
-	using AutoMapper;
-	using BookUniverse.BLL.DTOs;
-	using BookUniverse.DAL.Entities;
+    using AutoMapper;
+    using BookUniverse.BLL.DTOs.BookDTOs;
+    using BookUniverse.DAL.Entities;
 
-	public class BookProfile : Profile
+    public class BookProfile : Profile
 	{
 		public BookProfile()
 		{

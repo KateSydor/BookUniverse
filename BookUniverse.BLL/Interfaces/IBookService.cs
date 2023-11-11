@@ -1,9 +1,9 @@
 ﻿namespace BookUniverse.BLL.Interfaces
 {
-    using BookUniverse.BLL.DTOs;
+    using BookUniverse.BLL.DTOs.BookDTOs;
     using BookUniverse.DAL.Entities;
 
-	public interface IBookService
+    public interface IBookService
 	{
 		void AddBook(AddBookDto newBook);
 

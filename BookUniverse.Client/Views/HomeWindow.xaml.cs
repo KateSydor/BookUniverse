@@ -3,8 +3,8 @@
     using System;
     using System.IO;
     using System.Windows;
-	using BookUniverse.BLL.DTOs;
-	using BookUniverse.BLL.Interfaces;
+    using BookUniverse.BLL.DTOs.BookDTOs;
+    using BookUniverse.BLL.Interfaces;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
 
@@ -15,8 +15,8 @@
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
-		private readonly IBookService _bookService;
-		private readonly IGoogleDriveService _googleDriveService;
+        private readonly IBookService _bookService;
+        private readonly IGoogleDriveService _googleDriveService;
         private User currentUser;
         private string filepath;
 
@@ -88,16 +88,16 @@
         {
             try
             {
-				(int pageCount, Google.Apis.Drive.v3.Data.File uploadedFile) = await _googleDriveService.UploadFile(filepath);
+                (int pageCount, Google.Apis.Drive.v3.Data.File uploadedFile) = await _googleDriveService.UploadFile(filepath);
                 AddBookDto addBook = new AddBookDto
                 {
-					Title = uploadedFile.Name,
-					Description = description.Text,
-					Author = author.Text,
-					CategoryName = category.Text,
-					NumberOfPages = pageCount,
-					Path = uploadedFile.Id
-				};
+                    Title = uploadedFile.Name,
+                    Description = description.Text,
+                    Author = author.Text,
+                    CategoryName = category.Text,
+                    NumberOfPages = pageCount,
+                    Path = uploadedFile.Id
+                };
 
                 _bookService.AddBook(addBook);
                 MessageBox.Show("File successfully uploaded");

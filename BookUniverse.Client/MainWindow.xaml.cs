@@ -2,8 +2,9 @@
 {
     using System;
     using System.Windows;
-    using BookUniverse.BLL.DTOs;
+    using BookUniverse.BLL.DTOs.UserDTOs;
     using BookUniverse.BLL.Interfaces;
+    using BookUniverse.DAL.Constants.UtilsConstants;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml.
@@ -12,8 +13,8 @@
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
-		private readonly IBookService _bookService;
-		private readonly IGoogleDriveService _googleDriveRepository;
+        private readonly IBookService _bookService;
+        private readonly IGoogleDriveService _googleDriveRepository;
         private readonly RegistrationDto user;
 
         public MainWindow(IAuthenticationService authenticationService, IUserService userService, IBookService bookService, IGoogleDriveService googleDriveRepository)
@@ -21,8 +22,8 @@
             InitializeComponent();
             _authenticationService = authenticationService;
             _userService = userService;
-			_bookService = bookService;
-			_googleDriveRepository = googleDriveRepository;
+            _bookService = bookService;
+            _googleDriveRepository = googleDriveRepository;
 
             user = new RegistrationDto();
             this.DataContext = user;
@@ -49,11 +50,11 @@
             }
             catch (ArgumentException argEx)
             {
-                MessageBox.Show(argEx.Message, "Error");
+                MessageBox.Show(argEx.Message, UtilsConstants.ERROR);
             }
             catch
             {
-                MessageBox.Show("Not valid data", "Error");
+                MessageBox.Show("Not valid data", UtilsConstants.ERROR);
             }
         }
 

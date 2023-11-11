@@ -3,32 +3,31 @@ namespace BookUniverse.Client
     using System;
     using System.IO;
     using System.Windows;
-    using BookUniverse.BLL.DTOs;
+    using BookUniverse.BLL.DTOs.UserDTOs;
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
 
     /// <summary>
-    /// Interaction logic for UserAccount.xaml
+    /// Interaction logic for UserAccount.xaml.
     /// </summary>
     public partial class UserAccount : Window
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
-		private readonly IBookService _bookService;
-		private readonly IGoogleDriveService _googleDriveRepository;
+        private readonly IBookService _bookService;
+        private readonly IGoogleDriveService _googleDriveRepository;
         private User currentUser;
 
         public UserAccount(IAuthenticationService authenticationService, IUserService userService, IBookService bookService, IGoogleDriveService googleDriveRepository)
         {
             _authenticationService = authenticationService;
             _userService = userService;
-			_bookService = bookService;
+            _bookService = bookService;
 
-			Loaded += UserAccount_Loaded;
+            Loaded += UserAccount_Loaded;
             this.DataContext = currentUser;
             _googleDriveRepository = googleDriveRepository;
-
 
             InitializeComponent();
         }
@@ -67,7 +66,6 @@ namespace BookUniverse.Client
         {
             Application.Current.MainWindow.Close();
             Application.Current.Shutdown();
-
         }
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
@@ -88,11 +86,11 @@ namespace BookUniverse.Client
             {
                 await _authenticationService.EditUser(currentUser.Id, newUser);
                 currentUser = _authenticationService.CurrentAccount;
-                MessageBox.Show("Changes saved successfully!", "", MessageBoxButton.OK);
+                MessageBox.Show("Changes saved successfully!", string.Empty, MessageBoxButton.OK);
             }
             catch
             {
-                MessageBox.Show("Error");
+                MessageBox.Show(UtilsConstants.ERROR);
             }
         }
     }

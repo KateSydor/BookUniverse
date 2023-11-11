@@ -2,8 +2,9 @@
 {
     using System;
     using System.Windows;
-    using BookUniverse.BLL.DTOs;
+    using BookUniverse.BLL.DTOs.UserDTOs;
     using BookUniverse.BLL.Interfaces;
+    using BookUniverse.DAL.Constants.UtilsConstants;
 
     /// <summary>
     /// Interaction logic for SignInWindow.xaml.
@@ -12,8 +13,8 @@
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
-		private readonly IBookService _bookService;
-		private readonly IGoogleDriveService _googleDriveRepository;
+        private readonly IBookService _bookService;
+        private readonly IGoogleDriveService _googleDriveRepository;
         private readonly LoginDto user;
 
         public SignInWindow(IAuthenticationService authenticationService, IUserService userService, IBookService bookService, IGoogleDriveService googleDriveRepository)
@@ -21,8 +22,8 @@
             InitializeComponent();
             _authenticationService = authenticationService;
             _userService = userService;
-			_bookService = bookService;
-			_googleDriveRepository = googleDriveRepository;
+            _bookService = bookService;
+            _googleDriveRepository = googleDriveRepository;
 
             user = new LoginDto();
             this.DataContext = user;
@@ -51,7 +52,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                MessageBox.Show(ex.Message, UtilsConstants.ERROR);
             }
         }
 

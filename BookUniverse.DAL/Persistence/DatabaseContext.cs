@@ -20,7 +20,17 @@
         public DatabaseContext(DbContextOptions<DatabaseContext> options)
             : base(options)
         {
+        }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>()
+                .HasIndex(e => e.Username)
+                .IsUnique();
+
+            modelBuilder.Entity<User>()
+                .HasIndex(e => e.Email)
+                .IsUnique();
         }
     }
 }

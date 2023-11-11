@@ -1,7 +1,7 @@
 ﻿namespace BookUniverse.BLL.Mapping.User
 {
     using AutoMapper;
-    using BookUniverse.BLL.DTOs;
+    using BookUniverse.BLL.DTOs.UserDTOs;
     using BookUniverse.DAL.Entities;
 
     public class UserProfile : Profile

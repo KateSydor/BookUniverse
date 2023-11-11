@@ -1,7 +1,7 @@
 ﻿namespace BookUniverse.BLL.Interfaces
 {
     using System.Threading.Tasks;
-    using BookUniverse.BLL.DTOs;
+    using BookUniverse.BLL.DTOs.UserDTOs;
     using BookUniverse.DAL.Entities;
 
     public interface IAuthenticationService
