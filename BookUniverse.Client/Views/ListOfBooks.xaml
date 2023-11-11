@@ -73,11 +73,11 @@
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="1" FontSize="30" Foreground="Black">All Books</TextBlock>
 
-            <DataGrid Background="{StaticResource color5}" ItemsSource="{Binding}" Margin="0,4,52,107" Grid.RowSpan="2" Grid.Row="2">
+            <DataGrid  x:Name="dataGrid" Background="{StaticResource color5}" AutoGenerateColumns="False" Margin="0,4,52,0" Grid.Row="2">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Number" Width="0.4*" Binding="{Binding Numbers}"/>
-                    <DataGridTextColumn Header="Title" Width="*" Binding="{Binding Titles}"/>
-                    <DataGridTextColumn Header="Author" Width="*" Binding="{Binding Authors}"/>
+                    <DataGridTextColumn Header="Number" Width="0.4*" Binding="{Binding Number}"/>
+                    <DataGridTextColumn Header="Title" Width="*" Binding="{Binding Title}"/>
+                    <DataGridTextColumn Header="Author" Width="*" Binding="{Binding Author}"/>
                 </DataGrid.Columns>
             </DataGrid>
             <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="0,23,0,0">
@@ -88,13 +88,9 @@
                         </Binding>
                     </Label.Content>
                 </Label>
-                <Button Background="{StaticResource color8}" Content="Next" Foreground="#ffffff" FontSize="16" Height="40" Width="100" Click="OnNextClicked" Margin="20"/>
-                <Button Background="{StaticResource color8}" Content="Previous" Foreground="#ffffff" FontSize="16" Height="40" Width="100" Click="OnPreviousClicked" Margin="20"/>
+                <Button Background="{StaticResource color8}" Content="Next" Foreground="#ffffff" FontSize="16" Height="40" Width="100" Margin="20"/>
+                <Button Background="{StaticResource color8}" Content="Previous" Foreground="#ffffff" FontSize="16" Height="40" Width="100" Margin="20"/>
             </StackPanel>
-
         </Grid>
-
-
-
     </Grid>
 </Window>
