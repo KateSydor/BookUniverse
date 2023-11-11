@@ -23,7 +23,6 @@ namespace BookUniverse.Client
             Close();
         }
 
-        // Method to set and show notification message
         public void ShowNotification(string message)
         {
             NotificationText.Text = message;
