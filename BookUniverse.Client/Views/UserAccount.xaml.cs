@@ -16,6 +16,7 @@ namespace BookUniverse.Client
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
         private User currentUser;
+        private NotifyWindow _notifyWindow = new NotifyWindow();
 
         public UserAccount(IAuthenticationService authenticationService, IUserService userService)
         {
@@ -83,11 +84,11 @@ namespace BookUniverse.Client
             {
                 await _authenticationService.EditUser(currentUser.Id, newUser);
                 currentUser = _authenticationService.CurrentAccount;
-                MessageBox.Show("Changes saved successfully!", "", MessageBoxButton.OK);
+                _notifyWindow.ShowNotification("Changes saved successfully!");
             }
             catch
             {
-                MessageBox.Show("Error");
+                _notifyWindow.ShowNotification("Error");
             }
         }
     }

@@ -13,6 +13,7 @@
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
         private readonly LoginDto user;
+        private NotifyWindow _notifyWindow = new NotifyWindow();
 
         public SignInWindow(IAuthenticationService authenticationService, IUserService userService)
         {
@@ -47,7 +48,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error");
+                _notifyWindow.ShowNotification("Error: " + ex.Message.ToString());
             }
         }
 
