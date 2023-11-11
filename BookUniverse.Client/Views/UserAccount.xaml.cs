@@ -86,6 +86,7 @@ namespace BookUniverse.Client
             {
                 await _authenticationService.EditUser(currentUser.Id, newUser);
                 currentUser = _authenticationService.CurrentAccount;
+                MessageBox.Show("Changes saved successfully!", "", MessageBoxButton.OK);
             }
             catch
             {

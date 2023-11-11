@@ -3,18 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BookUniverse.Client"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:customcontrols="clr-namespace:BookUniverse.Client.CustomControls"
-        mc:Ignorable="d"
-        Height="750"
-        Width="1400"
-        Foreground="#FFE3E0"
-        ResizeMode="NoResize"
-        WindowStartupLocation="CenterScreen"
-        WindowStyle="None"
-        AllowsTransparency="True"
-        Background="Transparent">
+        mc:Ignorable="d" Height="750" Width="1400" Foreground="#FFE3E0" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="\Styles\Pallete.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Other resources specific to this window go here -->
+
+        </ResourceDictionary>
+
+    </Window.Resources>
     <Grid Background="#FFDEDEDE">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="72*" />
@@ -22,12 +25,12 @@
         </Grid.ColumnDefinitions>
         <Grid Height="60"
               VerticalAlignment="Top"
-              Background="#2E294E"
+              Background="{StaticResource color6}"
               Grid.ColumnSpan="2">
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="10"
                                   ShadowDepth="0"
-                                  Color="#FFE3E0" />
+                                  Color="{StaticResource Color5}" />
             </Grid.Effect>
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right">
@@ -40,8 +43,7 @@
                                          Margin="10">
                     <StackPanel Width="150">
                         <Button Content="Home" />
-                        <Button Content="Account"
-                                Click="AccountButton_Click" />
+                        <Button Content="Account"  Click="AccountButton_Click"/>
                         <Separator />
                         <Button Content="Logout"
                                 Click="ButtonLogout_Click" />
@@ -59,6 +61,7 @@
             <TextBlock HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        FontSize="22">Book Universe</TextBlock>
+
         </Grid>
         <customcontrols:Menu />
         <TextBox x:Name="tbFilepath"

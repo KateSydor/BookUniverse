@@ -7,14 +7,22 @@
         xmlns:local="clr-namespace:BookUniverse.Client.Validation.UserValidation"
         xmlns:customcontrols="clr-namespace:BookUniverse.Client.CustomControls"
         mc:Ignorable="d" Height="750" Width="1400" Foreground="#FFE3E0" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
-    <Grid Background="#FFE3E0">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="\Styles\Pallete.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+    </Window.Resources>
+    <Grid Background="{StaticResource color5}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300*"/>
             <ColumnDefinition Width="103*"/>
         </Grid.ColumnDefinitions>
-        <Grid Height="60" VerticalAlignment="Top" Background="#2E294E" Grid.ColumnSpan="2">
+        <Grid Height="60" VerticalAlignment="Top" Background="{StaticResource color6}" Grid.ColumnSpan="2">
             <Grid.Effect>
-                <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="#FFE3E0"/>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="0" Color="{StaticResource Color5}"/>
             </Grid.Effect>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBlock x:Name="UsernameOnTop" Text="" VerticalAlignment="Center" FontSize="16"/>
@@ -36,7 +44,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Margin="-54,-119,0,-171" Background="#FBC3BC" Grid.ColumnSpan="2">
+            <StackPanel Margin="-54,-119,0,-171" Background="{StaticResource color4}" Grid.ColumnSpan="2">
                 <TextBlock Foreground="#011638" FontSize="40" TextAlignment="Center" Margin="30">Book Universe</TextBlock>
                 <TextBox 
              x:Name="editUsername" 
@@ -44,7 +52,7 @@
              Height="55" 
              Margin="0 10 0 0" 
              BorderThickness="0 0 0 1.5" 
-             BorderBrush="#011638"
+             BorderBrush="{StaticResource color8}"
              Text=" "
              Foreground="Black" 
              FontSize="20" 
@@ -56,7 +64,7 @@
                   Width="236" Height="55" 
                   Margin="0 20 0 10" 
                   BorderThickness="0 0 0 1.5" 
-                  BorderBrush="#011638" 
+                  BorderBrush="{StaticResource color8}" 
                   Text=""
                   Foreground="Black" 
                   FontSize="20" 
@@ -65,11 +73,11 @@
                 </TextBox>
 
                 <Button 
-             Width="150" 
+             Width="160" 
              Height="40" 
              Content="Save Changes" 
              Margin="0 20 0 10" 
-             Background="#011638" 
+             Background="{StaticResource color8}" 
              Foreground="#ffffff" 
              FontSize="16" 
              Click="SaveButton_Click">
@@ -87,12 +95,15 @@
                     </Button.Style>
                 </Button>
 
-                <Button Width="150" Height="40" Content="Change Password" Margin="0 20 0 10" Background="#011638" Foreground="#ffffff" FontSize="16"/>
+                <Button Width="160" Height="40" Content="Change Password" Margin="0 20 0 10" Background="{StaticResource color8}" Foreground="#ffffff" FontSize="16"/>
             </StackPanel>
+           
         </Grid>
 
         <Grid Width="400" Margin="0 0" HorizontalAlignment="Right">
             <Image Source="\Images\book_universe2.jpg" Margin="102,145,-325,73" />
+            
         </Grid>
+        
     </Grid>
 </Window>

@@ -16,6 +16,14 @@
         mc:Ignorable="d"
         Height="645"
         Width="875">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="\Styles\Pallete.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+    </Window.Resources>
 
     <Grid Margin="20">
         <Grid.Effect>
@@ -30,7 +38,7 @@
         </Grid.ColumnDefinitions>
 
         <!--Left Section-->
-        <Border Background="#011638"
+        <Border Background="{StaticResource color8}"
                 CornerRadius="10 0 0 10"
                 ClipToBounds="True">
             <Border.Clip>
@@ -65,30 +73,30 @@
                 <Ellipse Width="500"
                          Height="500"
                          VerticalAlignment="Bottom"
-                         Fill="#2E294E"
+                         Fill="{StaticResource color6}"
                          Margin="50 0 0 -200"
                          Opacity="0.6" />
                 <Ellipse Width="300"
                          Height="300"
                          VerticalAlignment="Bottom"
-                         Fill="#2E294E"
+                         Fill="{StaticResource color6}"
                          Margin="-450 0 0 30"
                          Opacity="0.3" />
                 <Ellipse Width="400"
                          Height="400"
                          VerticalAlignment="Bottom"
-                         Fill="#2E294E"
+                         Fill="{StaticResource color6}"
                          Margin="-320 0 0 -120"
                          Opacity="0.3" />
                 <Ellipse Width="250"
                          Height="250"
                          VerticalAlignment="Bottom"
-                         Fill="#2E294E"
+                         Fill="{StaticResource color6}"
                          Margin="-380 0 0 -120" />
                 <Ellipse Width="400"
                          Height="400"
                          VerticalAlignment="Bottom"
-                         Fill="#2E294E"
+                         Fill="{StaticResource color6}"
                          Margin="280 0 0 -70"
                          Opacity="0.8" />
 
@@ -107,21 +115,21 @@
                                  StrokeThickness="4">
                             <Ellipse.Stroke>
                                 <LinearGradientBrush>
-                                    <GradientStop Color="#F17363"
+                                    <GradientStop Color="{StaticResource Color1}"
                                                   Offset="0.15" />
-                                    <GradientStop Color="#F38375"
+                                    <GradientStop Color="{StaticResource Color2}"
                                                   Offset="0.2" />
-                                    <GradientStop Color="#F7A399"
+                                    <GradientStop Color="{StaticResource Color3}"
                                                   Offset="0.3" />
-                                    <GradientStop Color="#FBC3BC"
+                                    <GradientStop Color="{StaticResource Color4}"
                                                   Offset="0.4" />
-                                    <GradientStop Color="#FFE3E0"
+                                    <GradientStop Color="{StaticResource Color5}"
                                                   Offset="0.5" />
-                                    <GradientStop Color="#2E294E"
+                                    <GradientStop Color="{StaticResource Color6}"
                                                   Offset="0.6" />
-                                    <GradientStop Color="#182043"
+                                    <GradientStop Color="{StaticResource Color7}"
                                                   Offset="0.8" />
-                                    <GradientStop Color="#011638"
+                                    <GradientStop Color="{StaticResource Color8}"
                                                   Offset="0.9" />
                                 </LinearGradientBrush>
                             </Ellipse.Stroke>
@@ -135,15 +143,15 @@
                                                  VerticalAlignment="Center">
                             <materialDesign:PackIcon.Foreground>
                                 <LinearGradientBrush StartPoint="0,1">
-                                    <GradientStop Color="#F7A399"
+                                    <GradientStop Color="{StaticResource Color3}"
                                                   Offset="0.1" />
-                                    <GradientStop Color="#FBC3BC"
+                                    <GradientStop Color="{StaticResource Color4}"
                                                   Offset="0.3" />
-                                    <GradientStop Color="#FFE3E0"
+                                    <GradientStop Color="{StaticResource Color5}"
                                                   Offset="0.5" />
-                                    <GradientStop Color="#2E294E"
+                                    <GradientStop Color="{StaticResource Color6}"
                                                   Offset="0.7" />
-                                    <GradientStop Color="#182043"
+                                    <GradientStop Color="{StaticResource Color8}"
                                                   Offset="0.8" />
                                 </LinearGradientBrush>
                             </materialDesign:PackIcon.Foreground>
@@ -212,7 +220,7 @@
                     <StackPanel Orientation="Horizontal"
                                 Margin="0 27 0 0">
                         <Button Content="Sign in"
-                                Background="#011638"
+                                Background="{StaticResource color8}"
                                 Foreground="#ffffff"
                                 FontSize="18"
                                 materialDesign:ButtonAssist.CornerRadius="22"
@@ -237,7 +245,7 @@
                         </Button>
                         <Button Content="or Sign up"
                                 materialDesign:ButtonAssist.CornerRadius="22"
-                                Foreground="#011638"
+                                Foreground="{StaticResource color8}"
                                 FontSize="16"
                                 Height="45"
                                 Width="120"
