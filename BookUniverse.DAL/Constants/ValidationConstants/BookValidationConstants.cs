@@ -10,5 +10,11 @@
 
         public const int DESCRIPTION_MIN_LENGTH = 30;
         public const int DESCRIPTION_MAX_LENGTH = 300;
+
+        public const int PAGES_MIN = 1;
+        public const int PAGES_MAX = 1200;
+
+        public const double RATE_MIN = 0.0;
+        public const double RATE_MAX = 5.0;
     }
 }

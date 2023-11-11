@@ -29,18 +29,16 @@
         public string Description { get; set; }
 
         [Required]
-        [Range(1, 1200)]
+        [Range(BookValidationConstants.PAGES_MIN, BookValidationConstants.PAGES_MAX)]
         public int NumberOfPages { get; set; }
 
         [Required]
-        [Range(0.0, 5.0)]
-        public double Rating { get; set; } = 0.0;
+        [Range(BookValidationConstants.RATE_MIN, BookValidationConstants.RATE_MAX)]
+        public double Rating { get; set; } = BookValidationConstants.RATE_MIN;
 
         [Required]
         public int CategoryId { get; set; }
 
         public Category Category { get; set; }
-
-        // public ICollection<UserBook> UserBooks { get; set; }
     }
 }

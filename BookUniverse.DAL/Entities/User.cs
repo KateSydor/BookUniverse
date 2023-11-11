@@ -27,7 +27,5 @@
 
         [Required]
         public Roles Role { get; set; } = Roles.User;
-
-        // public ICollection<UserBook> UserBooks { get; set; }
     }
 }

@@ -51,8 +51,6 @@
                 {
                     throw new Exception(UtilsConstants.FILE_ERROR);
                 }
-
-                //_bookService.GetUserBooks(currentUser.Email);
             }
             catch
             {
@@ -61,7 +59,6 @@
                 Hide();
             }
         }
-
 
         private void CloseWindow(object sender, RoutedEventArgs e)
         {

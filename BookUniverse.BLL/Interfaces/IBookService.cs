@@ -4,11 +4,11 @@
     using BookUniverse.DAL.Entities;
 
     public interface IBookService
-	{
-		void AddBook(AddBookDto newBook);
+    {
+        void AddBook(AddBookDto newBook);
 
-		List<Book> GetAllBooks();
+        List<Book> GetAllBooks();
 
-		List<Book> GetUserBooks(string userEmail);
-	}
+        List<Book> GetUserBooks(string userEmail);
+    }
 }

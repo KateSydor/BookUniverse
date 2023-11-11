@@ -1,6 +1,5 @@
 ﻿namespace BookUniverse.BLL.Interfaces
 {
-    using BookUniverse.DAL.Entities;
     using Google.Apis.Drive.v3;
 
     public interface IGoogleDriveService
@@ -10,6 +9,5 @@
         //List<GoogleDrive> GetDriveFiles();
 
         Task<(int, Google.Apis.Drive.v3.Data.File)> UploadFile(string _uploadFile);
-
     }
 }
