@@ -12,15 +12,17 @@
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
-        private readonly IGoogleDriveService _googleDriveRepository;
+		private readonly IBookService _bookService;
+		private readonly IGoogleDriveService _googleDriveRepository;
         private readonly LoginDto user;
 
-        public SignInWindow(IAuthenticationService authenticationService, IUserService userService, IGoogleDriveService googleDriveRepository)
+        public SignInWindow(IAuthenticationService authenticationService, IUserService userService, IBookService bookService, IGoogleDriveService googleDriveRepository)
         {
             InitializeComponent();
             _authenticationService = authenticationService;
             _userService = userService;
-            _googleDriveRepository = googleDriveRepository;
+			_bookService = bookService;
+			_googleDriveRepository = googleDriveRepository;
 
             user = new LoginDto();
             this.DataContext = user;
@@ -28,7 +30,7 @@
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow signUpWindow = new MainWindow(_authenticationService, _userService, _googleDriveRepository);
+            MainWindow signUpWindow = new MainWindow(_authenticationService, _userService, _bookService, _googleDriveRepository);
             this.Visibility = Visibility.Hidden;
             signUpWindow.Show();
         }
@@ -42,7 +44,7 @@
                 await _authenticationService.Login(user);
                 if (_authenticationService.IsLoggedIn())
                 {
-                    HomeWindow homePage = new HomeWindow(_authenticationService, _userService, _googleDriveRepository);
+                    HomeWindow homePage = new HomeWindow(_authenticationService, _userService, _bookService, _googleDriveRepository);
                     homePage.Show();
                     Hide();
                 }

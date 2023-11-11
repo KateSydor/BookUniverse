@@ -15,15 +15,17 @@ namespace BookUniverse.Client
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
-        private readonly IGoogleDriveService _googleDriveRepository;
+		private readonly IBookService _bookService;
+		private readonly IGoogleDriveService _googleDriveRepository;
         private User currentUser;
 
-        public UserAccount(IAuthenticationService authenticationService, IUserService userService, IGoogleDriveService googleDriveRepository)
+        public UserAccount(IAuthenticationService authenticationService, IUserService userService, IBookService bookService, IGoogleDriveService googleDriveRepository)
         {
             _authenticationService = authenticationService;
             _userService = userService;
+			_bookService = bookService;
 
-            Loaded += UserAccount_Loaded;
+			Loaded += UserAccount_Loaded;
             this.DataContext = currentUser;
             _googleDriveRepository = googleDriveRepository;
 
@@ -55,7 +57,7 @@ namespace BookUniverse.Client
             }
             catch
             {
-                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _googleDriveRepository);
+                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _googleDriveRepository);
                 signInPage.Show();
                 Hide();
             }
@@ -70,7 +72,7 @@ namespace BookUniverse.Client
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _googleDriveRepository);
+            HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _bookService, _googleDriveRepository);
             this.Visibility = Visibility.Hidden;
             homeWindow.Show();
         }

@@ -6,8 +6,9 @@
     using Google.Apis.Drive.v3;
     using Google.Apis.Services;
     using Google.Apis.Util.Store;
+	using PdfSharp.Pdf.IO;
 
-    public class GoogleDriveService : IGoogleDriveService
+	public class GoogleDriveService : IGoogleDriveService
     {
         public static string[] Scopes = { DriveService.Scope.Drive, DriveService.Scope.DriveFile };
 
@@ -21,67 +22,56 @@
             {
                 ClientId = "our client id",
                 ClientSecret = "our client secret"
-            }, Scopes,
-            username, CancellationToken.None, new FileDataStore("Token")).Result;
+			}, Scopes,
+            username, CancellationToken.None, new FileDataStore("token")).Result;
 
             DriveService service = new DriveService(new BaseClientService.Initializer()
             {
                 HttpClientInitializer = credential,
                 ApplicationName = applicationName,
-
             });
-            return service;
+
+			return service;
         }
 
-        public List<GoogleDrive> GetDriveFiles()
-        {
-            DriveService service = GetService();
-            FilesResource.ListRequest FileListRequest = service.Files.List();
+   //     public List<GoogleDrive> GetDriveFiles()
+   //     {
+   //         DriveService service = GetService();
+			//FilesResource.ListRequest FileListRequest = service.Files.List();
 
-            FileListRequest.Fields = "nextPageToken, files(id, name, size, version, createdTime)";
+   //         FileListRequest.Fields = "nextPageToken, files(id, name, size, version, createdTime)";
 
-            IList<Google.Apis.Drive.v3.Data.File> files = FileListRequest.Execute().Files;
-            List<GoogleDrive> FileList = new List<GoogleDrive>();
+   //         IList<Google.Apis.Drive.v3.Data.File> files = FileListRequest.Execute().Files;
+   //         List<string> FileList = new List<string>();
 
-            if (files != null && files.Count > 0)
-            {
-                foreach (var file in files)
-                {
-                    GoogleDrive File = new GoogleDrive
-                    {
-                        Id = file.Id,
-                        Name = file.Name,
-                        Size = file.Size,
-                        Version = file.Version,
-                        CreatedTime = file.CreatedTime,
-                    };
-                    FileList.Add(File);
-                }
-            }
+   //         if (files != null && files.Count > 0)
+   //         {
+   //             foreach (var file in files)
+   //             {
+   //                 FileList.Add(file.Id);
+   //             }
+   //         }
 
-            return FileList;
-        }
+   //         return FileList;
+   //     }
 
-        public Google.Apis.Drive.v3.Data.File uploadFile(string _uploadFile)
+        public async Task<(int, Google.Apis.Drive.v3.Data.File)> UploadFile(string _uploadFile)
         {
             DriveService _service = GetService();
             if (File.Exists(_uploadFile))
             {
-                Google.Apis.Drive.v3.Data.File body = new Google.Apis.Drive.v3.Data.File();
+				Google.Apis.Drive.v3.Data.File body = new Google.Apis.Drive.v3.Data.File();
                 body.Name = Path.GetFileName(_uploadFile);
                 body.MimeType = GetMimeType(_uploadFile);
                 byte[] byteArray = File.ReadAllBytes(_uploadFile);
                 MemoryStream stream = new MemoryStream(byteArray);
-                try
+				int pageCount = GetPageCount(body, stream);
+				try
                 {
                     FilesResource.CreateMediaUpload request = _service.Files.Create(body, stream, body.MimeType);
                     request.SupportsTeamDrives = true;
-                    var task = request.UploadAsync();
-                    task.ContinueWith(t =>
-                    {
-                        stream.Dispose();
-                    });
-                    return request.ResponseBody;
+                    await request.UploadAsync();
+                    return (pageCount, request.ResponseBody);
                 }
                 catch
                 {
@@ -106,5 +96,17 @@
             System.Diagnostics.Debug.WriteLine(mimeType);
             return mimeType;
         }
-    }
+
+        private int GetPageCount(Google.Apis.Drive.v3.Data.File body, MemoryStream stream)
+        {
+			if (body.MimeType == "application/pdf")
+			{
+				using (var pdfDocument = PdfReader.Open(stream, PdfDocumentOpenMode.ReadOnly))
+				{
+					return pdfDocument.PageCount;
+				}
+			}
+            return -1;
+		}
+	}
 }

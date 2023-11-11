@@ -21,5 +21,7 @@
 
         [Required]
         public bool IsFavourite { get; set; } = false;
-    }
+
+		public ICollection<UserBook> UserBooks { get; set; }
+	}
 }

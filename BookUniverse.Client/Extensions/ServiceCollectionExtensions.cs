@@ -40,7 +40,8 @@
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IGoogleDriveService, GoogleDriveService>();
-        }
+			services.AddScoped<IBookService, BookService>();
+		}
 
         public static void AddViews(this IServiceCollection services)
         {

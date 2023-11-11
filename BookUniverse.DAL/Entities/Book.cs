@@ -25,11 +25,13 @@
         public int NumberOfPages { get; set; }
 
         [Required]
-        public double Rating { get; set; }
+        public double Rating { get; set; } = 0.0;
 
         [Required]
         public int CategoryId { get; set; }
 
         public Category Category { get; set; }
-    }
+
+		public ICollection<UserBook> UserBooks { get; set; }
+	}
 }
