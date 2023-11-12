@@ -33,14 +33,14 @@
             _categoryService = categoryService;
             _googleDriveService = googleDriveService;
 
-            Loaded += HomeWindow_Loaded;
+            Loaded += AddBookWindow_Loaded;
 
             this.DataContext = currentUser;
 
             InitializeComponent();
         }
 
-        private async void HomeWindow_Loaded(object sender, RoutedEventArgs e)
+        private async void AddBookWindow_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
