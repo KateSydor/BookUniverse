@@ -72,6 +72,13 @@
             Application.Current.Shutdown();
         }
 
+        private void HomeButton_Click(object sender, RoutedEventArgs e)
+        {
+            HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
+            this.Visibility = Visibility.Hidden;
+            homeWindow.Show();
+        }
+
         private void ButtonLogout_Click(object sender, RoutedEventArgs e)
         {
             _authenticationService.Logout();
