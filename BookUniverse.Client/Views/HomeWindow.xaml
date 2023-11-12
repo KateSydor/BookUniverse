@@ -7,17 +7,6 @@
         xmlns:customcontrols="clr-namespace:BookUniverse.Client.CustomControls"
         mc:Ignorable="d" Height="750" Width="1400" Foreground="#FFE3E0" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
 
-	<Window.Resources>
-		<ResourceDictionary>
-			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="\Styles\Pallete.xaml"/>
-			</ResourceDictionary.MergedDictionaries>
-
-			<!-- Other resources specific to this window go here -->
-
-		</ResourceDictionary>
-
-	</Window.Resources>
 	<Grid Background="#FFDEDEDE">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="72*" />
@@ -63,50 +52,6 @@
                        FontSize="22">Book Universe</TextBlock>
 
 		</Grid>
-		<customcontrols:Menu />
-		<TextBox x:Name="author"
-         HorizontalAlignment="Left"
-         Height="23"
-         Margin="176,232,0,0"
-         Text="Author"
-         VerticalAlignment="Top"
-         Width="322" />
-		<TextBox x:Name="description"
- HorizontalAlignment="Left"
- Height="23"
- Margin="176,204,0,0"
- Text="Description"
- VerticalAlignment="Top"
- Width="322" />
-		<TextBox x:Name="category"
- HorizontalAlignment="Left"
- Height="23"
- Margin="176,176,0,0"
- Text="Category"
- VerticalAlignment="Top"
- Width="322" />
-		<TextBox x:Name="tbFilepath"
-                 HorizontalAlignment="Left"
-                 Height="23"
-                 Margin="176,260,0,0"
-                 Text="File"
-                 VerticalAlignment="Top"
-                 Width="322" />
-		<Button x:Name="btBrowse"
-                Content="Browse"
-                HorizontalAlignment="Left"
-                Margin="204,303,0,0"
-                VerticalAlignment="Top"
-                Width="100"
-                Height="31"
-                Click="btBrowse_Click" />
-		<Button x:Name="button"
-                Content="Upload"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Top"
-                Width="120"
-                Height="31"
-                Click="button_Click"
-                Margin="351,303,0,0" />
-	</Grid>
+        <customcontrols:Menu />
+    </Grid>
 </Window>

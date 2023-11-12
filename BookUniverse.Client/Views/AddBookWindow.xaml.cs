@@ -11,7 +11,7 @@
     /// <summary>
     /// Interaction logic for HomeWindow.xaml.
     /// </summary>
-    public partial class HomeWindow : Window
+    public partial class AddBookWindow : Window
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
@@ -21,7 +21,7 @@
         private User currentUser;
         private string filepath;
 
-        public HomeWindow(
+        public AddBookWindow(
             IAuthenticationService authenticationService,
             IUserService userService, IBookService bookService,
             ICategoryService categoryService,
@@ -85,6 +85,50 @@
             UserAccount userAccount = new UserAccount(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
             this.Visibility = Visibility.Hidden;
             userAccount.Show();
+        }
+
+        private async void button_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Category findCategory = await _categoryService.CategoryExists(category.Text);
+                (int pageCount, Google.Apis.Drive.v3.Data.File uploadedFile) = await _googleDriveService.UploadFile(filepath);
+                AddBookDto addBook = CreateAddBookDto(uploadedFile, pageCount);
+
+                _bookService.AddBook(addBook, findCategory);
+                MessageBox.Show("File successfully uploaded");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btBrowse_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.DefaultExt = ".pdf";
+            dlg.Filter = "PDF Files|*.pdf";
+            bool? result = dlg.ShowDialog();
+
+            if (result == true)
+            {
+                filepath = dlg.FileName;
+                tbFilepath.Text = filepath;
+            }
+        }
+
+        private AddBookDto CreateAddBookDto(Google.Apis.Drive.v3.Data.File uploadedFile, int pageCount)
+        {
+            return new AddBookDto
+            {
+                Title = uploadedFile.Name,
+                Description = description.Text,
+                Author = author.Text,
+                CategoryName = category.Text,
+                NumberOfPages = pageCount,
+                Path = uploadedFile.Id,
+            };
         }
     }
 }

@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\book_shelf.jpg" />
     <None Remove="Images\book_universe2.jpg" />
   </ItemGroup>
 
@@ -46,6 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\book_shelf.jpg" />
     <Resource Include="Images\book_universe2.jpg" />
   </ItemGroup>
 

@@ -1,12 +1,14 @@
 namespace BookUniverse.Client
 {
     using System;
+    using System.ComponentModel;
     using System.IO;
     using System.Windows;
     using BookUniverse.BLL.DTOs.UserDTOs;
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
+    using BookUniverse.DAL.Enums;
 
     /// <summary>
     /// Interaction logic for UserAccount.xaml.
@@ -54,6 +56,10 @@ namespace BookUniverse.Client
                     editUsername.Text = currentUser.Username;
                     editEmail.Text = currentUser.Email;
                     _authenticationService.CurrentAccount = currentUser;
+                    if (currentUser.Role != Roles.Admin)
+                    {
+                        AddBookButton.Visibility = Visibility.Hidden;
+                    }
 
                 }
                 else
@@ -99,6 +105,13 @@ namespace BookUniverse.Client
             {
                 MessageBox.Show(UtilsConstants.ERROR);
             }
+        }
+
+        private void AddBook(object sender, RoutedEventArgs e)
+        {
+            AddBookWindow addBook = new AddBookWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository);
+            this.Visibility = Visibility.Hidden;
+            addBook.Show();
         }
     }
 }
