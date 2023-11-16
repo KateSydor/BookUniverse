@@ -88,8 +88,8 @@
                         </Binding>
                     </Label.Content>
                 </Label>
-                <Button Background="{StaticResource color8}" Content="Next" Foreground="#ffffff" FontSize="16" Height="40" Width="100" Margin="20"/>
-                <Button Background="{StaticResource color8}" Content="Previous" Foreground="#ffffff" FontSize="16" Height="40" Width="100" Margin="20"/>
+                <Button Background="{StaticResource color8}" Content="Next" Foreground="#ffffff" FontSize="16" Height="40" Width="100" Margin="20" Click="ButtonNext_Click"/>
+                <Button Background="{StaticResource color8}" Content="Previous" Foreground="#ffffff" FontSize="16" Height="40" Width="100" Margin="20" Click="ButtonPrevious_Click"/>
             </StackPanel>
         </Grid>
     </Grid>

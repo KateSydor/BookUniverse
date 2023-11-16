@@ -8,18 +8,22 @@
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Collections;
     using System.ComponentModel;
     using System.Windows.Data;
 
     /// <summary>
-    /// Interaction logic for HomeWindow.xaml.
+    /// Interaction logic for ListOfBooks.xaml.
     /// </summary>
     public partial class ListOfBooks : Window
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
         private User currentUser;
+        private List<object> bookList;  
+        private int currentPage = 1;    
+        private int booksPerPage = 5;
 
 
         public ListOfBooks(IAuthenticationService authenticationService, IUserService userService)
@@ -30,15 +34,56 @@
             Loaded += ListOfBooks_Loaded;
 
             this.DataContext = currentUser;
-            var bookList = new List<object>
+            bookList = new List<object>
         {
             new { Number = "1", Title = "Cat", Author = "KateSydor" },
             new { Number = "2", Title = "Cat2", Author = "KateSydor" },
             new { Number = "3", Title = "Cat3", Author = "KateSydor" },
+            new { Number = "4", Title = "Cat", Author = "KateSydor" },
+            new { Number = "5", Title = "Cat2", Author = "KateSydor" },
+            new { Number = "6", Title = "Cat3", Author = "KateSydor" },
+            new { Number = "7", Title = "Cat", Author = "KateSydor" },
+            new { Number = "8", Title = "Cat2", Author = "KateSydor" },
+            new { Number = "9", Title = "Cat3", Author = "KateSydor" },
+            new { Number = "10", Title = "Cat", Author = "KateSydor" },
+            new { Number = "11", Title = "Cat2", Author = "KateSydor" },
+            new { Number = "12", Title = "Cat3", Author = "KateSydor" },
         };
+            
 
             InitializeComponent();
-            dataGrid.ItemsSource = bookList;
+            dataGrid.ItemsSource = displayedBooks;
+
+        }
+
+        private List<object> displayedBooks
+        {
+            get
+            {
+                int startIndex = (currentPage - 1) * booksPerPage;
+                return bookList.Skip(startIndex).Take(booksPerPage).ToList();
+            }
+        }
+
+        private void DisplayBooks()
+        {
+            dataGrid.ItemsSource = displayedBooks;
+        }
+
+
+        private async void  ButtonNext_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentPage*booksPerPage> bookList.Count) { return; }
+            currentPage++;
+            DisplayBooks();
+
+        }
+
+        private async void ButtonPrevious_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentPage == 1) { return; }
+            currentPage--;
+            DisplayBooks();
 
         }
 
