@@ -12,9 +12,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="\Styles\Pallete.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-
-            <!-- Other resources specific to this window go here -->
-
         </ResourceDictionary>
 
     </Window.Resources>

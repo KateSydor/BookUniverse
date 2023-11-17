@@ -13,8 +13,6 @@
     using System.ComponentModel;
     using System.Windows.Data;
     using System.Windows.Input;
-    using BookUniverse.Client.CustomControls;
-
     /// <summary>
     /// Interaction logic for ListOfBooks.xaml.
     /// </summary>
@@ -33,16 +31,6 @@
 
             this.DataContext = currentUser;
             InitializeComponent();
-            Menu.AllBooksClicked += MenuControl_AllBooksClicked;
-
-        }
-
-        private void MenuControl_AllBooksClicked(object sender, EventArgs e)
-        {
-
-            ListOfBooks listOfBooks = new ListOfBooks(_authenticationService, _userService);
-            listOfBooks.Show();
-            Close();
         }
 
         private async void Book_Loaded(object sender, RoutedEventArgs e)

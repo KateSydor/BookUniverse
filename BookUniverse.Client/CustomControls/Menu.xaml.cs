@@ -10,6 +10,8 @@ namespace BookUniverse.Client.CustomControls
     /// </summary>
     public partial class Menu : UserControl
     {
+        public static event EventHandler AllBooksClicked;
+
         public Menu()
         {
             InitializeComponent();
@@ -27,8 +29,6 @@ namespace BookUniverse.Client.CustomControls
             ButtonOpenMenu.Visibility = Visibility.Visible;
         }
 
-        // Inside your Menu UserControl class
-        public static event EventHandler AllBooksClicked;
 
         private void ItemHome_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
