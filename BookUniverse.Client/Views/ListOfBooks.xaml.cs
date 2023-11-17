@@ -12,6 +12,7 @@
     using System.Collections;
     using System.ComponentModel;
     using System.Windows.Data;
+    using System.Windows.Input;
 
     /// <summary>
     /// Interaction logic for ListOfBooks.xaml.
@@ -23,7 +24,7 @@
         private User currentUser;
         private List<object> bookList;  
         private int currentPage = 1;    
-        private int booksPerPage = 5;
+        private int booksPerPage = 13;
 
 
         public ListOfBooks(IAuthenticationService authenticationService, IUserService userService)
@@ -48,6 +49,18 @@
             new { Number = "10", Title = "Cat", Author = "KateSydor" },
             new { Number = "11", Title = "Cat2", Author = "KateSydor" },
             new { Number = "12", Title = "Cat3", Author = "KateSydor" },
+             new { Number = "13", Title = "Cat", Author = "KateSydor" },
+            new { Number = "14", Title = "Cat2", Author = "KateSydor" },
+            new { Number = "15", Title = "Cat3", Author = "KateSydor" },
+            new { Number = "16", Title = "Cat", Author = "KateSydor" },
+            new { Number = "17", Title = "Cat2", Author = "KateSydor" },
+            new { Number = "18", Title = "Cat3", Author = "KateSydor" },
+            new { Number = "19", Title = "Cat", Author = "KateSydor" },
+            new { Number = "20", Title = "Cat2", Author = "KateSydor" },
+            new { Number = "21", Title = "Cat3", Author = "KateSydor" },
+            new { Number = "22", Title = "Cat", Author = "KateSydor" },
+            new { Number = "23", Title = "Cat2", Author = "KateSydor" },
+            new { Number = "24", Title = "Cat3", Author = "KateSydor" },
         };
             
 
@@ -112,6 +125,19 @@
                 Hide();
             }
         }
+
+        private void DataGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.OriginalSource is FrameworkElement source && source.DataContext != null)
+            {
+                var clickedItem = source.DataContext;
+
+                Book bookWindow = new Book(_authenticationService, _userService);
+                this.Hide();
+                bookWindow.Show();
+            }
+        }
+
 
 
         private void CloseWindow(object sender, RoutedEventArgs e)

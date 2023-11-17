@@ -105,7 +105,7 @@ Background="#2E294E">
             Foreground="#FF5C99D6"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListViewItem x:Name="ItemHome"
-                    Height="60">
+                    Height="60" PreviewMouseDown="ItemHome_PreviewMouseDown">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Bookshelf"
                                        Height="25"
@@ -113,7 +113,7 @@ Background="#2E294E">
                                        Margin="10" />
                         <TextBlock Text="All books"
                          VerticalAlignment="Center"
-                         Margin="20 10" />
+                         Margin="20 10"/>
                     </StackPanel>
                 </ListViewItem>
                 <ListViewItem x:Name="ItemCreate" Height="60">
