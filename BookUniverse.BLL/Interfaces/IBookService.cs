@@ -9,6 +9,8 @@
 
         List<Book> GetAllBooks();
 
-        List<Book> GetUserBooks(string userEmail);
+		Task<Book> GetBook(int id);
+
+		List<Book> GetUserBooks(string userEmail);
     }
 }

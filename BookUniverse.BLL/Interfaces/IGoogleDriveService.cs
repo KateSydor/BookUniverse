@@ -6,8 +6,6 @@
     {
         DriveService GetService();
 
-        //List<GoogleDrive> GetDriveFiles();
-
-        Task<(int, Google.Apis.Drive.v3.Data.File)> UploadFile(string _uploadFile);
+		Task<(int, Google.Apis.Drive.v3.Data.File)> UploadFile(string _uploadFile);
     }
 }

@@ -134,7 +134,7 @@
                 Author = author.Text,
                 CategoryName = category.Text,
                 NumberOfPages = pageCount,
-                Path = uploadedFile.Id,
+                Path = uploadedFile.WebViewLink,
             };
         }
     }
