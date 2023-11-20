@@ -62,6 +62,7 @@
                 <TextBox x:Name="author"
          HorizontalAlignment="Center"
          Margin="0,30,0,0"
+         Foreground="{StaticResource color8}"
          materialDesign:HintAssist.FloatingOffset="0,-20"
          materialDesign:HintAssist.Hint="Author"
          Width="426"
@@ -70,12 +71,13 @@
                 <TextBox x:Name="description"
 HorizontalAlignment="Center"
 Margin="0,30,0,0"
+Foreground="{StaticResource color8}"
 materialDesign:HintAssist.FloatingOffset="0,-20"
 materialDesign:HintAssist.Hint="Description"
 Width="426"
          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
 />
-                <ComboBox x:Name="category"  IsEditable="True"
+                <ComboBox x:Name="category"  IsEditable="True" Foreground="{StaticResource color8}"
               StaysOpenOnEdit="True" Width="426" Margin="0 30 0 0" materialDesign:HintAssist.HelperText="Categories" materialDesign:TextFieldAssist.UnderlineBrush="#182043" Style="{StaticResource MaterialDesignFloatingHintComboBox}" >
                     <ComboBoxItem IsSelected="True" Content="Option 1" />
                     <ComboBoxItem Content="Option 2" />
@@ -87,6 +89,7 @@ Width="426"
                 materialDesign:HintAssist.FloatingOffset="0,-20"
 materialDesign:HintAssist.Hint="File"
                 VerticalAlignment="Top"
+                Foreground="{StaticResource color8}"
                 Width="426" 
                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
 />
