@@ -32,7 +32,8 @@
                                          StaysOpen="False"
                                          Margin="10">
                     <StackPanel Width="150">
-                        <Button Content="Home" />
+                        <Button Content="Home"
+                                Click="HomeButton_Click"/>
                         <Button Content="Account"  Click="AccountButton_Click"/>
                         <Separator />
                         <Button Content="Logout"
