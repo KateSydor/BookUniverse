@@ -1,0 +1,85 @@
+﻿<Window x:Class="BookUniverse.Client.Book"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+   xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:customcontrols="clr-namespace:BookUniverse.Client.CustomControls"
+    mc:Ignorable="d" Height="750" Width="1400" Foreground="#FFE3E0" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="\Styles\Pallete.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+    </Window.Resources>
+    <Grid Background="{StaticResource color5}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.4*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid Height="60"
+          VerticalAlignment="Top"
+          Background="{StaticResource color6}"
+          Grid.ColumnSpan="3">
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="10"
+                              ShadowDepth="0"
+                              Color="{StaticResource Color5}" />
+            </Grid.Effect>
+            <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+                <TextBlock x:Name="username"
+                       Text="{Binding Username}"
+                       VerticalAlignment="Center"
+                       FontSize="16" />
+                <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges"
+                                     StaysOpen="False"
+                                     Margin="10">
+                    <StackPanel Width="150">
+                        <Button Content="Home" Click="HomeButton_Click" />
+                        <Button Content="Account"  Click="AccountButton_Click"/>
+                        <Separator />
+                        <Button Content="Logout" Click="ButtonLogout_Click"/>
+                    </StackPanel>
+                </materialDesign:PopupBox>
+                <materialDesign:PackIcon Kind="Close"
+                                     VerticalAlignment="Top"
+                                     Width="20"
+                                     Height="20"
+                                     HorizontalAlignment="Right"
+                                     Margin="0 20 14 0"
+                                     Opacity="0.3"
+                                     MouseDoubleClick="CloseWindow" />
+            </StackPanel>
+            <TextBlock HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="22">Book Universe</TextBlock>
+
+        </Grid>
+        <customcontrols:Menu/>
+        <Grid Grid.Column="1" Margin="0, 120, 0, 0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.6*"/>
+                <RowDefinition Height="0.4*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" FontSize="50" Margin="0,4,52,0" Foreground="Black">Title of Book</TextBlock>
+
+            <TextBlock  Grid.Row="1" FontSize="30" Foreground="Black" Margin="0,4,52,0">Author of Book</TextBlock>
+            <TextBlock  FontSize="20" Foreground="Black" Margin="0,4,52,0" Grid.Row="2" TextWrapping="Wrap">"Set against the backdrop of World War II, 'Echoes of Elegance' follows the intertwining lives of a young seamstress and a war-weary soldier. Their paths collide in war-torn Europe, weaving a tale of courage, sacrifice, and forbidden love amidst the turmoil of a world in chaos. As they navigate the perils of war, they discover that hope and resilience can bloom even in the darkest of times."</TextBlock>
+            <StackPanel Orientation="Horizontal" Grid.Row="3">
+                <Button Background="{StaticResource color8}" Content="Read" Foreground="#ffffff" FontSize="16" Height="40" Width="100" Margin="100, 0, 0, 0"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Column="2">
+            <Image Source="\Images\book.jpg" Margin="4,66,0,0"  />
+
+        </Grid>
+    </Grid>
+</Window>

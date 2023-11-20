@@ -7,40 +7,33 @@
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
-    using BookUniverse.BLL.Services;
-    using BookUniverse.Client.CustomControls;
-
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Collections;
+    using System.ComponentModel;
+    using System.Windows.Data;
+    using System.Windows.Input;
     /// <summary>
-    /// Interaction logic for HomeWindow.xaml.
+    /// Interaction logic for ListOfBooks.xaml.
     /// </summary>
-    public partial class HomeWindow : Window
+    public partial class Book : Window
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
         private User currentUser;
 
-        public HomeWindow(IAuthenticationService authenticationService, IUserService userService)
+        public Book(IAuthenticationService authenticationService, IUserService userService)
         {
             _authenticationService = authenticationService;
             _userService = userService;
 
-            Loaded += HomeWindow_Loaded;
+            Loaded += Book_Loaded;
 
             this.DataContext = currentUser;
             InitializeComponent();
-            Menu.AllBooksClicked += MenuControl_AllBooksClicked;
-
         }
 
-        private void MenuControl_AllBooksClicked(object sender, EventArgs e)
-        {
-
-            ListOfBooks listOfBooks = new ListOfBooks(_authenticationService, _userService);
-            listOfBooks.Show();
-            Hide();
-        }
-
-        private async void HomeWindow_Loaded(object sender, RoutedEventArgs e)
+        private async void Book_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -66,7 +59,6 @@
             }
         }
 
-
         private void CloseWindow(object sender, RoutedEventArgs e)
         {
             Application.Current.MainWindow.Close();
@@ -86,6 +78,13 @@
             UserAccount userAccount = new UserAccount(_authenticationService, _userService);
             this.Visibility = Visibility.Hidden;
             userAccount.Show();
+        }
+
+        private void HomeButton_Click(object sender, RoutedEventArgs e)
+        {
+            HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService);
+            this.Visibility = Visibility.Hidden;
+            homeWindow.Show();
         }
     }
 }
