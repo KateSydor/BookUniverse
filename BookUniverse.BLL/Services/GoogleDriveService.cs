@@ -1,11 +1,10 @@
 ﻿namespace BookUniverse.BLL.Services
 {
     using BookUniverse.BLL.Interfaces;
-	using BookUniverse.DAL.Entities;
-	using BookUniverse.DAL.Repositories.BookRepository;
-	using Google.Apis.Auth.OAuth2;
+    using BookUniverse.DAL.Repositories.BookRepository;
+    using Google.Apis.Auth.OAuth2;
     using Google.Apis.Drive.v3;
-	using Google.Apis.Services;
+    using Google.Apis.Services;
     using Google.Apis.Util.Store;
     using PdfSharp.Pdf.IO;
 
@@ -13,14 +12,14 @@
     {
         public static string[] Scopes = { DriveService.Scope.Drive, DriveService.Scope.DriveFile };
 
-		private readonly IBookRepository _bookRepository;
+        private readonly IBookRepository _bookRepository;
 
         public GoogleDriveService(IBookRepository bookRepository)
-		{
-			_bookRepository = bookRepository;
-		}
+        {
+            _bookRepository = bookRepository;
+        }
 
-		public DriveService GetService()
+        public DriveService GetService()
         {
             var applicationName = "Book Universe";
             var username = "bookuniverse34@gmail.com";
@@ -28,10 +27,10 @@
             var credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
             new ClientSecrets
             {
-                ClientId = "948131828397-8lrmubv2rt8ju5d94ve1cv4v3rjbqpt2.apps.googleusercontent.com",
-                ClientSecret = "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"
-			}, Scopes,
-            username, CancellationToken.None, new FileDataStore("1//04Fc0YyPBHh1KCgYIARAAGAQSNwF-L9Ir6X5Af6JQZJsHxP32CAaLTKPixznF9wLs9dFoB5ZCit3TJWVZm8A0S_oYv3uoZ1tIzxE")).Result;
+                ClientId = "clientId",
+                ClientSecret = "secret"
+            }, Scopes,
+            username, CancellationToken.None, new FileDataStore("token")).Result;
 
             DriveService service = new DriveService(new BaseClientService.Initializer()
             {
@@ -58,9 +57,9 @@
                     FilesResource.CreateMediaUpload request = _service.Files.Create(body, stream, body.MimeType);
                     request.SupportsTeamDrives = true;
                     await request.UploadAsync();
-					await SetPublicReadPermission(request.ResponseBody.Id, _service);
-					Google.Apis.Drive.v3.Data.File shareableFile = await GetShareableLink(request.ResponseBody.Id, _service);
-					return (pageCount, shareableFile);
+                    await SetPublicReadPermission(request.ResponseBody.Id, _service);
+                    Google.Apis.Drive.v3.Data.File shareableFile = await GetShareableLink(request.ResponseBody.Id, _service);
+                    return (pageCount, shareableFile);
                 }
                 catch
                 {
@@ -97,23 +96,23 @@
             return -1;
         }
 
-		private async Task SetPublicReadPermission(string fileId, DriveService service)
-		{
+        private async Task SetPublicReadPermission(string fileId, DriveService service)
+        {
             Google.Apis.Drive.v3.Data.Permission permission = new Google.Apis.Drive.v3.Data.Permission()
-			{
-				Role = "reader",
-				Type = "anyone",
-			};
+            {
+                Role = "reader",
+                Type = "anyone",
+            };
 
-			await service.Permissions.Create(permission, fileId).ExecuteAsync();
-		}
+            await service.Permissions.Create(permission, fileId).ExecuteAsync();
+        }
 
-		private async Task<Google.Apis.Drive.v3.Data.File> GetShareableLink(string fileId, DriveService service)
-		{
-			var fileRequest = service.Files.Get(fileId);
-			fileRequest.Fields = "id,name,webViewLink";
+        private async Task<Google.Apis.Drive.v3.Data.File> GetShareableLink(string fileId, DriveService service)
+        {
+            var fileRequest = service.Files.Get(fileId);
+            fileRequest.Fields = "id,name,webViewLink";
 
-			return await fileRequest.ExecuteAsync();
-		}
-	}
+            return await fileRequest.ExecuteAsync();
+        }
+    }
 }

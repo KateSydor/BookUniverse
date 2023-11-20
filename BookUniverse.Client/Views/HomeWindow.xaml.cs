@@ -1,10 +1,9 @@
 ﻿namespace BookUniverse.Client
 {
     using System;
-	using System.Diagnostics;
-	using System.IO;
+    using System.Diagnostics;
+    using System.IO;
     using System.Windows;
-	using BookUniverse.BLL.DTOs.BookDTOs;
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
@@ -20,7 +19,6 @@
         private readonly ICategoryService _categoryService;
         private readonly IGoogleDriveService _googleDriveService;
         private User currentUser;
-        private string filepath;
 
         public HomeWindow(
             IAuthenticationService authenticationService,
@@ -67,9 +65,9 @@
             }
 
             Book currBook = await _bookService.GetBook(7);
-			string googleDriveLink = currBook.Path;
-			System.Diagnostics.Process.Start(new ProcessStartInfo { FileName = googleDriveLink, UseShellExecute = true });
-		}
+            string googleDriveLink = currBook.Path;
+            System.Diagnostics.Process.Start(new ProcessStartInfo { FileName = googleDriveLink, UseShellExecute = true });
+        }
 
         private void CloseWindow(object sender, RoutedEventArgs e)
         {
