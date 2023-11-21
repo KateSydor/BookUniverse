@@ -16,23 +16,26 @@ namespace BookUniverse.Client
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
-        private readonly IBookService _bookService;
+        private readonly IBookManagementService _bookService;
         private readonly ICategoryService _categoryService;
         private readonly IGoogleDriveService _googleDriveService;
+        private readonly ISearchBook _searchBookService;
         private User currentUser;
         private NotifyWindow _notifyWindow = new NotifyWindow();
 
         public UserAccount(
             IAuthenticationService authenticationService,
             IUserService userService,
-            IBookService bookService,
+            IBookManagementService bookService,
             ICategoryService categoryService,
-            IGoogleDriveService googleDriveService)
+            IGoogleDriveService googleDriveService,
+            ISearchBook searchBookService)
         {
             _authenticationService = authenticationService;
             _userService = userService;
             _bookService = bookService;
             _categoryService = categoryService;
+            _searchBookService = searchBookService;
 
             Loaded += UserAccount_Loaded;
             this.DataContext = currentUser;
@@ -69,7 +72,7 @@ namespace BookUniverse.Client
             }
             catch
             {
-                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
+                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService);
                 signInPage.Show();
                 Hide();
             }
@@ -83,7 +86,7 @@ namespace BookUniverse.Client
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
+            HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService);
             this.Visibility = Visibility.Hidden;
             homeWindow.Show();
         }
@@ -109,7 +112,7 @@ namespace BookUniverse.Client
 
         private void AddBook(object sender, RoutedEventArgs e)
         {
-            AddBookWindow addBook = new AddBookWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
+            AddBookWindow addBook = new AddBookWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService);
             this.Visibility = Visibility.Hidden;
             addBook.Show();
         }

@@ -7,13 +7,13 @@
     using BookUniverse.DAL.Repositories.BookRepository;
     using BookUniverse.DAL.Repositories.UserBookRepository;
 
-    public class BookService : IBookService
+    public class BookManagementService : IBookManagementService
     {
         private readonly IBookRepository _bookRepository;
         private readonly IUserBookRepository _userBookRepository;
         private readonly IMapper _mapper;
 
-        public BookService(IBookRepository bookRepository, IUserBookRepository userBookRepository, IMapper mapper)
+        public BookManagementService(IBookRepository bookRepository, IUserBookRepository userBookRepository, IMapper mapper)
         {
             _bookRepository = bookRepository;
             _userBookRepository = userBookRepository;
@@ -31,12 +31,12 @@
             return _bookRepository.GetAll().ToList();
         }
 
-		public async Task<Book> GetBook(int id)
-		{
-			return await _bookRepository.Get(b => b.Id == id);
-		}
+        public async Task<Book> GetBook(int id)
+        {
+            return await _bookRepository.Get(b => b.Id == id);
+        }
 
-		public List<Book> GetUserBooks(string userEmail)
+        public List<Book> GetUserBooks(string userEmail)
         {
             return _userBookRepository.GetAllByUser(u => u.User.Email == userEmail).ToList();
         }
