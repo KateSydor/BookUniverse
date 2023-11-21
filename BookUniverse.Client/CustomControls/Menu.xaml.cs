@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+
 namespace BookUniverse.Client.CustomControls
 {
     /// <summary>
@@ -7,6 +10,8 @@ namespace BookUniverse.Client.CustomControls
     /// </summary>
     public partial class Menu : UserControl
     {
+        public static event EventHandler AllBooksClicked;
+
         public Menu()
         {
             InitializeComponent();
@@ -23,5 +28,13 @@ namespace BookUniverse.Client.CustomControls
             ButtonCloseMenu.Visibility = Visibility.Collapsed;
             ButtonOpenMenu.Visibility = Visibility.Visible;
         }
+
+
+        private void ItemHome_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            AllBooksClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+
     }
 }

@@ -1,7 +1,6 @@
 namespace BookUniverse.Client
 {
     using System;
-    using System.ComponentModel;
     using System.IO;
     using System.Windows;
     using BookUniverse.BLL.DTOs.UserDTOs;
@@ -21,6 +20,7 @@ namespace BookUniverse.Client
         private readonly ICategoryService _categoryService;
         private readonly IGoogleDriveService _googleDriveService;
         private User currentUser;
+        private NotifyWindow _notifyWindow = new NotifyWindow();
 
         public UserAccount(
             IAuthenticationService authenticationService,
@@ -99,11 +99,11 @@ namespace BookUniverse.Client
             {
                 await _authenticationService.EditUser(currentUser.Id, newUser);
                 currentUser = _authenticationService.CurrentAccount;
-                MessageBox.Show("Changes saved successfully!", string.Empty, MessageBoxButton.OK);
+                _notifyWindow.ShowNotification("Changes saved successfully!");
             }
             catch
             {
-                MessageBox.Show(UtilsConstants.ERROR);
+                _notifyWindow.ShowNotification(UtilsConstants.ERROR);
             }
         }
 

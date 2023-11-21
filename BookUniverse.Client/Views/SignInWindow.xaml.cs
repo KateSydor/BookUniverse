@@ -17,6 +17,7 @@
         private readonly ICategoryService _categoryService;
         private readonly IGoogleDriveService _googleDriveRepository;
         private readonly LoginDto user;
+        private NotifyWindow _notifyWindow = new NotifyWindow();
 
         public SignInWindow(
             IAuthenticationService authenticationService,
@@ -59,7 +60,7 @@
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, UtilsConstants.ERROR);
+                _notifyWindow.ShowNotification("Error: " + ex.Message.ToString());
             }
         }
 

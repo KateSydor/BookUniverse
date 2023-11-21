@@ -17,7 +17,7 @@
         private readonly ICategoryService _categoryService;
         private readonly IGoogleDriveService _googleDriveRepository;
         private readonly RegistrationDto user;
-
+        private NotifyWindow _notifyWindow = new NotifyWindow();
         public MainWindow(
             IAuthenticationService authenticationService,
             IUserService userService,
@@ -57,11 +57,11 @@
             }
             catch (ArgumentException argEx)
             {
-                MessageBox.Show(argEx.Message, UtilsConstants.ERROR);
+                _notifyWindow.ShowNotification("Error: " +  argEx.Message.ToString());
             }
             catch
             {
-                MessageBox.Show("Not valid data", UtilsConstants.ERROR);
+                _notifyWindow.ShowNotification("Error: Not valid data");
             }
         }
 

@@ -4,52 +4,35 @@
     using System.IO;
     using System.Windows;
     using BookUniverse.BLL.Interfaces;
-    using BookUniverse.Client.CustomControls;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
-
     /// <summary>
-    /// Interaction logic for HomeWindow.xaml.
+    /// Interaction logic for ListOfBooks.xaml.
     /// </summary>
-    public partial class HomeWindow : Window
+    public partial class BookWindow : Window
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
         private readonly IBookService _bookService;
         private readonly ICategoryService _categoryService;
-        private readonly IGoogleDriveService _googleDriveService;
+        private readonly IGoogleDriveService _googleDriveRepository;
         private User currentUser;
 
-        public HomeWindow(
-            IAuthenticationService authenticationService,
-            IUserService userService, IBookService bookService,
-            ICategoryService categoryService,
-            IGoogleDriveService googleDriveService)
+        public BookWindow(IAuthenticationService authenticationService, IUserService userService, IBookService bookService, ICategoryService categoryService, IGoogleDriveService googleDriveRepository)
         {
             _authenticationService = authenticationService;
             _userService = userService;
-            _bookService = bookService;
+            _bookService= bookService;
             _categoryService = categoryService;
-            _googleDriveService = googleDriveService;
+            _googleDriveRepository = googleDriveRepository;
 
-            Loaded += HomeWindow_Loaded;
+            Loaded += Book_Loaded;
 
             this.DataContext = currentUser;
-
             InitializeComponent();
-            Menu.AllBooksClicked += MenuControl_AllBooksClicked;
-
         }
 
-        private void MenuControl_AllBooksClicked(object sender, EventArgs e)
-        {
-
-            ListOfBooks listOfBooks = new ListOfBooks(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
-            listOfBooks.Show();
-            Hide();
-        }
-
-        private async void HomeWindow_Loaded(object sender, RoutedEventArgs e)
+        private async void Book_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -69,7 +52,7 @@
             }
             catch
             {
-                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
+                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository);
                 signInPage.Show();
                 Hide();
             }
@@ -84,16 +67,23 @@
         private void ButtonLogout_Click(object sender, RoutedEventArgs e)
         {
             _authenticationService.Logout();
-            SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
+            SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository);
             signInPage.Show();
             Hide();
         }
 
         private void AccountButton_Click(object sender, RoutedEventArgs e)
         {
-            UserAccount userAccount = new UserAccount(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
+            UserAccount userAccount = new UserAccount(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository);
             this.Visibility = Visibility.Hidden;
             userAccount.Show();
+        }
+
+        private void HomeButton_Click(object sender, RoutedEventArgs e)
+        {
+            HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository);
+            this.Visibility = Visibility.Hidden;
+            homeWindow.Show();
         }
     }
 }
