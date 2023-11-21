@@ -61,7 +61,7 @@
             dataGrid.ItemsSource = displayedBooks;
         }
 
-        private async void  ButtonNext_Click(object sender, RoutedEventArgs e)
+        private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
             if (currentPage * booksPerPage > bookList.Count)
             {
@@ -72,7 +72,7 @@
             DisplayBooks();
         }
 
-        private async void ButtonPrevious_Click(object sender, RoutedEventArgs e)
+        private void ButtonPrevious_Click(object sender, RoutedEventArgs e)
         {
             if (currentPage == 1)
             {
@@ -81,7 +81,6 @@
 
             currentPage--;
             DisplayBooks();
-
         }
 
         private async void ListOfBooks_Loaded(object sender, RoutedEventArgs e)

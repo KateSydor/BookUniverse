@@ -31,12 +31,12 @@
             return _bookRepository.GetAll().ToList();
         }
 
-		public async Task<Book> GetBook(int id)
-		{
-			return await _bookRepository.Get(b => b.Id == id);
-		}
+        public async Task<Book> GetBook(int id)
+        {
+            return await _bookRepository.Get(b => b.Id == id);
+        }
 
-		public List<Book> GetUserBooks(string userEmail)
+        public List<Book> GetUserBooks(string userEmail)
         {
             return _userBookRepository.GetAllByUser(u => u.User.Email == userEmail).ToList();
         }
