@@ -10,9 +10,9 @@
 
     public class AuthenticationService : IAuthenticationService
     {
+        private const string Error = "Not valid credentials.";
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
-        const string error = "Not valid credentials.";
 
         public AuthenticationService(IUserRepository userService, IMapper mapper)
         {
@@ -48,13 +48,13 @@
 
             if (storedAccount == null)
             {
-                throw new Exception(error);
+                throw new Exception(Error);
             }
 
             string storedHashedPassword = Hasher.ComputeHash(user.Password);
             if (storedHashedPassword != storedAccount.Password)
             {
-                throw new Exception(error);
+                throw new Exception(Error);
             }
 
             CurrentAccount = storedAccount;

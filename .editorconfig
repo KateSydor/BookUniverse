@@ -1,4 +1,37 @@
 ﻿[*.cs]
 
 # SA1600: Elements should be documented
-dotnet_diagnostic.SA1600.severity = suggestion
+dotnet_diagnostic.SA1600.severity = silent
+
+# SA1401: Fields should be private
+dotnet_diagnostic.SA1401.severity = silent
+
+# CA2211: Non-constant fields should not be visible
+dotnet_diagnostic.CA2211.severity = silent
+
+# SA1201: Elements should appear in the correct order
+dotnet_diagnostic.SA1201.severity = silent
+
+# SA1310: Field names should not contain underscore
+dotnet_diagnostic.SA1310.severity = silent
+
+# CA1822: Mark members as static
+dotnet_diagnostic.CA1822.severity = silent
+
+# SA1309: Field names should not begin with underscore
+dotnet_diagnostic.SA1309.severity = silent
+
+# SA1101: Prefix local calls with this
+dotnet_diagnostic.SA1101.severity = silent
+
+# Default severity for analyzer diagnostics with category 'Style'
+dotnet_analyzer_diagnostic.category-Style.severity = silent
+
+# SA1210: Using directives should be ordered alphabetically by namespace
+dotnet_diagnostic.SA1210.severity = silent
+
+# SA1208: System using directives should be placed before other using directives
+dotnet_diagnostic.SA1208.severity = silent
+
+# SA1028: Code should not contain trailing whitespace
+dotnet_diagnostic.SA1028.severity = silent
