@@ -16,14 +16,6 @@
         mc:Ignorable="d"
         Height="645"
         Width="875">
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="\Styles\Pallete.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-
-    </Window.Resources>
     <Grid Margin="20">
         <Grid.Effect>
             <DropShadowEffect BlurRadius="30"

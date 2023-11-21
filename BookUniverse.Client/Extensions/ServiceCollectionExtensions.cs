@@ -1,5 +1,6 @@
 ﻿namespace BookUniverse.Client.Extensions
 {
+    using System;
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.BLL.Services;
     using BookUniverse.DAL.Persistence;
@@ -12,7 +13,6 @@
     using BookUniverse.DAL.Repositories.UserRepository;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
-    using System;
 
     public static class ServiceCollectionExtensions
     {
@@ -39,6 +39,9 @@
             services.AddAutoMapper(currentAssemblies);
             services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IGoogleDriveService, GoogleDriveService>();
+            services.AddScoped<IBookService, BookService>();
+            services.AddScoped<ICategoryService, CategoryService>();
         }
 
         public static void AddViews(this IServiceCollection services)

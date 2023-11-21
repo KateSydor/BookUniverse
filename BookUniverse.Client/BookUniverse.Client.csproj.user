@@ -5,6 +5,9 @@
     <Compile Update="Views\Book.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\AddBookWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="CustomControls\Menu.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -17,6 +20,9 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\Book.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AddBookWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="CustomControls\BindablePassword.xaml">

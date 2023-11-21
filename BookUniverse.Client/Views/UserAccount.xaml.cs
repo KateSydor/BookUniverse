@@ -3,28 +3,40 @@ namespace BookUniverse.Client
     using System;
     using System.IO;
     using System.Windows;
-    using BookUniverse.BLL.DTOs;
+    using BookUniverse.BLL.DTOs.UserDTOs;
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
+    using BookUniverse.DAL.Enums;
 
     /// <summary>
-    /// Interaction logic for UserAccount.xaml
+    /// Interaction logic for UserAccount.xaml.
     /// </summary>
     public partial class UserAccount : Window
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
+        private readonly IBookService _bookService;
+        private readonly ICategoryService _categoryService;
+        private readonly IGoogleDriveService _googleDriveService;
         private User currentUser;
         private NotifyWindow _notifyWindow = new NotifyWindow();
 
-        public UserAccount(IAuthenticationService authenticationService, IUserService userService)
+        public UserAccount(
+            IAuthenticationService authenticationService,
+            IUserService userService,
+            IBookService bookService,
+            ICategoryService categoryService,
+            IGoogleDriveService googleDriveService)
         {
             _authenticationService = authenticationService;
             _userService = userService;
+            _bookService = bookService;
+            _categoryService = categoryService;
 
             Loaded += UserAccount_Loaded;
             this.DataContext = currentUser;
+            _googleDriveService = googleDriveService;
 
             InitializeComponent();
         }
@@ -44,6 +56,10 @@ namespace BookUniverse.Client
                     editUsername.Text = currentUser.Username;
                     editEmail.Text = currentUser.Email;
                     _authenticationService.CurrentAccount = currentUser;
+                    if (currentUser.Role != Roles.Admin)
+                    {
+                        AddBookButton.Visibility = Visibility.Hidden;
+                    }
 
                 }
                 else
@@ -53,7 +69,7 @@ namespace BookUniverse.Client
             }
             catch
             {
-                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService);
+                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
                 signInPage.Show();
                 Hide();
             }
@@ -63,12 +79,11 @@ namespace BookUniverse.Client
         {
             Application.Current.MainWindow.Close();
             Application.Current.Shutdown();
-
         }
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService);
+            HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
             this.Visibility = Visibility.Hidden;
             homeWindow.Show();
         }
@@ -88,8 +103,15 @@ namespace BookUniverse.Client
             }
             catch
             {
-                _notifyWindow.ShowNotification("Error");
+                _notifyWindow.ShowNotification(UtilsConstants.ERROR);
             }
+        }
+
+        private void AddBook(object sender, RoutedEventArgs e)
+        {
+            AddBookWindow addBook = new AddBookWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
+            this.Visibility = Visibility.Hidden;
+            addBook.Show();
         }
     }
 }

@@ -7,48 +7,38 @@
         xmlns:customcontrols="clr-namespace:BookUniverse.Client.CustomControls"
         mc:Ignorable="d" Height="750" Width="1400" Foreground="#FFE3E0" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
 
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="\Styles\Pallete.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-
-            <!-- Other resources specific to this window go here -->
-
-        </ResourceDictionary>
-
-    </Window.Resources>
-    <Grid Background="#FFDEDEDE">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="72*" />
-            <ColumnDefinition Width="103*" />
-        </Grid.ColumnDefinitions>
-        <Grid Height="60"
+	<Grid Background="#FFDEDEDE">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="72*" />
+			<ColumnDefinition Width="103*" />
+		</Grid.ColumnDefinitions>
+		<Grid Height="60"
               VerticalAlignment="Top"
               Background="{StaticResource color6}"
               Grid.ColumnSpan="2">
-            <Grid.Effect>
-                <DropShadowEffect BlurRadius="10"
+			<Grid.Effect>
+				<DropShadowEffect BlurRadius="10"
                                   ShadowDepth="0"
                                   Color="{StaticResource Color5}" />
-            </Grid.Effect>
-            <StackPanel Orientation="Horizontal"
+			</Grid.Effect>
+			<StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right">
-                <TextBlock x:Name="username"
+				<TextBlock x:Name="username"
                            Text="{Binding Username}"
                            VerticalAlignment="Center"
                            FontSize="16" />
-                <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges"
+				<materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges"
                                          StaysOpen="False"
                                          Margin="10">
-                    <StackPanel Width="150">
-                        <Button Content="Home" />
-                        <Button Content="Account"  Click="AccountButton_Click"/>
-                        <Separator />
-                        <Button Content="Logout" Click="ButtonLogout_Click"/>
-                    </StackPanel>
-                </materialDesign:PopupBox>
-                <materialDesign:PackIcon Kind="Close"
+					<StackPanel Width="150">
+						<Button Content="Home" />
+						<Button Content="Account"  Click="AccountButton_Click"/>
+						<Separator />
+						<Button Content="Logout"
+                                Click="ButtonLogout_Click" />
+					</StackPanel>
+				</materialDesign:PopupBox>
+				<materialDesign:PackIcon Kind="Close"
                                          VerticalAlignment="Top"
                                          Width="20"
                                          Height="20"
@@ -56,13 +46,12 @@
                                          Margin="0 20 14 0"
                                          Opacity="0.3"
                                          MouseDoubleClick="CloseWindow" />
-            </StackPanel>
-            <TextBlock HorizontalAlignment="Center"
+			</StackPanel>
+			<TextBlock HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        FontSize="22">Book Universe</TextBlock>
 
-        </Grid>
-        <customcontrols:Menu/>
-        
+		</Grid>
+        <customcontrols:Menu />
     </Grid>
 </Window>

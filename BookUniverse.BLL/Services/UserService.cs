@@ -1,14 +1,10 @@
-﻿using BookUniverse.BLL.Interfaces;
-using BookUniverse.DAL.Entities;
-using BookUniverse.DAL.Repositories.UserRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BookUniverse.BLL.Services
+﻿namespace BookUniverse.BLL.Services
 {
+    using System.Threading.Tasks;
+    using BookUniverse.BLL.Interfaces;
+    using BookUniverse.DAL.Entities;
+    using BookUniverse.DAL.Repositories.UserRepository;
+
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;

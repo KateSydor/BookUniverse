@@ -3,15 +3,15 @@
     using System;
     using System.IO;
     using System.Windows;
+    using BookUniverse.BLL.DTOs.BookDTOs;
     using BookUniverse.BLL.Interfaces;
-    using BookUniverse.Client.CustomControls;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
 
     /// <summary>
     /// Interaction logic for HomeWindow.xaml.
     /// </summary>
-    public partial class HomeWindow : Window
+    public partial class AddBookWindow : Window
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
@@ -19,8 +19,9 @@
         private readonly ICategoryService _categoryService;
         private readonly IGoogleDriveService _googleDriveService;
         private User currentUser;
+        private string filepath;
 
-        public HomeWindow(
+        public AddBookWindow(
             IAuthenticationService authenticationService,
             IUserService userService, IBookService bookService,
             ICategoryService categoryService,
@@ -32,24 +33,14 @@
             _categoryService = categoryService;
             _googleDriveService = googleDriveService;
 
-            Loaded += HomeWindow_Loaded;
+            Loaded += AddBookWindow_Loaded;
 
             this.DataContext = currentUser;
 
             InitializeComponent();
-            Menu.AllBooksClicked += MenuControl_AllBooksClicked;
-
         }
 
-        private void MenuControl_AllBooksClicked(object sender, EventArgs e)
-        {
-
-            ListOfBooks listOfBooks = new ListOfBooks(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
-            listOfBooks.Show();
-            Hide();
-        }
-
-        private async void HomeWindow_Loaded(object sender, RoutedEventArgs e)
+        private async void AddBookWindow_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -81,6 +72,13 @@
             Application.Current.Shutdown();
         }
 
+        private void HomeButton_Click(object sender, RoutedEventArgs e)
+        {
+            HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
+            this.Visibility = Visibility.Hidden;
+            homeWindow.Show();
+        }
+
         private void ButtonLogout_Click(object sender, RoutedEventArgs e)
         {
             _authenticationService.Logout();
@@ -94,6 +92,50 @@
             UserAccount userAccount = new UserAccount(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
             this.Visibility = Visibility.Hidden;
             userAccount.Show();
+        }
+
+        private async void button_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Category findCategory = await _categoryService.CategoryExists(category.Text);
+                (int pageCount, Google.Apis.Drive.v3.Data.File uploadedFile) = await _googleDriveService.UploadFile(filepath);
+                AddBookDto addBook = CreateAddBookDto(uploadedFile, pageCount);
+
+                _bookService.AddBook(addBook, findCategory);
+                MessageBox.Show("File successfully uploaded");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void btBrowse_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.DefaultExt = ".pdf";
+            dlg.Filter = "PDF Files|*.pdf";
+            bool? result = dlg.ShowDialog();
+
+            if (result == true)
+            {
+                filepath = dlg.FileName;
+                tbFilepath.Text = filepath;
+            }
+        }
+
+        private AddBookDto CreateAddBookDto(Google.Apis.Drive.v3.Data.File uploadedFile, int pageCount)
+        {
+            return new AddBookDto
+            {
+                Title = uploadedFile.Name,
+                Description = description.Text,
+                Author = author.Text,
+                CategoryName = category.Text,
+                NumberOfPages = pageCount,
+                Path = uploadedFile.WebViewLink,
+            };
         }
     }
 }

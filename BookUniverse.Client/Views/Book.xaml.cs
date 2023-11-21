@@ -1,31 +1,30 @@
 ﻿namespace BookUniverse.Client
 {
-    using BookUniverse.Client;
     using System;
     using System.IO;
     using System.Windows;
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Collections;
-    using System.ComponentModel;
-    using System.Windows.Data;
-    using System.Windows.Input;
     /// <summary>
     /// Interaction logic for ListOfBooks.xaml.
     /// </summary>
-    public partial class Book : Window
+    public partial class BookWindow : Window
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
+        private readonly IBookService _bookService;
+        private readonly ICategoryService _categoryService;
+        private readonly IGoogleDriveService _googleDriveRepository;
         private User currentUser;
 
-        public Book(IAuthenticationService authenticationService, IUserService userService)
+        public BookWindow(IAuthenticationService authenticationService, IUserService userService, IBookService bookService, ICategoryService categoryService, IGoogleDriveService googleDriveRepository)
         {
             _authenticationService = authenticationService;
             _userService = userService;
+            _bookService= bookService;
+            _categoryService = categoryService;
+            _googleDriveRepository = googleDriveRepository;
 
             Loaded += Book_Loaded;
 
@@ -53,7 +52,7 @@
             }
             catch
             {
-                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService);
+                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository);
                 signInPage.Show();
                 Hide();
             }
@@ -68,21 +67,21 @@
         private void ButtonLogout_Click(object sender, RoutedEventArgs e)
         {
             _authenticationService.Logout();
-            SignInWindow signInPage = new SignInWindow(_authenticationService, _userService);
+            SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository);
             signInPage.Show();
             Hide();
         }
 
         private void AccountButton_Click(object sender, RoutedEventArgs e)
         {
-            UserAccount userAccount = new UserAccount(_authenticationService, _userService);
+            UserAccount userAccount = new UserAccount(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository);
             this.Visibility = Visibility.Hidden;
             userAccount.Show();
         }
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService);
+            HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository);
             this.Visibility = Visibility.Hidden;
             homeWindow.Show();
         }
