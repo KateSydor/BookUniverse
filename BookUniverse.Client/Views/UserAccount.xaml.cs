@@ -99,6 +99,7 @@ namespace BookUniverse.Client
             {
                 await _authenticationService.EditUser(currentUser.Id, newUser);
                 currentUser = _authenticationService.CurrentAccount;
+                UsernameOnTop.Text = currentUser.Username;
                 _notifyWindow.ShowNotification("Changes saved successfully!");
             }
             catch

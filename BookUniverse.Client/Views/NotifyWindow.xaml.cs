@@ -20,7 +20,7 @@ namespace BookUniverse.Client
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            Close();
+            Hide();
         }
 
         public void ShowNotification(string message)
