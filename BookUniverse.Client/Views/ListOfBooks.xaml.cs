@@ -1,14 +1,14 @@
 ﻿namespace BookUniverse.Client
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Windows;
+    using System.Windows.Input;
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Windows.Input;
 
     /// <summary>
     /// Interaction logic for ListOfBooks.xaml.
@@ -21,12 +21,16 @@
         private readonly ICategoryService _categoryService;
         private readonly IGoogleDriveService _googleDriveRepository;
         private User currentUser;
-        private List<object> bookList;
+        private List<Book> bookList;
         private int currentPage = 1;
         private int booksPerPage = 13;
 
-
-        public ListOfBooks(IAuthenticationService authenticationService, IUserService userService, IBookService bookService, ICategoryService categoryService, IGoogleDriveService googleDriveRepository)
+        public ListOfBooks(
+            IAuthenticationService authenticationService,
+            IUserService userService,
+            IBookService bookService,
+            ICategoryService categoryService,
+            IGoogleDriveService googleDriveRepository)
         {
             _authenticationService = authenticationService;
             _userService = userService;
@@ -37,39 +41,13 @@
             Loaded += ListOfBooks_Loaded;
 
             this.DataContext = currentUser;
-            bookList = new List<object>
-        {
-            new { Number = "1", Title = "Cat", Author = "KateSydor" },
-            new { Number = "2", Title = "Cat2", Author = "KateSydor" },
-            new { Number = "3", Title = "Cat3", Author = "KateSydor" },
-            new { Number = "4", Title = "Cat", Author = "KateSydor" },
-            new { Number = "5", Title = "Cat2", Author = "KateSydor" },
-            new { Number = "6", Title = "Cat3", Author = "KateSydor" },
-            new { Number = "7", Title = "Cat", Author = "KateSydor" },
-            new { Number = "8", Title = "Cat2", Author = "KateSydor" },
-            new { Number = "9", Title = "Cat3", Author = "KateSydor" },
-            new { Number = "10", Title = "Cat", Author = "KateSydor" },
-            new { Number = "11", Title = "Cat2", Author = "KateSydor" },
-            new { Number = "12", Title = "Cat3", Author = "KateSydor" },
-            new { Number = "13", Title = "Cat", Author = "KateSydor" },
-            new { Number = "14", Title = "Cat2", Author = "KateSydor" },
-            new { Number = "15", Title = "Cat3", Author = "KateSydor" },
-            new { Number = "16", Title = "Cat", Author = "KateSydor" },
-            new { Number = "17", Title = "Cat2", Author = "KateSydor" },
-            new { Number = "18", Title = "Cat3", Author = "KateSydor" },
-            new { Number = "19", Title = "Cat", Author = "KateSydor" },
-            new { Number = "20", Title = "Cat2", Author = "KateSydor" },
-            new { Number = "21", Title = "Cat3", Author = "KateSydor" },
-            new { Number = "22", Title = "Cat", Author = "KateSydor" },
-            new { Number = "23", Title = "Cat2", Author = "KateSydor" },
-            new { Number = "24", Title = "Cat3", Author = "KateSydor" },
-        };
+            bookList = _bookService.GetAllBooks();
 
             InitializeComponent();
             dataGrid.ItemsSource = displayedBooks;
         }
 
-        private List<object> displayedBooks
+        private List<Book> displayedBooks
         {
             get
             {
@@ -83,18 +61,24 @@
             dataGrid.ItemsSource = displayedBooks;
         }
 
-
         private async void  ButtonNext_Click(object sender, RoutedEventArgs e)
         {
-            if (currentPage*booksPerPage> bookList.Count) { return; }
+            if (currentPage * booksPerPage > bookList.Count)
+            {
+                return;
+            }
+
             currentPage++;
             DisplayBooks();
-
         }
 
         private async void ButtonPrevious_Click(object sender, RoutedEventArgs e)
         {
-            if (currentPage == 1) { return; }
+            if (currentPage == 1)
+            {
+                return;
+            }
+
             currentPage--;
             DisplayBooks();
 
