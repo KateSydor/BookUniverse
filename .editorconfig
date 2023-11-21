@@ -35,3 +35,22 @@ dotnet_diagnostic.SA1208.severity = silent
 
 # SA1028: Code should not contain trailing whitespace
 dotnet_diagnostic.SA1028.severity = silent
+
+# SA1005: Single line comments should begin with single space
+dotnet_diagnostic.SA1005.severity = silent
+
+# SA1515: Single-line comment should be preceded by blank line
+dotnet_diagnostic.SA1515.severity = silent
+
+# SA1633: File should have header
+dotnet_diagnostic.SA1633.severity = silent
+
+# SA1027: Use tabs correctly
+dotnet_diagnostic.SA1027.severity = silent
+
+dotnet_diagnostic.SA1137.severity = silent
+
+# SA1503: Braces should not be omitted
+dotnet_diagnostic.SA1503.severity = silent
+
+dotnet_diagnostic.CA1416.severity = silent

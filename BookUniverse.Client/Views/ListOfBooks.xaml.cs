@@ -84,7 +84,7 @@
         }
 
 
-        private async void  ButtonNext_Click(object sender, RoutedEventArgs e)
+        private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
             if (currentPage*booksPerPage> bookList.Count) { return; }
             currentPage++;
@@ -92,7 +92,7 @@
 
         }
 
-        private async void ButtonPrevious_Click(object sender, RoutedEventArgs e)
+        private void ButtonPrevious_Click(object sender, RoutedEventArgs e)
         {
             if (currentPage == 1) { return; }
             currentPage--;

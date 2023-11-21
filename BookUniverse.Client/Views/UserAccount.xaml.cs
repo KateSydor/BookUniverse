@@ -93,7 +93,7 @@ namespace BookUniverse.Client
             EditUserDto newUser = new EditUserDto
             {
                 Username = editUsername.Text,
-                Email = editEmail.Text
+                Email = editEmail.Text,
             };
             try
             {

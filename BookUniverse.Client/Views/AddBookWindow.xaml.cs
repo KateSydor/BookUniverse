@@ -23,7 +23,8 @@
 
         public AddBookWindow(
             IAuthenticationService authenticationService,
-            IUserService userService, IBookService bookService,
+            IUserService userService, 
+            IBookService bookService,
             ICategoryService categoryService,
             IGoogleDriveService googleDriveService)
         {
