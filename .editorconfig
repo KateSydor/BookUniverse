@@ -1,56 +1,68 @@
 ﻿[*.cs]
 
 # SA1600: Elements should be documented
-dotnet_diagnostic.SA1600.severity = silent
+dotnet_diagnostic.SA1600.severity = none
 
 # SA1401: Fields should be private
-dotnet_diagnostic.SA1401.severity = silent
+dotnet_diagnostic.SA1401.severity = none
 
 # CA2211: Non-constant fields should not be visible
-dotnet_diagnostic.CA2211.severity = silent
+dotnet_diagnostic.CA2211.severity = none
 
 # SA1201: Elements should appear in the correct order
-dotnet_diagnostic.SA1201.severity = silent
+dotnet_diagnostic.SA1201.severity = none
 
 # SA1310: Field names should not contain underscore
-dotnet_diagnostic.SA1310.severity = silent
+dotnet_diagnostic.SA1310.severity = none
 
 # CA1822: Mark members as static
-dotnet_diagnostic.CA1822.severity = silent
+dotnet_diagnostic.CA1822.severity = none
 
 # SA1309: Field names should not begin with underscore
-dotnet_diagnostic.SA1309.severity = silent
+dotnet_diagnostic.SA1309.severity = none
 
 # SA1101: Prefix local calls with this
-dotnet_diagnostic.SA1101.severity = silent
+dotnet_diagnostic.SA1101.severity = none
 
 # Default severity for analyzer diagnostics with category 'Style'
-dotnet_analyzer_diagnostic.category-Style.severity = silent
+dotnet_analyzer_diagnostic.category-Style.severity = none
 
 # SA1210: Using directives should be ordered alphabetically by namespace
-dotnet_diagnostic.SA1210.severity = silent
+dotnet_diagnostic.SA1210.severity = none
 
 # SA1208: System using directives should be placed before other using directives
-dotnet_diagnostic.SA1208.severity = silent
+dotnet_diagnostic.SA1208.severity = none
 
 # SA1028: Code should not contain trailing whitespace
-dotnet_diagnostic.SA1028.severity = silent
+dotnet_diagnostic.SA1028.severity = none
 
 # SA1005: Single line comments should begin with single space
-dotnet_diagnostic.SA1005.severity = silent
+dotnet_diagnostic.SA1005.severity = none
 
 # SA1515: Single-line comment should be preceded by blank line
-dotnet_diagnostic.SA1515.severity = silent
+dotnet_diagnostic.SA1515.severity = none
 
 # SA1633: File should have header
-dotnet_diagnostic.SA1633.severity = silent
+dotnet_diagnostic.SA1633.severity = none
 
 # SA1027: Use tabs correctly
-dotnet_diagnostic.SA1027.severity = silent
+dotnet_diagnostic.SA1027.severity = none
 
-dotnet_diagnostic.SA1137.severity = silent
+dotnet_diagnostic.SA1137.severity = none
 
 # SA1503: Braces should not be omitted
-dotnet_diagnostic.SA1503.severity = silent
+dotnet_diagnostic.SA1503.severity = none
 
-dotnet_diagnostic.CA1416.severity = silent
+dotnet_diagnostic.CA1416.severity = none
+
+# SA1413: Use trailing comma in multi-line initializers
+dotnet_diagnostic.SA1413.severity = none
+
+# SA1202: Elements should be ordered by access
+dotnet_diagnostic.SA1202.severity = none
+
+# SA1009: Closing parenthesis should be spaced correctly
+dotnet_diagnostic.SA1009.severity = none
+
+# SA1111: Closing parenthesis should be on line of last parameter
+dotnet_diagnostic.SA1111.severity = none
