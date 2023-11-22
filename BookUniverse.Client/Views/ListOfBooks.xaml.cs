@@ -135,7 +135,9 @@
             {
                 var clickedItem = source.DataContext;
 
-                BookWindow bookWindow = new BookWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, 7);
+                var numberProperty = (int)clickedItem.GetType().GetProperty("Number")?.GetValue(clickedItem, null);
+
+                BookWindow bookWindow = new BookWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, numberProperty);
                 this.Hide();
                 bookWindow.Show();
             }
