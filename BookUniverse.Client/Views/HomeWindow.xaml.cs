@@ -33,6 +33,8 @@
             _googleDriveService = googleDriveService;
 
             Loaded += HomeWindow_Loaded;
+            Closed += Window_Closed;
+
 
             this.DataContext = currentUser;
 
@@ -41,12 +43,17 @@
 
         }
 
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Menu.AllBooksClicked -= MenuControl_AllBooksClicked;
+        }
+
         private void MenuControl_AllBooksClicked(object sender, EventArgs e)
         {
 
             ListOfBooks listOfBooks = new ListOfBooks(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
             listOfBooks.Show();
-            Hide();
+            Close();
         }
 
         private async void HomeWindow_Loaded(object sender, RoutedEventArgs e)
@@ -86,14 +93,14 @@
             _authenticationService.Logout();
             SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
             signInPage.Show();
-            Hide();
+            Close();
         }
 
         private void AccountButton_Click(object sender, RoutedEventArgs e)
         {
             UserAccount userAccount = new UserAccount(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
-            this.Visibility = Visibility.Hidden;
             userAccount.Show();
+            Close();
         }
     }
 }

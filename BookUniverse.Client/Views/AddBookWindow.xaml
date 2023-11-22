@@ -58,11 +58,16 @@
             <Image Source="\Images\book_shelf.jpg" Margin="-432,61,-515,0" />
         </Grid>
         <Grid Grid.Column="1">
-            <StackPanel Background="{StaticResource color4}" Margin="65,154,65,112">
-                <TextBlock Margin="0 30 0 0" Foreground="{StaticResource color8}" HorizontalAlignment="Center" FontSize="40">Add New Book</TextBlock>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="137*"/>
+                <RowDefinition Height="13*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Background="{StaticResource color4}" Margin="65,154,65,47">
+                <TextBlock Margin="0 20 0 0" Foreground="{StaticResource color8}" HorizontalAlignment="Center" FontSize="40">Add New Book</TextBlock>
                 <TextBox x:Name="author"
          HorizontalAlignment="Center"
          Margin="0,30,0,0"
+         FontSize="20"
          Foreground="{StaticResource color8}"
          materialDesign:HintAssist.FloatingOffset="0,-20"
          materialDesign:HintAssist.Hint="Author"
@@ -71,7 +76,8 @@
          />
                 <TextBox x:Name="description"
 HorizontalAlignment="Center"
-Margin="0,30,0,0"
+Margin="0,20,0,0"
+FontSize="20"
 Foreground="{StaticResource color8}"
 materialDesign:HintAssist.FloatingOffset="0,-20"
 materialDesign:HintAssist.Hint="Description"
@@ -79,14 +85,15 @@ Width="426"
          Style="{StaticResource MaterialDesignFloatingHintTextBox}"
 />
                 <ComboBox x:Name="category"  IsEditable="True" Foreground="{StaticResource color8}"
-              StaysOpenOnEdit="True" Width="426" Margin="0 30 0 0" materialDesign:HintAssist.HelperText="Categories" materialDesign:TextFieldAssist.UnderlineBrush="#182043" Style="{StaticResource MaterialDesignFloatingHintComboBox}" >
+              StaysOpenOnEdit="True" Width="426" FontSize="20" Margin="0 20 0 0" materialDesign:HintAssist.HelperText="Categories" materialDesign:TextFieldAssist.UnderlineBrush="#182043" Style="{StaticResource MaterialDesignFloatingHintComboBox}" >
                     <ComboBoxItem IsSelected="True" Content="Option 1" />
                     <ComboBoxItem Content="Option 2" />
                     <ComboBoxItem Content="Option 3" />
                 </ComboBox>
                 <TextBox x:Name="tbFilepath"
                 HorizontalAlignment="Center"
-                Margin="0,30,0,0"
+                Margin="0,20,0,0"
+                FontSize="20"
                 materialDesign:HintAssist.FloatingOffset="0,-20"
 materialDesign:HintAssist.Hint="File"
                 VerticalAlignment="Top"

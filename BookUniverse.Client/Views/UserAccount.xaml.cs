@@ -5,6 +5,7 @@ namespace BookUniverse.Client
     using System.Windows;
     using BookUniverse.BLL.DTOs.UserDTOs;
     using BookUniverse.BLL.Interfaces;
+    using BookUniverse.Client.CustomControls;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
     using BookUniverse.DAL.Enums;
@@ -35,10 +36,27 @@ namespace BookUniverse.Client
             _categoryService = categoryService;
 
             Loaded += UserAccount_Loaded;
+            Closed += Window_Closed;
+
             this.DataContext = currentUser;
             _googleDriveService = googleDriveService;
 
             InitializeComponent();
+            Menu.AllBooksClicked += MenuControl_AllBooksClicked;
+
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Menu.AllBooksClicked -= MenuControl_AllBooksClicked;
+        }
+
+        private void MenuControl_AllBooksClicked(object sender, EventArgs e)
+        {
+
+            ListOfBooks listOfBooks = new ListOfBooks(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
+            listOfBooks.Show();
+            Close();
         }
 
         private async void UserAccount_Loaded(object sender, RoutedEventArgs e)
@@ -84,8 +102,8 @@ namespace BookUniverse.Client
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
             HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
-            this.Visibility = Visibility.Hidden;
             homeWindow.Show();
+            Close();
         }
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -111,8 +129,8 @@ namespace BookUniverse.Client
         private void AddBook(object sender, RoutedEventArgs e)
         {
             AddBookWindow addBook = new AddBookWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
-            this.Visibility = Visibility.Hidden;
             addBook.Show();
+            Close();
         }
     }
 }

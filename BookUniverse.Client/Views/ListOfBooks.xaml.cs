@@ -21,7 +21,7 @@
         private readonly ICategoryService _categoryService;
         private readonly IGoogleDriveService _googleDriveRepository;
         private User currentUser;
-        private List<Book> bookList;
+        private List<object> bookList;
         private int currentPage = 1;
         private int booksPerPage = 13;
 
@@ -41,13 +41,20 @@
             Loaded += ListOfBooks_Loaded;
 
             this.DataContext = currentUser;
-            bookList = _bookService.GetAllBooks();
+            bookList = new List<object> { };
+            List<Book> tempBookList = _bookService.GetAllBooks();
+            if(tempBookList.Count != 0) {
+                for (int i = 0; i < tempBookList.Count; i++)
+                {
+                    bookList.Add(new { Number = tempBookList[i].Id, tempBookList[i].Title, tempBookList[i].Author, tempBookList[i].NumberOfPages, tempBookList[i].Rating });
+                }
+            } 
 
             InitializeComponent();
             dataGrid.ItemsSource = displayedBooks;
         }
 
-        private List<Book> displayedBooks
+        private List<object> displayedBooks
         {
             get
             {
