@@ -42,6 +42,7 @@
             services.AddScoped<IGoogleDriveService, GoogleDriveService>();
             services.AddScoped<IBookService, BookService>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<ILoggingService, LoggingService>();
         }
 
         public static void AddViews(this IServiceCollection services)
