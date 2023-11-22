@@ -69,10 +69,10 @@
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" FontSize="50" Margin="0,4,52,0" Foreground="Black">Title of Book</TextBlock>
+            <TextBlock Grid.Row="0" FontSize="50" Margin="0,4,52,0" Foreground="Black" Text="{Binding Title}"/>
 
-            <TextBlock  Grid.Row="1" FontSize="30" Foreground="Black" Margin="0,4,52,0">Author of Book</TextBlock>
-            <TextBlock  FontSize="20" Foreground="Black" Margin="0,4,52,0" Grid.Row="2" TextWrapping="Wrap">"Set against the backdrop of World War II, 'Echoes of Elegance' follows the intertwining lives of a young seamstress and a war-weary soldier. Their paths collide in war-torn Europe, weaving a tale of courage, sacrifice, and forbidden love amidst the turmoil of a world in chaos. As they navigate the perils of war, they discover that hope and resilience can bloom even in the darkest of times."</TextBlock>
+            <TextBlock  Grid.Row="1" FontSize="30" Foreground="Black" Margin="0,4,52,0" Text="{Binding Author}"/>
+            <TextBlock  FontSize="20" Foreground="Black" Margin="0,4,52,0" Grid.Row="2" TextWrapping="Wrap" Text="{Binding Description}"/>
             <StackPanel Orientation="Horizontal" Grid.Row="3">
                 <Button Background="{StaticResource color8}" Content="Read" Foreground="#ffffff" FontSize="16" Height="40" Width="100" Margin="100, 0, 0, 0"/>
             </StackPanel>

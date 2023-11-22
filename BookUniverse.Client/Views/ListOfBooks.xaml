@@ -70,7 +70,7 @@
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="1" FontSize="30" Foreground="Black">All Books</TextBlock>
 
-            <DataGrid  x:Name="dataGrid" Background="{StaticResource color5}" RowHeight="35" Margin="0,4,52,0" Grid.Row="2" PreviewMouseDown="DataGrid_PreviewMouseDown">
+            <DataGrid  x:Name="dataGrid" Background="{StaticResource color5}" RowHeight="35" Margin="0,4,52,0" Grid.Row="2" PreviewMouseDown="DataGrid_PreviewMouseDown" AutoGeneratingColumn="OnAutoGeneratingColumn">
                 
             </DataGrid>
             <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="0,23,0,0">
