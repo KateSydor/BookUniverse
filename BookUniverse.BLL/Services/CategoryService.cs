@@ -23,5 +23,10 @@
 
             return category;
         }
+
+        public List<Category> GetAllCategories()
+        {
+            return _categoryRepository.GetAll().ToList();
+        }
     }
 }

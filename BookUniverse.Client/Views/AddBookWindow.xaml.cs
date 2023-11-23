@@ -1,7 +1,9 @@
 ﻿namespace BookUniverse.Client
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Windows;
     using BookUniverse.BLL.DTOs.BookDTOs;
     using BookUniverse.BLL.Interfaces;
@@ -20,6 +22,7 @@
         private readonly ICategoryService _categoryService;
         private readonly IGoogleDriveService _googleDriveService;
         private User currentUser;
+        private Book currentBook;
         private string filepath;
 
         public AddBookWindow(
@@ -37,9 +40,14 @@
             Loaded += AddBookWindow_Loaded;
             Closed += Window_Closed;
 
-            this.DataContext = currentUser;
+            currentBook = new Book();
+            this.DataContext = currentBook;
 
             InitializeComponent();
+
+            List<string> categories = _categoryService.GetAllCategories().Select(c => c.CategoryName).ToList();
+            category.ItemsSource = categories;
+
             Menu.AllBooksClicked += MenuControl_AllBooksClicked;
 
         }
@@ -146,7 +154,7 @@
         {
             return new AddBookDto
             {
-                Title = uploadedFile.Name,
+                Title = title.Text,
                 Description = description.Text,
                 Author = author.Text,
                 CategoryName = category.Text,
