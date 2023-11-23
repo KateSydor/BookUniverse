@@ -5,5 +5,7 @@
     public interface ICategoryService
     {
         Task<Category> CategoryExists(string categoryName);
+
+        List<Category> GetAllCategories();
     }
 }

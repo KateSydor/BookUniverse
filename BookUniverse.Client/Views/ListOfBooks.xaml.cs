@@ -1,14 +1,16 @@
 ﻿namespace BookUniverse.Client
 {
     using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
     using System.IO;
+    using System.Linq;
     using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Windows.Input;
 
     /// <summary>
     /// Interaction logic for ListOfBooks.xaml.
@@ -25,8 +27,12 @@
         private int currentPage = 1;
         private int booksPerPage = 13;
 
-
-        public ListOfBooks(IAuthenticationService authenticationService, IUserService userService, IBookService bookService, ICategoryService categoryService, IGoogleDriveService googleDriveRepository)
+        public ListOfBooks(
+            IAuthenticationService authenticationService,
+            IUserService userService,
+            IBookService bookService,
+            ICategoryService categoryService,
+            IGoogleDriveService googleDriveRepository)
         {
             _authenticationService = authenticationService;
             _userService = userService;
@@ -37,33 +43,14 @@
             Loaded += ListOfBooks_Loaded;
 
             this.DataContext = currentUser;
-            bookList = new List<object>
-        {
-            new { Number = "1", Title = "Cat", Author = "KateSydor" },
-            new { Number = "2", Title = "Cat2", Author = "KateSydor" },
-            new { Number = "3", Title = "Cat3", Author = "KateSydor" },
-            new { Number = "4", Title = "Cat", Author = "KateSydor" },
-            new { Number = "5", Title = "Cat2", Author = "KateSydor" },
-            new { Number = "6", Title = "Cat3", Author = "KateSydor" },
-            new { Number = "7", Title = "Cat", Author = "KateSydor" },
-            new { Number = "8", Title = "Cat2", Author = "KateSydor" },
-            new { Number = "9", Title = "Cat3", Author = "KateSydor" },
-            new { Number = "10", Title = "Cat", Author = "KateSydor" },
-            new { Number = "11", Title = "Cat2", Author = "KateSydor" },
-            new { Number = "12", Title = "Cat3", Author = "KateSydor" },
-            new { Number = "13", Title = "Cat", Author = "KateSydor" },
-            new { Number = "14", Title = "Cat2", Author = "KateSydor" },
-            new { Number = "15", Title = "Cat3", Author = "KateSydor" },
-            new { Number = "16", Title = "Cat", Author = "KateSydor" },
-            new { Number = "17", Title = "Cat2", Author = "KateSydor" },
-            new { Number = "18", Title = "Cat3", Author = "KateSydor" },
-            new { Number = "19", Title = "Cat", Author = "KateSydor" },
-            new { Number = "20", Title = "Cat2", Author = "KateSydor" },
-            new { Number = "21", Title = "Cat3", Author = "KateSydor" },
-            new { Number = "22", Title = "Cat", Author = "KateSydor" },
-            new { Number = "23", Title = "Cat2", Author = "KateSydor" },
-            new { Number = "24", Title = "Cat3", Author = "KateSydor" },
-        };
+            bookList = new List<object> { };
+            List<Book> tempBookList = _bookService.GetAllBooks();
+            if(tempBookList.Count != 0) {
+                for (int i = 0; i < tempBookList.Count; i++)
+                {
+                    bookList.Add(new { Number = tempBookList[i].Id, tempBookList[i].Title, tempBookList[i].Author, tempBookList[i].NumberOfPages, tempBookList[i].Rating });
+                }
+            } 
 
             InitializeComponent();
             dataGrid.ItemsSource = displayedBooks;
@@ -83,21 +70,26 @@
             dataGrid.ItemsSource = displayedBooks;
         }
 
-
-        private async void  ButtonNext_Click(object sender, RoutedEventArgs e)
+        private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
-            if (currentPage*booksPerPage> bookList.Count) { return; }
+            if (currentPage * booksPerPage > bookList.Count)
+            {
+                return;
+            }
+
             currentPage++;
             DisplayBooks();
-
         }
 
-        private async void ButtonPrevious_Click(object sender, RoutedEventArgs e)
+        private void ButtonPrevious_Click(object sender, RoutedEventArgs e)
         {
-            if (currentPage == 1) { return; }
+            if (currentPage == 1)
+            {
+                return;
+            }
+
             currentPage--;
             DisplayBooks();
-
         }
 
         private async void ListOfBooks_Loaded(object sender, RoutedEventArgs e)
@@ -126,13 +118,26 @@
             }
         }
 
+        private void OnAutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            PropertyDescriptor propertyDescriptor = (PropertyDescriptor)e.PropertyDescriptor;
+            e.Column.Header = propertyDescriptor.DisplayName;
+            if (propertyDescriptor.DisplayName == "Number")
+            {
+                e.Cancel = true;
+            }
+        }
+
+
         private void DataGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.OriginalSource is FrameworkElement source && source.DataContext != null)
             {
                 var clickedItem = source.DataContext;
 
-                BookWindow bookWindow = new BookWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository);
+                var numberProperty = (int)clickedItem.GetType().GetProperty("Number")?.GetValue(clickedItem, null);
+
+                BookWindow bookWindow = new BookWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, numberProperty);
                 this.Hide();
                 bookWindow.Show();
             }
