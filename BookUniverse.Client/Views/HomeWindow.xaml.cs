@@ -45,30 +45,6 @@
             Menu.SearchBooksClicked += MenuControl_SearchBooksClicked;
         }
 
-        private async void Search()
-        {
-            string searchText = "\"it's time to sit down in a quiet place, take out paper and pencil\"";
-
-            if (!string.IsNullOrEmpty(searchText))
-            {
-                try
-                {
-                    var volumes = await _searchBookService.SearchAsync(searchText);
-
-                    ResultsListBox.Items.Clear();
-
-                    foreach (var volume in volumes.Items)
-                    {
-                        ResultsListBox.Items.Add($"{volume.VolumeInfo.Title} by {string.Join(", ", volume.VolumeInfo.Authors)}");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error while getting data: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-        }
-
         private void MenuControl_AllBooksClicked(object sender, EventArgs e)
         {
 
