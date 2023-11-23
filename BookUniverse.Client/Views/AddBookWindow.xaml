@@ -106,6 +106,13 @@
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="DarkRed" FontSize="10" Margin="0,52,0,0" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
                 </TextBox>
                 <TextBox x:Name="description"
                          HorizontalAlignment="Center"
@@ -124,6 +131,13 @@
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="DarkRed" FontSize="10" Margin="0,52,0,0" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
                 </TextBox>
                 <ComboBox x:Name="category"
                           IsEditable="False"
@@ -172,10 +186,20 @@
 
                                 <Style.Triggers>
 
-                                    <DataTrigger Binding="{Binding Text.Length, ElementName=tbFilepath, UpdateSourceTrigger=PropertyChanged}"
-                                                 Value="0">
-                                        <Setter Property="IsHitTestVisible"
-                                                Value="False" />
+                                    <DataTrigger Binding="{Binding Text.Length, ElementName=tbFilepath, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                        <Setter Property="IsHitTestVisible" Value="False" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Text.Length, ElementName=title, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                        <Setter Property="IsHitTestVisible" Value="False" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Text.Length, ElementName=author, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                        <Setter Property="IsHitTestVisible" Value="False" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Text.Length, ElementName=description, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                        <Setter Property="IsHitTestVisible" Value="False" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Text.Length, ElementName=category, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                        <Setter Property="IsHitTestVisible" Value="False" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>

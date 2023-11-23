@@ -20,7 +20,7 @@ namespace BookUniverse.Client
         private readonly IBookService _bookService;
         private readonly ICategoryService _categoryService;
         private readonly IGoogleDriveService _googleDriveService;
-        private User currentUser;
+        private User currentUser = new User();
         private NotifyWindow _notifyWindow = new NotifyWindow();
 
         public UserAccount(
