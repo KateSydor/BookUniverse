@@ -42,6 +42,7 @@
             Search();
             InitializeComponent();
             Menu.AllBooksClicked += MenuControl_AllBooksClicked;
+            Menu.SearchBooksClicked += MenuControl_SearchBooksClicked;
         }
 
         private async void Search()
@@ -72,6 +73,13 @@
         {
 
             ListOfBooks listOfBooks = new ListOfBooks(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService);
+            listOfBooks.Show();
+            Hide();
+        }
+        private void MenuControl_SearchBooksClicked(object sender, EventArgs e)
+        {
+
+            BookSearch listOfBooks = new BookSearch(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService);
             listOfBooks.Show();
             Hide();
         }

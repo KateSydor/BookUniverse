@@ -11,6 +11,7 @@ namespace BookUniverse.Client.CustomControls
     public partial class Menu : UserControl
     {
         public static event EventHandler AllBooksClicked;
+        public static event EventHandler SearchBooksClicked;
 
         public Menu()
         {
@@ -33,8 +34,21 @@ namespace BookUniverse.Client.CustomControls
         private void ItemHome_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             AllBooksClicked?.Invoke(this, EventArgs.Empty);
+            CloseWindow();
         }
-
+        private void ItemHome_PreviewMouseDown2(object sender, MouseButtonEventArgs e)
+        {
+            SearchBooksClicked?.Invoke(this, EventArgs.Empty);
+            CloseWindow();
+        }
+        private void CloseWindow()
+        {
+            Window parentWindow = Window.GetWindow(this);
+            if (parentWindow != null)
+            {
+                parentWindow.Close();
+            }
+        }
 
     }
 }

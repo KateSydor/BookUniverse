@@ -13,7 +13,7 @@
         {
             _booksService = new BooksService(new BaseClientService.Initializer
             {
-                ApiKey = "apikey",
+                ApiKey = "AIzaSyDS_9JgqfcmFaPVk-tJkqdUn43xiWVglIg",
                 ApplicationName = "Book Universe",
             });
         }

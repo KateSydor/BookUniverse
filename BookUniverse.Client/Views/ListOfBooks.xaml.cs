@@ -175,5 +175,6 @@
             this.Visibility = Visibility.Hidden;
             homeWindow.Show();
         }
+        
     }
 }

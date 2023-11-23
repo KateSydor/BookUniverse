@@ -147,7 +147,7 @@ Background="#2E294E">
                         </ComboBox>
                     </StackPanel>
                 </ListViewItem>
-                <ListViewItem Height="60">
+                <ListViewItem Height="60"  PreviewMouseDown="ItemHome_PreviewMouseDown2">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Search"
                                        Height="25"
