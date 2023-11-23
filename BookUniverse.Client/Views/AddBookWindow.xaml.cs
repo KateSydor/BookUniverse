@@ -46,6 +46,7 @@
             InitializeComponent();
 
             List<string> categories = _categoryService.GetAllCategories().Select(c => c.CategoryName).ToList();
+            categories.Add("Add new category");
             category.ItemsSource = categories;
 
             Menu.AllBooksClicked += MenuControl_AllBooksClicked;
@@ -117,6 +118,17 @@
             UserAccount userAccount = new UserAccount(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
             userAccount.Show();
             Close();
+        }
+
+        private void CategoryComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            System.Windows.Controls.ComboBox comboBox = (System.Windows.Controls.ComboBox)sender;
+
+            if (comboBox.SelectedItem as string == "Add new category")
+            {
+                // open modal window for adding new category
+                comboBox.SelectedItem = null;
+            }
         }
 
         private async void button_Click(object sender, RoutedEventArgs e)

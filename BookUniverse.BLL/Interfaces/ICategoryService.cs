@@ -7,5 +7,7 @@
         Task<Category> CategoryExists(string categoryName);
 
         List<Category> GetAllCategories();
+
+        void AddCategory(string categoryName);
     }
 }

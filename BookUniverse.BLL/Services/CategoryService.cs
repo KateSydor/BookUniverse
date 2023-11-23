@@ -28,5 +28,12 @@
         {
             return _categoryRepository.GetAll().ToList();
         }
+
+        public async void AddCategory(string categoryName)
+        {
+            Category newCategory = new Category() { CategoryName = categoryName };
+            _categoryRepository.Create(newCategory);
+        }
+
     }
 }
