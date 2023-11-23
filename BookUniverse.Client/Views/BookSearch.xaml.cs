@@ -71,24 +71,22 @@
         private async void Search_Click(object sender, RoutedEventArgs e)
         {
             string searchText = searchTextBox.Text;
+            string searchQuery = $"\"{searchText}\"";
 
             if (!string.IsNullOrEmpty(searchText))
             {
                 try
                 {
-                    var volumes = await _searchBookService.SearchAsync(searchText);
+                    var volumes = await _searchBookService.SearchAsync(searchQuery);
 
-                    List<string> searchResults = new List<string>();
+                    resultListBox.Items.Clear();
 
                     foreach (var volume in volumes.Items)
                     {
-                        string result = $"{volume.VolumeInfo.Title} by {string.Join(", ", volume.VolumeInfo.Authors)}";
-                        searchResults.Add(result);
+                        resultListBox.Items.Add($"{volume.VolumeInfo.Title} by {string.Join(", ", volume.VolumeInfo.Authors)}");
                     }
-
-                    resultListBox.ItemsSource = searchResults;
                 }
-                catch (Exception ex)
+                catch
                 {
                     _notifyWindow.ShowNotification("No book found");
                     resultListBox.ItemsSource = "";
