@@ -106,6 +106,14 @@ namespace BookUniverse.Client
             Close();
         }
 
+        private void ButtonLogout_Click(object sender, RoutedEventArgs e)
+        {
+            _authenticationService.Logout();
+            SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
+            signInPage.Show();
+            Close();
+        }
+
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
             EditUserDto newUser = new EditUserDto
