@@ -39,7 +39,6 @@
             Loaded += HomeWindow_Loaded;
 
             this.DataContext = currentUser;
-            Search();
             InitializeComponent();
             Menu.AllBooksClicked += MenuControl_AllBooksClicked;
             Menu.SearchBooksClicked += MenuControl_SearchBooksClicked;
