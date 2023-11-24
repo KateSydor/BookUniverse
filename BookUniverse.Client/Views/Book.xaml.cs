@@ -35,6 +35,8 @@
 
         private async void Book_Loaded(object sender, RoutedEventArgs e)
         {
+            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
+            SystemCommands.MaximizeWindow(this);
             this.DataContext = await _bookService.GetBook(bookId);
             try
             {

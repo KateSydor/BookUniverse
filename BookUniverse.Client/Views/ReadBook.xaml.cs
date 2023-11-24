@@ -37,6 +37,8 @@
 
         private async void Book_Loaded(object sender, RoutedEventArgs e)
         {
+            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
+            SystemCommands.MaximizeWindow(this);
             Book currBook = await _bookService.GetBook(bookId);
             myweb.Source = new Uri(currBook.Path, UriKind.RelativeOrAbsolute);
             try
