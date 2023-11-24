@@ -44,14 +44,15 @@
                         <Button Content="Logout" Click="ButtonLogout_Click"/>
                     </StackPanel>
                 </materialDesign:PopupBox>
-                <materialDesign:PackIcon Kind="Close"
-                                     VerticalAlignment="Top"
-                                     Width="20"
-                                     Height="20"
-                                     HorizontalAlignment="Right"
-                                     Margin="0 20 14 0"
-                                     Opacity="0.3"
-                                     MouseDoubleClick="CloseWindow" />
+                <Button Click="CloseWindow" BorderBrush="Transparent" Background="Transparent">
+                    <materialDesign:PackIcon Kind="Close"
+             VerticalAlignment="Top"
+             Width="20"
+             Height="20"
+             HorizontalAlignment="Right"
+             Margin="0 0 14 0"
+             Opacity="0.3"/>
+                </Button>
             </StackPanel>
             <TextBlock HorizontalAlignment="Center"
                    VerticalAlignment="Center"
