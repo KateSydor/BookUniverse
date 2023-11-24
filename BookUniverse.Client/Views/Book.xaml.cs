@@ -81,6 +81,14 @@
             userAccount.Show();
         }
 
+        private void ReadButtonClick(object sender, RoutedEventArgs e)
+        {
+            ReadBook readBook = new ReadBook(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository);
+            this.Visibility = Visibility.Hidden;
+            readBook.Show();
+        }
+
+
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
             HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository);
