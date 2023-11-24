@@ -59,7 +59,7 @@
 
         </Grid>
         <Grid>
-            <WebBrowser x:Name="myweb" Source="https://drive.google.com/file/d/1-lyI4TS_6Hx67zus3F6X4eVvOD9Bre7i/view?usp=drive_link" Margin="0,58,0,0"></WebBrowser>
+            <WebBrowser x:Name="myweb" Margin="0,58,0,0"></WebBrowser>
         </Grid>
     </Grid>
 </Window>

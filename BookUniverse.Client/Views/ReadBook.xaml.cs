@@ -19,14 +19,16 @@
         private readonly ICategoryService _categoryService;
         private readonly IGoogleDriveService _googleDriveRepository;
         private User currentUser;
+        private int bookId;
 
-        public ReadBook(IAuthenticationService authenticationService, IUserService userService, IBookService bookService, ICategoryService categoryService, IGoogleDriveService googleDriveRepository)
+        public ReadBook(IAuthenticationService authenticationService, IUserService userService, IBookService bookService, ICategoryService categoryService, IGoogleDriveService googleDriveRepository, int bookId)
         {
             _authenticationService = authenticationService;
             _userService = userService;
             _bookService = bookService;
             _categoryService = categoryService;
             _googleDriveRepository = googleDriveRepository;
+            this.bookId = bookId;
 
             Loaded += Book_Loaded;
 
@@ -35,6 +37,8 @@
 
         private async void Book_Loaded(object sender, RoutedEventArgs e)
         {
+            Book currBook = await _bookService.GetBook(bookId);
+            myweb.Source = new Uri(currBook.Path, UriKind.RelativeOrAbsolute);
             try
             {
                 string[] lines = File.ReadAllLines(UtilsConstants.FILE_PATH);

@@ -83,7 +83,7 @@
 
         private void ReadButtonClick(object sender, RoutedEventArgs e)
         {
-            ReadBook readBook = new ReadBook(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository);
+            ReadBook readBook = new ReadBook(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, bookId);
             this.Visibility = Visibility.Hidden;
             readBook.Show();
         }
