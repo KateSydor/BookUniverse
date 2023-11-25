@@ -106,9 +106,9 @@
 
         public void Logout()
         {
-            _logger.LogInformation($"User {CurrentAccount.Username} is trying to logout");
             CurrentAccount = null;
             ClearAuthFile(UtilsConstants.FILE_PATH);
+            _logger.LogInformation($"User is trying to logout");
         }
 
         private void ClearAuthFile(string filePath)
