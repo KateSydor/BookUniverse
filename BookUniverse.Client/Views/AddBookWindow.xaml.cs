@@ -2,11 +2,13 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.IO;
     using System.Linq;
     using System.Windows;
     using BookUniverse.BLL.DTOs.BookDTOs;
     using BookUniverse.BLL.Interfaces;
+    using BookUniverse.BLL.Services;
     using BookUniverse.Client.CustomControls;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
@@ -24,6 +26,7 @@
         private User currentUser;
         private Book currentBook;
         private string filepath;
+        ObservableCollection<string> categories;
 
         public AddBookWindow(
             IAuthenticationService authenticationService,
@@ -45,12 +48,11 @@
 
             InitializeComponent();
 
-            List<string> categories = _categoryService.GetAllCategories().Select(c => c.CategoryName).ToList();
+            categories = new ObservableCollection<string>(_categoryService.GetAllCategories().Select(c => c.CategoryName));
             categories.Add("Add new category");
             category.ItemsSource = categories;
 
             Menu.AllBooksClicked += MenuControl_AllBooksClicked;
-
         }
 
         private void Window_Closed(object sender, EventArgs e)
@@ -126,9 +128,16 @@
 
             if (comboBox.SelectedItem as string == "Add new category")
             {
-                // open modal window for adding new category
+                AddCategoryWindow addCategory = new AddCategoryWindow(_categoryService, UpdateCategories);
+                addCategory.Show();
                 comboBox.SelectedItem = null;
             }
+        }
+
+        private void UpdateCategories(string newCategoryName)
+        {
+            categories.Insert(categories.Count - 1, newCategoryName);
+            category.ItemsSource = categories;
         }
 
         private async void button_Click(object sender, RoutedEventArgs e)

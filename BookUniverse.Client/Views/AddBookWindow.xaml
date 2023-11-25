@@ -148,6 +148,7 @@
                           Margin="0 20 0 0"
                           materialDesign:HintAssist.Hint="Categories"
                           SelectionChanged="CategoryComboBox_SelectionChanged"
+                          ItemsSource="{Binding CategoryCollection}"
                           Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                 </ComboBox>
                 <TextBox x:Name="tbFilepath"

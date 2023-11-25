@@ -8,6 +8,6 @@
 
         List<Category> GetAllCategories();
 
-        void AddCategory(string categoryName);
+        Task AddCategory(string categoryName);
     }
 }
