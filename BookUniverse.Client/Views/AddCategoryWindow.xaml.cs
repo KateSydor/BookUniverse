@@ -3,6 +3,7 @@
     using System;
     using System.Windows;
     using BookUniverse.BLL.Interfaces;
+    using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
 
     /// <summary>
@@ -13,6 +14,7 @@
         private readonly ICategoryService _categoryService;
         private readonly Action<string> _updateCategoriesCallback;
         private Category category;
+        private NotifyWindow _notifyWindow = new NotifyWindow();
 
         public AddCategoryWindow(ICategoryService categoryService, Action<string> updateCategoriesCallback)
         {
@@ -26,10 +28,17 @@
 
         private async void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            string newCategoryName = CategoryNameTextBox.Text;
-            await _categoryService.AddCategory(newCategoryName);
-            _updateCategoriesCallback.Invoke(newCategoryName);
-            Close();
+            try
+            {
+                string newCategoryName = CategoryNameTextBox.Text;
+                await _categoryService.AddCategory(newCategoryName);
+                _updateCategoriesCallback.Invoke(newCategoryName);
+                Close();
+            }
+            catch
+            {
+                _notifyWindow.ShowNotification(UtilsConstants.ERROR);
+            }
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
