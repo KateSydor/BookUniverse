@@ -17,8 +17,9 @@
         private readonly ICategoryService _categoryService;
         private readonly IGoogleDriveService _googleDriveRepository;
         private User currentUser;
+        private int bookId;
 
-        public BookWindow(IAuthenticationService authenticationService, IUserService userService, IBookService bookService, ICategoryService categoryService, IGoogleDriveService googleDriveRepository)
+        public BookWindow(IAuthenticationService authenticationService, IUserService userService, IBookService bookService, ICategoryService categoryService, IGoogleDriveService googleDriveRepository, int bookId)
         {
             _authenticationService = authenticationService;
             _userService = userService;
@@ -27,13 +28,14 @@
             _googleDriveRepository = googleDriveRepository;
 
             Loaded += Book_Loaded;
-
-            this.DataContext = currentUser;
+            this.bookId = bookId;
+            
             InitializeComponent();
         }
 
         private async void Book_Loaded(object sender, RoutedEventArgs e)
         {
+            this.DataContext = await _bookService.GetBook(bookId);
             try
             {
                 string[] lines = File.ReadAllLines(UtilsConstants.FILE_PATH);

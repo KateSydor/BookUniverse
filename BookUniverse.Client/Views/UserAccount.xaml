@@ -23,7 +23,8 @@
                         <Button Content="Home" Click="HomeButton_Click"/>
                         <Button Content="Account"/>
                         <Separator/>
-                        <Button Content="Logout"/>
+                        <Button Content="Logout"
+                                Click="ButtonLogout_Click"/>
                     </StackPanel>
                 </materialDesign:PopupBox>
                 <materialDesign:PackIcon Kind="Close" VerticalAlignment="Top" Width="20" Height="20" HorizontalAlignment="Right" Margin="0 20 14 0" Opacity="0.3" MouseDoubleClick="CloseWindow"/>
@@ -45,10 +46,24 @@
              Margin="0 0 0 0" 
              BorderThickness="0 0 0 1.5" 
              BorderBrush="{StaticResource color8}"
-             Text=" "
-             Foreground="Black" 
+             Foreground="{StaticResource color8}" 
              FontSize="20" 
              Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                    <TextBox.Text>
+                        <Binding Path="Username"
+             UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <local:UsernameValidationRules/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="DarkRed" FontSize="10" Margin="0,52,0,0" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
 
                 </TextBox>
 
@@ -57,10 +72,24 @@
                   Margin="0 20 0 10" 
                   BorderThickness="0 0 0 1.5" 
                   BorderBrush="{StaticResource color8}" 
-                  Text=""
-                  Foreground="Black" 
+                  Foreground="{StaticResource color8}" 
                   FontSize="20" 
                   Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                    <TextBox.Text>
+                        <Binding Path="Email"
+             UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <local:EmailValidationRules />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="DarkRed" FontSize="10" Margin="0,52,0,0" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
 
                 </TextBox>
 
@@ -76,10 +105,10 @@
                     <Button.Style>
                         <Style TargetType="{x:Type Button}">
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding Text.Length, ElementName=edit_username, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                <DataTrigger Binding="{Binding Text.Length, ElementName=editUsername, UpdateSourceTrigger=PropertyChanged}" Value="0">
                                     <Setter Property="IsHitTestVisible" Value="False"/>
                                 </DataTrigger>
-                                <DataTrigger Binding="{Binding Text.Length, ElementName=edit_email, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                <DataTrigger Binding="{Binding Text.Length, ElementName=editEmail, UpdateSourceTrigger=PropertyChanged}" Value="0">
                                     <Setter Property="IsHitTestVisible" Value="False"/>
                                 </DataTrigger>
                             </Style.Triggers>
