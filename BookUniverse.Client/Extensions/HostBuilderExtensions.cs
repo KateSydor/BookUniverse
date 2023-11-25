@@ -12,9 +12,9 @@
             builder.UseSerilog((host, loggerConfiguration) =>
             {
                 loggerConfiguration
-                    .WriteTo.File(new JsonFormatter(), "logs.json", rollingInterval: RollingInterval.Day)
+                    .WriteTo.File(new JsonFormatter(), "logs-.json", rollingInterval: RollingInterval.Day, retainedFileCountLimit: 5)
                     .WriteTo.Debug()
-                    .MinimumLevel.Warning()
+                    .MinimumLevel.Information()
                     .MinimumLevel.Override("BookUniverse", LogEventLevel.Debug)
                     .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
                     .MinimumLevel.Override("System", LogEventLevel.Warning)

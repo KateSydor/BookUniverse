@@ -10,6 +10,6 @@
 
         void LogDebug(string msg);
 
-        void LogError(object request, string errorMsg);
+        void LogError(object? request, string errorMsg);
     }
 }

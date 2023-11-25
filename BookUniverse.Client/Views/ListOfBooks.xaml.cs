@@ -1,14 +1,14 @@
 ﻿namespace BookUniverse.Client
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Windows;
+    using System.Windows.Input;
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Windows.Input;
 
     /// <summary>
     /// Interaction logic for ListOfBooks.xaml.
@@ -24,7 +24,6 @@
         private List<object> bookList;
         private int currentPage = 1;
         private int booksPerPage = 13;
-
 
         public ListOfBooks(IAuthenticationService authenticationService, IUserService userService, IBookService bookService, ICategoryService categoryService, IGoogleDriveService googleDriveRepository)
         {
