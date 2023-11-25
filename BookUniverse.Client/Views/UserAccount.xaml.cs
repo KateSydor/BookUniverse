@@ -20,6 +20,9 @@ namespace BookUniverse.Client
         private readonly IBookService _bookService;
         private readonly ICategoryService _categoryService;
         private readonly IGoogleDriveService _googleDriveService;
+        private readonly IFolderService _folderService;
+        private readonly IBookFolderService _bookFolderService;
+
         private User currentUser = new User();
         private NotifyWindow _notifyWindow = new NotifyWindow();
 
@@ -28,12 +31,17 @@ namespace BookUniverse.Client
             IUserService userService,
             IBookService bookService,
             ICategoryService categoryService,
-            IGoogleDriveService googleDriveService)
+            IGoogleDriveService googleDriveService,
+            IFolderService folderService,
+            IBookFolderService bookFolderService )
         {
             _authenticationService = authenticationService;
             _userService = userService;
             _bookService = bookService;
             _categoryService = categoryService;
+            _googleDriveService = googleDriveService;
+            _folderService = folderService;
+            _bookFolderService = bookFolderService;
 
             Loaded += UserAccount_Loaded;
             Closed += Window_Closed;
@@ -54,7 +62,7 @@ namespace BookUniverse.Client
         private void MenuControl_AllBooksClicked(object sender, EventArgs e)
         {
 
-            ListOfBooks listOfBooks = new ListOfBooks(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
+            ListOfBooks listOfBooks = new ListOfBooks(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _folderService, _bookFolderService);
             listOfBooks.Show();
             Close();
         }
@@ -87,7 +95,7 @@ namespace BookUniverse.Client
             }
             catch
             {
-                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
+                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _folderService, _bookFolderService);
                 signInPage.Show();
                 Hide();
             }
@@ -101,7 +109,7 @@ namespace BookUniverse.Client
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
+            HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _folderService, _bookFolderService);
             homeWindow.Show();
             Close();
         }
@@ -109,7 +117,7 @@ namespace BookUniverse.Client
         private void ButtonLogout_Click(object sender, RoutedEventArgs e)
         {
             _authenticationService.Logout();
-            SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
+            SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _folderService, _bookFolderService);
             signInPage.Show();
             Close();
         }
@@ -136,7 +144,7 @@ namespace BookUniverse.Client
 
         private void AddBook(object sender, RoutedEventArgs e)
         {
-            AddBookWindow addBook = new AddBookWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
+            AddBookWindow addBook = new AddBookWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _folderService, _bookFolderService);
             addBook.Show();
             Close();
         }

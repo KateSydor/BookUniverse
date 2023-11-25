@@ -5,6 +5,8 @@
     using System.ComponentModel;
     using System.IO;
     using System.Linq;
+    using System.Reflection;
+    using System.Text;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
@@ -22,6 +24,8 @@
         private readonly IBookService _bookService;
         private readonly ICategoryService _categoryService;
         private readonly IGoogleDriveService _googleDriveRepository;
+        private readonly IFolderService _folderService;
+        private readonly IBookFolderService _bookFolderService;
         private User currentUser;
         private List<object> bookList;
         private int currentPage = 1;
@@ -32,13 +36,17 @@
             IUserService userService,
             IBookService bookService,
             ICategoryService categoryService,
-            IGoogleDriveService googleDriveRepository)
+            IGoogleDriveService googleDriveRepository,
+            IFolderService folderService,
+            IBookFolderService bookFolderService)
         {
             _authenticationService = authenticationService;
             _userService = userService;
             _bookService = bookService;
             _categoryService = categoryService;
             _googleDriveRepository = googleDriveRepository;
+            _folderService = folderService;
+            _bookFolderService = bookFolderService;
 
             Loaded += ListOfBooks_Loaded;
 
@@ -112,7 +120,7 @@
             }
             catch
             {
-                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository);
+                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _folderService, _bookFolderService);
                 signInPage.Show();
                 Hide();
             }
@@ -137,7 +145,7 @@
 
                 var numberProperty = (int)clickedItem.GetType().GetProperty("Number")?.GetValue(clickedItem, null);
 
-                BookWindow bookWindow = new BookWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, numberProperty);
+                BookWindow bookWindow = new BookWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, numberProperty, _folderService, _bookFolderService);
                 this.Hide();
                 bookWindow.Show();
             }
@@ -154,21 +162,21 @@
         private void ButtonLogout_Click(object sender, RoutedEventArgs e)
         {
             _authenticationService.Logout();
-            SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository);
+            SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _folderService, _bookFolderService);
             signInPage.Show();
             Hide();
         }
 
         private void AccountButton_Click(object sender, RoutedEventArgs e)
         {
-            UserAccount userAccount = new UserAccount(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository);
+            UserAccount userAccount = new UserAccount(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _folderService, _bookFolderService);
             this.Visibility = Visibility.Hidden;
             userAccount.Show();
         }
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository);
+            HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _folderService, _bookFolderService);
             this.Visibility = Visibility.Hidden;
             homeWindow.Show();
         }

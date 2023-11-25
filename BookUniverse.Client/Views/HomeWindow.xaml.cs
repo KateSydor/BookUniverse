@@ -19,19 +19,25 @@
         private readonly IBookService _bookService;
         private readonly ICategoryService _categoryService;
         private readonly IGoogleDriveService _googleDriveService;
+        private readonly IFolderService _folderService;
+        private readonly IBookFolderService _bookFolderService;
         private User currentUser;
 
         public HomeWindow(
             IAuthenticationService authenticationService,
             IUserService userService, IBookService bookService,
             ICategoryService categoryService,
-            IGoogleDriveService googleDriveService)
+            IGoogleDriveService googleDriveService,
+            IFolderService folderService,
+            IBookFolderService bookFolderService)
         {
             _authenticationService = authenticationService;
             _userService = userService;
             _bookService = bookService;
             _categoryService = categoryService;
             _googleDriveService = googleDriveService;
+            _folderService = folderService;
+            _bookFolderService = bookFolderService;
 
             Loaded += HomeWindow_Loaded;
             Closed += Window_Closed;
@@ -52,7 +58,7 @@
         private void MenuControl_AllBooksClicked(object sender, EventArgs e)
         {
 
-            ListOfBooks listOfBooks = new ListOfBooks(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
+            ListOfBooks listOfBooks = new ListOfBooks(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _folderService, _bookFolderService);
             listOfBooks.Show();
             Close();
         }
@@ -77,7 +83,7 @@
             }
             catch
             {
-                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
+                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _folderService, _bookFolderService);
                 signInPage.Show();
                 Hide();
             }
@@ -92,14 +98,14 @@
         private void ButtonLogout_Click(object sender, RoutedEventArgs e)
         {
             _authenticationService.Logout();
-            SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
+            SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _folderService, _bookFolderService);
             signInPage.Show();
             Close();
         }
 
         private void AccountButton_Click(object sender, RoutedEventArgs e)
         {
-            UserAccount userAccount = new UserAccount(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
+            UserAccount userAccount = new UserAccount(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _folderService, _bookFolderService);
             userAccount.Show();
             Close();
         }

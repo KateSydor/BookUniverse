@@ -76,7 +76,7 @@
             <TextBlock  FontSize="20" Foreground="Black" Margin="0,4,52,0" Grid.Row="2" TextWrapping="Wrap" Text="{Binding Description}"/>
             <StackPanel Orientation="Horizontal" Grid.Row="3">
                 <Button Background="{StaticResource color8}" Content="Read" Foreground="#ffffff" FontSize="16" Height="40" Width="100" Margin="40, 0, 0, 0" Click="ReadButtonClick"/>
-                <Button Background="{StaticResource color8}" Content="Add to folder" Foreground="#ffffff" FontSize="16" Height="40" Width="150" Margin="50, 0, 0, 0"/>
+                <Button Background="{StaticResource color8}" Content="Add to folder" Foreground="#ffffff" FontSize="16" Height="40" Width="150" Margin="50, 0, 0, 0" Click="AddFolderClick"/>
                 <Button Background="{StaticResource color8}" Content="Add to favourites" Foreground="#ffffff" FontSize="16" Height="40" Width="160" Margin="50, 0, 0, 0"/>
 
             </StackPanel>

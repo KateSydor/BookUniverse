@@ -16,6 +16,8 @@
         private readonly IBookService _bookService;
         private readonly ICategoryService _categoryService;
         private readonly IGoogleDriveService _googleDriveRepository;
+        private readonly IFolderService _folderService;
+        private readonly IBookFolderService _bookFolderService;
         private readonly LoginDto user;
         private NotifyWindow _notifyWindow = new NotifyWindow();
 
@@ -24,7 +26,9 @@
             IUserService userService,
             IBookService bookService,
             ICategoryService categoryService,
-            IGoogleDriveService googleDriveRepository)
+            IGoogleDriveService googleDriveRepository, 
+            IFolderService folderService,
+            IBookFolderService bookFolderService)
         {
             InitializeComponent();
             _authenticationService = authenticationService;
@@ -32,6 +36,8 @@
             _bookService = bookService;
             _categoryService = categoryService;
             _googleDriveRepository = googleDriveRepository;
+            _folderService = folderService;
+            _bookFolderService = bookFolderService;
 
             user = new LoginDto();
             this.DataContext = user;
@@ -39,7 +45,7 @@
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow signUpWindow = new MainWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository);
+            MainWindow signUpWindow = new MainWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _folderService, _bookFolderService);
             this.Visibility = Visibility.Hidden;
             signUpWindow.Show();
         }
@@ -53,7 +59,7 @@
                 await _authenticationService.Login(user);
                 if (_authenticationService.IsLoggedIn())
                 {
-                    HomeWindow homePage = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository);
+                    HomeWindow homePage = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _folderService, _bookFolderService);
                     homePage.Show();
                     Hide();
                 }
