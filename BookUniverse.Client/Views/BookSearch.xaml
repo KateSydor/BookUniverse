@@ -142,15 +142,28 @@
                 </Grid.ColumnDefinitions>
                 <ListBox x:Name="resultListBox"
                          Margin="0,10,0,59"
-                         ScrollViewer.VerticalScrollBarVisibility="Auto">
+                         ScrollViewer.VerticalScrollBarVisibility="Auto"
+                         MouseDoubleClick="ResultListBox_MouseDoubleClick">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding}"
-                                       FontSize="16"
-                                       FontWeight="DemiBold" />
+                                           FontSize="16"
+                                           FontWeight="DemiBold" />
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
+                <Popup x:Name="copyPopup"
+                       StaysOpen="False"
+                       PlacementTarget="{Binding ElementName=resultListBox}"
+                       MaxWidth="180"
+                       AllowsTransparency="True">
+                    <TextBlock TextWrapping="Wrap"
+                               FontSize="14"
+                               Width="180"
+                               Foreground="{StaticResource color8}"
+                               Text="Copied to the clipboard!"
+                               Opacity="0.8" />
+                </Popup>
             </Grid>
         </Grid>
     </Grid>
