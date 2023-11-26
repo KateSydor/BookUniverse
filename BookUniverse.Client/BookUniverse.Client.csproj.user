@@ -5,6 +5,9 @@
     <Compile Update="FoldersWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="NewFolderWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\ReadBook.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -26,6 +29,9 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="FoldersWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="NewFolderWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\ReadBook.xaml">

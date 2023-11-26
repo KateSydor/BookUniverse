@@ -5,5 +5,6 @@
 
     public interface IFolderRepository : IRepository<Folder>
     {
+        Task<Folder> GetLastAddedFolder();
     }
 }

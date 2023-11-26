@@ -17,9 +17,7 @@ using System.ComponentModel;
 using System.IO;
 using BookUniverse.DAL.Entities;
 using BookUniverse.DAL.Constants.UtilsConstants;
-
-
-
+using MaterialDesignThemes.Wpf;
 
 namespace BookUniverse.Client
 {
@@ -40,7 +38,10 @@ namespace BookUniverse.Client
 
         private List<object> foldersList;
         private Book currentBook;
-        public FoldersWindow(IAuthenticationService authenticationService,
+        
+
+        public FoldersWindow(
+            IAuthenticationService authenticationService,
             IUserService userService,
             IBookService bookService,
             ICategoryService categoryService,
@@ -117,6 +118,7 @@ namespace BookUniverse.Client
                     BookId = currentBook.Id, 
                     FolderId = numberProperty 
                 };
+
                 await _bookFolderService.AddInFolder(bookFolderInstance);
                 this.Visibility = Visibility.Hidden;
                 _notifyWindow.ShowNotification($"Book was added in folder \n -{nameFolder}-");
@@ -134,7 +136,16 @@ namespace BookUniverse.Client
             }
         }
 
-        private void AddFolder_Click (object sender, RoutedEventArgs e) { }
+        private void AddFolder_Click (object sender, RoutedEventArgs e) 
+        {
+            try
+            {
+                NewFolderWindow newFolderWindow = new NewFolderWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _folderService, _bookFolderService, currentBook.Id);
+                newFolderWindow.Show();
+                Hide();
+            }
+            catch (Exception ex) { _notifyWindow.ShowNotification($"Error:\n{ex.Message}"); }
+        }
 
         private void CloseWindow(object sender, RoutedEventArgs e)
         {

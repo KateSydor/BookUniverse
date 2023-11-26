@@ -62,7 +62,7 @@
                     <TextBlock Grid.Row="0" FontSize="30" Margin="220,5,0,0"  Foreground="Black">All Folders</TextBlock>
                     <DataGrid x:Name="dataGrid" Background="{StaticResource color4}" RowHeight="35" Margin="0,4,0,0" Grid.Row="2" PreviewMouseDown="DataGrid_PreviewMouseDown" AutoGeneratingColumn="OnAutoGeneratingColumn">
                     </DataGrid>
-                    <Button Background="{StaticResource color8}" Content="Add Folder" Grid.Row="4" Foreground="#ffffff" FontSize="16" Height="40" Width="150"  Click="AddFolder_Click"/>
+                    <Button Background="{StaticResource color8}" Content="Add new Folder" Grid.Row="4" Foreground="#ffffff" FontSize="16" Height="40" Width="180"  Click="AddFolder_Click"/>
 
 
 

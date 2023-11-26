@@ -29,7 +29,22 @@ namespace BookUniverse.BLL.Services
             return _folderRepository.GetAll().ToList();
         }
 
-        
+        public async Task AddNewFolder(Folder folder)
+        {
+            Folder newFolder = await _folderRepository.Get(u => u.FolderName == folder.FolderName);
+
+            if (newFolder != null)
+            {
+                throw new Exception("Folder with this name already exist");
+            }
+            await _folderRepository.Create(folder);
+        }
+
+        public async Task<Folder> GetLastFolder()
+        {
+            return await _folderRepository.GetLastAddedFolder();
+        }
+
     }
 }
 

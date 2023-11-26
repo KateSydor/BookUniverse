@@ -27,11 +27,6 @@ namespace BookUniverse.BLL.Services
 
         public async Task AddInFolder(BookFolder folder)
         {
-            int j = folder.Id;
-            var g = folder.Book;
-            var e = folder.BookId;
-            var w = folder.Folder;
-            var t = folder.FolderId;
             await _folderRepository.Create(folder);
         }
     }
