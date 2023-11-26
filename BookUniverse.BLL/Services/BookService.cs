@@ -40,5 +40,10 @@
         {
             return _userBookRepository.GetAllByUser(u => u.User.Email == userEmail).ToList();
         }
+
+        public async Task AddUserBook(UserBook newUserBook)
+        {
+            await _userBookRepository.Create(newUserBook);
+        }
     }
 }

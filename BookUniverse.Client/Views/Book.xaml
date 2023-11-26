@@ -5,7 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:customcontrols="clr-namespace:BookUniverse.Client.CustomControls"
-    mc:Ignorable="d" Height="750" Width="1400" Foreground="#FFE3E0" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+    mc:Ignorable="d" Height="750" Width="1400" Foreground="#FFE3E0" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowState="Normal" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -77,7 +77,8 @@
             <StackPanel Orientation="Horizontal" Grid.Row="3">
                 <Button Background="{StaticResource color8}" Content="Read" Foreground="#ffffff" FontSize="16" Height="40" Width="100" Margin="40, 0, 0, 0" Click="ReadButtonClick"/>
                 <Button Background="{StaticResource color8}" Content="Add to folder" Foreground="#ffffff" FontSize="16" Height="40" Width="150" Margin="50, 0, 0, 0"/>
-                <Button Background="{StaticResource color8}" Content="Add to favourites" Foreground="#ffffff" FontSize="16" Height="40" Width="160" Margin="50, 0, 0, 0"/>
+                <Button Background="{StaticResource color8}" Content="Add to favourites" Foreground="#ffffff" FontSize="16" Height="40" Width="160" Margin="50, 0, 0, 0"
+                        Click="FavButton_Click" />
 
             </StackPanel>
         </Grid>
