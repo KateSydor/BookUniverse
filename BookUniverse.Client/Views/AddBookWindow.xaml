@@ -76,7 +76,7 @@
                 <RowDefinition Height="670" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <StackPanel Background="{StaticResource color4}" Grid.Row="1"
+            <StackPanel Width="550" Background="{StaticResource color4}" Grid.Row="1"
                         Margin="65,90,65,8">
                 <TextBlock Margin="0 20 0 0"
                            Foreground="{StaticResource color8}"
