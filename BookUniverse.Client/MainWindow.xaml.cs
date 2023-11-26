@@ -57,7 +57,7 @@
             }
             catch (ArgumentException argEx)
             {
-                _notifyWindow.ShowNotification("Error: " +  argEx.Message.ToString());
+                _notifyWindow.ShowNotification("Error: " + argEx.Message);
             }
             catch
             {
