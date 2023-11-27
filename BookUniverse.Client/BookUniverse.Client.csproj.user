@@ -3,6 +3,7 @@
   <PropertyGroup />
   <ItemGroup>
     <Compile Update="Views\ReadBook.xaml.cs">
+    <Compile Update="Views\AddCategoryWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Book.xaml.cs">
@@ -23,6 +24,7 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Views\ReadBook.xaml">
+    <Page Update="Views\AddCategoryWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Book.xaml">
