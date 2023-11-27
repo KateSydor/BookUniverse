@@ -15,6 +15,7 @@ namespace BookUniverse.Client.CustomControls
 
         public Menu()
         {
+            this.Height = SystemParameters.MaximizedPrimaryScreenHeight;
             InitializeComponent();
         }
 

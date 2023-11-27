@@ -2,6 +2,10 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
+    <Compile Update="Views\ReadBook.xaml.cs">
+    <Compile Update="Views\AddCategoryWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\BookSearch.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -22,6 +26,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Views\ReadBook.xaml">
+    <Page Update="Views\AddCategoryWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\BookSearch.xaml">
       <SubType>Designer</SubType>
     </Page>

@@ -1,12 +1,22 @@
 ﻿<Window x:Class="BookUniverse.Client.AddBookWindow"
-                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:customcontrols="clr-namespace:BookUniverse.Client.CustomControls"
+        xmlns:local="clr-namespace:BookUniverse.Client.Validation.BookValidation"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        mc:Ignorable="d" Height="750" Width="1400" Foreground="#FFE3E0" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+        mc:Ignorable="d"
+        Height="750"
+        Width="1400"
+        Foreground="#FFE3E0"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent">
 
     <Grid Background="{StaticResource color5}">
         <Grid.ColumnDefinitions>
@@ -25,7 +35,7 @@
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right">
                 <TextBlock x:Name="username"
-                           Text="{Binding Username}"
+                           Text=""
                            VerticalAlignment="Center"
                            FontSize="16" />
                 <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges"
@@ -33,21 +43,23 @@
                                          Margin="10">
                     <StackPanel Width="150">
                         <Button Content="Home"
-                                Click="HomeButton_Click"/>
-                        <Button Content="Account"  Click="AccountButton_Click"/>
+                                Click="HomeButton_Click" />
+                        <Button Content="Account"
+                                Click="AccountButton_Click" />
                         <Separator />
                         <Button Content="Logout"
                                 Click="ButtonLogout_Click" />
                     </StackPanel>
                 </materialDesign:PopupBox>
-                <materialDesign:PackIcon Kind="Close"
-                                         VerticalAlignment="Top"
-                                         Width="20"
-                                         Height="20"
-                                         HorizontalAlignment="Right"
-                                         Margin="0 20 14 0"
-                                         Opacity="0.3"
-                                         MouseDoubleClick="CloseWindow" />
+                <Button Click="CloseWindow" BorderBrush="Transparent" Background="Transparent">
+                    <materialDesign:PackIcon Kind="Close"
+             VerticalAlignment="Top"
+             Width="20"
+             Height="20"
+             HorizontalAlignment="Right"
+             Margin="0 0 14 0"
+             Opacity="0.3"/>
+                </Button>
             </StackPanel>
             <TextBlock HorizontalAlignment="Center"
                        VerticalAlignment="Center"
@@ -55,74 +67,143 @@
 
         </Grid>
         <Grid Grid.Column="0">
-            <Image Source="\Images\book_shelf.jpg" Margin="-432,61,-515,0" />
+            <Image Source="\Images\book_shelf.jpg"
+                   Margin="-432,61,-515,0" />
         </Grid>
         <Grid Grid.Column="1">
-            <StackPanel Background="{StaticResource color4}" Margin="65,154,65,112">
-                <TextBlock Margin="0 30 0 0" Foreground="{StaticResource color8}" HorizontalAlignment="Center" FontSize="40">Add New Book</TextBlock>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="670" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Width="550" Background="{StaticResource color4}" Grid.Row="1"
+                        Margin="75,90,75,41">
+                <TextBlock Margin="0 20 0 0"
+                           Foreground="{StaticResource color8}"
+                           HorizontalAlignment="Center"
+                           FontSize="40">Add New Book</TextBlock>
+                <TextBox x:Name="title"
+                         HorizontalAlignment="Center"
+                         Margin="0,20,0,0"
+                         FontSize="20"
+                         Foreground="{StaticResource color8}"
+                         materialDesign:HintAssist.FloatingOffset="0,-20"
+                         materialDesign:HintAssist.Hint="Title"
+                         Width="426"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                 <TextBox x:Name="author"
-         HorizontalAlignment="Center"
-         Margin="0,30,0,0"
-         Foreground="{StaticResource color8}"
-         materialDesign:HintAssist.FloatingOffset="0,-20"
-         materialDesign:HintAssist.Hint="Author"
-         Width="426"
-         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-         />
+                         HorizontalAlignment="Center"
+                         Margin="0,20,0,0"
+                         FontSize="20"
+                         Foreground="{StaticResource color8}"
+                         materialDesign:HintAssist.FloatingOffset="0,-20"
+                         materialDesign:HintAssist.Hint="Author"
+                         Width="426"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                    <TextBox.Text>
+                        <Binding Path="Author"
+                                 UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <local:AuthorValidationRules />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="DarkRed" FontSize="10" Margin="0,52,0,0" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
                 <TextBox x:Name="description"
-HorizontalAlignment="Center"
-Margin="0,30,0,0"
-Foreground="{StaticResource color8}"
-materialDesign:HintAssist.FloatingOffset="0,-20"
-materialDesign:HintAssist.Hint="Description"
-Width="426"
-         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-/>
-                <ComboBox x:Name="category"  IsEditable="True" Foreground="{StaticResource color8}"
-              StaysOpenOnEdit="True" Width="426" Margin="0 30 0 0" materialDesign:HintAssist.HelperText="Categories" materialDesign:TextFieldAssist.UnderlineBrush="#182043" Style="{StaticResource MaterialDesignFloatingHintComboBox}" >
-                    <ComboBoxItem IsSelected="True" Content="Option 1" />
-                    <ComboBoxItem Content="Option 2" />
-                    <ComboBoxItem Content="Option 3" />
+                         HorizontalAlignment="Center"
+                         Margin="0,20,0,0"
+                         FontSize="20"
+                         Foreground="{StaticResource color8}"
+                         materialDesign:HintAssist.FloatingOffset="0,-20"
+                         materialDesign:HintAssist.Hint="Description"
+                         Width="426"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                    <TextBox.Text>
+                        <Binding Path="Description"
+                                 UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <local:DescriptionValidationRules/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="DarkRed" FontSize="10" Margin="0,52,0,0" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
+                <ComboBox x:Name="category"
+                          IsEditable="False"
+                          Foreground="{StaticResource color8}"
+                          StaysOpenOnEdit="True"
+                          Width="426"
+                          FontSize="20"
+                          Margin="0 20 0 0"
+                          materialDesign:HintAssist.Hint="Categories"
+                          SelectionChanged="CategoryComboBox_SelectionChanged"
+                          ItemsSource="{Binding CategoryCollection}"
+                          Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                 </ComboBox>
                 <TextBox x:Name="tbFilepath"
-                HorizontalAlignment="Center"
-                Margin="0,30,0,0"
-                materialDesign:HintAssist.FloatingOffset="0,-20"
-materialDesign:HintAssist.Hint="File"
-                VerticalAlignment="Top"
-                Foreground="{StaticResource color8}"
-                Width="426" 
-                Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-/>
+                         IsReadOnly="True"
+                         HorizontalAlignment="Center"
+                         Margin="0,20,0,0"
+                         FontSize="20"
+                         materialDesign:HintAssist.FloatingOffset="0,-20"
+                         materialDesign:HintAssist.Hint="File"
+                         VerticalAlignment="Top"
+                         Foreground="{StaticResource color8}"
+                         Width="426"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                 <StackPanel Orientation="Horizontal"
-            Margin="0 50 0 0">
+                            Margin="0 50 0 0">
                     <Button x:Name="btBrowse"
-               Content="Browse"
-               Background="{StaticResource color8}"
-Foreground="#ffffff"
-FontSize="16"
-               Margin="150,0,0,0"
-               VerticalAlignment="Top"
-               Width="100"
-               Height="40"
-               Click="btBrowse_Click" />
+                            Content="Browse"
+                            Background="{StaticResource color8}"
+                            Foreground="#ffffff"
+                            FontSize="16"
+                            Margin="150,0,0,0"
+                            VerticalAlignment="Top"
+                            Width="100"
+                            Height="40"
+                            Click="btBrowse_Click" />
                     <Button x:Name="button"
-               Margin="50,0,0,0"
-               Content="Upload"
-                                           Background="{StaticResource color8}"
-Foreground="#ffffff"
-FontSize="16"
-               Width="120"
-               Height="40"
-               Click="button_Click"
-               >
+                            Margin="50,0,0,0"
+                            Content="Upload"
+                            Background="{StaticResource color8}"
+                            Foreground="#ffffff"
+                            FontSize="16"
+                            Width="120"
+                            Height="40"
+                            Click="button_Click">
                         <Button.Style>
                             <Style TargetType="{x:Type Button}">
 
                                 <Style.Triggers>
 
                                     <DataTrigger Binding="{Binding Text.Length, ElementName=tbFilepath, UpdateSourceTrigger=PropertyChanged}" Value="0">
-                                        <Setter Property="IsHitTestVisible" Value="False"/>
+                                        <Setter Property="IsHitTestVisible" Value="False" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Text.Length, ElementName=title, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                        <Setter Property="IsHitTestVisible" Value="False" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Text.Length, ElementName=author, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                        <Setter Property="IsHitTestVisible" Value="False" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Text.Length, ElementName=description, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                        <Setter Property="IsHitTestVisible" Value="False" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Text.Length, ElementName=category, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                        <Setter Property="IsHitTestVisible" Value="False" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>

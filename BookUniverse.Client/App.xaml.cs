@@ -16,6 +16,7 @@
         public App()
         {
             AppHost = Host.CreateDefaultBuilder()
+                .ConfigureSerilog()
                 .ConfigureServices((hostContext, services) =>
                 {
                     IConfiguration configuration = new ConfigurationBuilder()
@@ -31,7 +32,6 @@
                     services.AddServices();
 
                     services.AddViews();
-
                 }).Build();
         }
 
