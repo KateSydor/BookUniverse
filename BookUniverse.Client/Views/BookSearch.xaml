@@ -27,7 +27,7 @@
 
     <Grid Background="{StaticResource color5}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.2*" />
+            <ColumnDefinition Width="250" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
@@ -81,7 +81,7 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="79*" />
-                <RowDefinition Height="60*" />
+                <RowDefinition Height="50" />
                 <RowDefinition Height="207*" />
                 <RowDefinition Height="280*" />
                 <RowDefinition Height="124*" />
@@ -97,8 +97,8 @@
                     <RowDefinition Height="312*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="850" />
-                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="886*" />
+                    <ColumnDefinition Width="281*" />
                 </Grid.ColumnDefinitions>
 
 
@@ -122,15 +122,16 @@
                         VerticalAlignment="Center"
                         Foreground="#ffffff"
                         FontSize="16"
-                        Height="40"
-                        Margin="10,0,10,0"
+                        Height="52"
+                        MaxWidth="150"
+                        Margin="10,0,141,0"
                         Click="Search_Click" />
 
                 <TextBlock x:Name="scrollableTextBox"
                            Grid.Row="1"
                            FontSize="30"
                            Foreground="Black"
-                           Text="Result:" />
+                           Text="Result:" Grid.ColumnSpan="2" Margin="0,0,3,0" />
 
 
             </Grid>
