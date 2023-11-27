@@ -3,7 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Threading.Tasks;
     using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
@@ -94,8 +97,18 @@
             }
         }
 
+        private void ResultListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            ListBox listBox = (ListBox)sender;
 
-
+            if (listBox.SelectedItem != null)
+            {
+                string selectedText = listBox.SelectedItem.ToString();
+                Clipboard.SetText(selectedText);
+                copyPopup.IsOpen = true;
+                Task.Delay(2000).ContinueWith(_ => Dispatcher.Invoke(() => copyPopup.IsOpen = false));
+            }
+        }
 
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
