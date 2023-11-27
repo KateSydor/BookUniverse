@@ -4,6 +4,7 @@
     using System.Windows;
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.DAL.Constants.UtilsConstants;
+    using BookUniverse.DAL.Constants.ValidationConstants;
     using BookUniverse.DAL.Entities;
 
     /// <summary>
@@ -31,9 +32,16 @@
             try
             {
                 string newCategoryName = CategoryNameTextBox.Text;
-                await _categoryService.AddCategory(newCategoryName);
-                _updateCategoriesCallback.Invoke(newCategoryName);
-                Close();
+                if (newCategoryName.Length > CategoryValidationConstants.CATEGORYNAME_MIN_LENGTH && newCategoryName.Length < CategoryValidationConstants.CATEGORYNAME_MAX_LENGTH)
+                {
+                    await _categoryService.AddCategory(newCategoryName);
+                    _updateCategoriesCallback.Invoke(newCategoryName);
+                    Close();
+                }
+                else
+                {
+                    _notifyWindow.ShowNotification(UtilsConstants.INPUT_VALID_DATA);
+                }
             }
             catch
             {

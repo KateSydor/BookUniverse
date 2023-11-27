@@ -4,11 +4,13 @@ namespace BookUniverse.Client
     using System.IO;
     using System.Windows;
     using BookUniverse.BLL.DTOs.UserDTOs;
+    using BookUniverse.BLL.DTOValidators.UserValidators;
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.Client.CustomControls;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
     using BookUniverse.DAL.Enums;
+    using FluentValidation.Results;
 
     /// <summary>
     /// Interaction logic for UserAccount.xaml.
@@ -123,10 +125,20 @@ namespace BookUniverse.Client
             };
             try
             {
-                await _authenticationService.EditUser(currentUser.Id, newUser);
-                currentUser = _authenticationService.CurrentAccount;
-                UsernameOnTop.Text = currentUser.Username;
-                _notifyWindow.ShowNotification("Changes saved successfully!");
+                EditUserDtoValidator validator = new EditUserDtoValidator();
+                ValidationResult validationResult = validator.Validate(newUser);
+
+                if (validationResult.IsValid)
+                {
+                    await _authenticationService.EditUser(currentUser.Id, newUser);
+                    currentUser = _authenticationService.CurrentAccount;
+                    UsernameOnTop.Text = currentUser.Username;
+                    _notifyWindow.ShowNotification("Changes saved successfully!");
+                }
+                else
+                {
+                    _notifyWindow.ShowNotification(UtilsConstants.INPUT_VALID_DATA);
+                }
             }
             catch
             {
