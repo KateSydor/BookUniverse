@@ -4,63 +4,43 @@
     using System.IO;
     using System.Reflection;
     using System.Windows;
+    using System.Windows.Controls;
     using BookUniverse.BLL.Interfaces;
-    using BookUniverse.Client.CustomControls;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
-
     /// <summary>
-    /// Interaction logic for HomeWindow.xaml.
+    /// Interaction logic for ListOfBooks.xaml.
     /// </summary>
-    public partial class HomeWindow : Window
+    public partial class ReadBook : Window
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
         private readonly IBookService _bookService;
         private readonly ICategoryService _categoryService;
-        private readonly IGoogleDriveService _googleDriveService;
+        private readonly IGoogleDriveService _googleDriveRepository;
         private User currentUser;
+        private int bookId;
 
-        public HomeWindow(
-            IAuthenticationService authenticationService,
-            IUserService userService, IBookService bookService,
-            ICategoryService categoryService,
-            IGoogleDriveService googleDriveService)
+        public ReadBook(IAuthenticationService authenticationService, IUserService userService, IBookService bookService, ICategoryService categoryService, IGoogleDriveService googleDriveRepository, int bookId)
         {
             _authenticationService = authenticationService;
             _userService = userService;
             _bookService = bookService;
             _categoryService = categoryService;
-            _googleDriveService = googleDriveService;
+            _googleDriveRepository = googleDriveRepository;
+            this.bookId = bookId;
 
-            Loaded += HomeWindow_Loaded;
-            Closed += Window_Closed;
-
-
-            this.DataContext = currentUser;
+            Loaded += Book_Loaded;
 
             InitializeComponent();
-            Menu.AllBooksClicked += MenuControl_AllBooksClicked;
-
         }
 
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            Menu.AllBooksClicked -= MenuControl_AllBooksClicked;
-        }
-
-        private void MenuControl_AllBooksClicked(object sender, EventArgs e)
-        {
-
-            ListOfBooks listOfBooks = new ListOfBooks(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
-            listOfBooks.Show();
-            Close();
-        }
-
-        private async void HomeWindow_Loaded(object sender, RoutedEventArgs e)
+        private async void Book_Loaded(object sender, RoutedEventArgs e)
         {
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
             SystemCommands.MaximizeWindow(this);
+            Book currBook = await _bookService.GetBook(bookId);
+            myweb.Source = new Uri(currBook.Path, UriKind.RelativeOrAbsolute);
             try
             {
                 string[] lines = File.ReadAllLines(UtilsConstants.FILE_PATH);
@@ -79,7 +59,7 @@
             }
             catch
             {
-                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
+                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository);
                 signInPage.Show();
                 Hide();
             }
@@ -94,16 +74,23 @@
         private void ButtonLogout_Click(object sender, RoutedEventArgs e)
         {
             _authenticationService.Logout();
-            SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
+            SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository);
             signInPage.Show();
-            Close();
+            Hide();
         }
 
         private void AccountButton_Click(object sender, RoutedEventArgs e)
         {
-            UserAccount userAccount = new UserAccount(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService);
+            UserAccount userAccount = new UserAccount(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository);
+            this.Visibility = Visibility.Hidden;
             userAccount.Show();
-            Close();
+        }
+
+        private void HomeButton_Click(object sender, RoutedEventArgs e)
+        {
+            HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository);
+            this.Visibility = Visibility.Hidden;
+            homeWindow.Show();
         }
     }
 }

@@ -70,6 +70,8 @@
 
         private async void AddBookWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
+            SystemCommands.MaximizeWindow(this);
             try
             {
                 string[] lines = File.ReadAllLines(UtilsConstants.FILE_PATH);
