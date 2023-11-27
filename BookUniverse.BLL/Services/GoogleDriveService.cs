@@ -1,7 +1,6 @@
 ﻿namespace BookUniverse.BLL.Services
 {
     using BookUniverse.BLL.Interfaces;
-    using BookUniverse.DAL.Repositories.BookRepository;
     using Google.Apis.Auth.OAuth2;
     using Google.Apis.Drive.v3;
     using Google.Apis.Services;
@@ -12,11 +11,11 @@
     {
         public static string[] Scopes = { DriveService.Scope.Drive, DriveService.Scope.DriveFile };
 
-        private readonly IBookRepository _bookRepository;
+        private readonly ILoggingService _logger;
 
-        public GoogleDriveService(IBookRepository bookRepository)
+        public GoogleDriveService(ILoggingService logger)
         {
-            _bookRepository = bookRepository;
+            _logger = logger;
         }
 
         public DriveService GetService()
@@ -27,10 +26,10 @@
             var credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
             new ClientSecrets
             {
-                ClientId = "clientId",
-                ClientSecret = "secret"
+                ClientId = "948131828397-8lrmubv2rt8ju5d94ve1cv4v3rjbqpt2.apps.googleusercontent.com",
+                ClientSecret = "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"
             }, Scopes,
-            username, CancellationToken.None, new FileDataStore("token")).Result;
+            username, CancellationToken.None, new FileDataStore("1//04Fc0YyPBHh1KCgYIARAAGAQSNwF-L9Ir6X5Af6JQZJsHxP32CAaLTKPixznF9wLs9dFoB5ZCit3TJWVZm8A0S_oYv3uoZ1tIzxE")).Result;
 
             DriveService service = new DriveService(new BaseClientService.Initializer()
             {
@@ -59,16 +58,21 @@
                     await request.UploadAsync();
                     await SetPublicReadPermission(request.ResponseBody.Id, _service);
                     Google.Apis.Drive.v3.Data.File shareableFile = await GetShareableLink(request.ResponseBody.Id, _service);
+                    _logger.LogInformation($"File {body.Name} has been uploaded successfully to the Google Drive");
                     return (pageCount, shareableFile);
                 }
                 catch
                 {
-                    throw new Exception("Error during uppload");
+                    string errMsg = "Error during upload";
+                    _logger.LogError(null, errMsg);
+                    throw new Exception(errMsg);
                 }
             }
             else
             {
-                throw new Exception("File doesn't exist");
+                string errMsg = "File doesn't exist";
+                _logger.LogError(null, errMsg);
+                throw new Exception(errMsg);
             }
         }
 

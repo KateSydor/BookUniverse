@@ -12,5 +12,15 @@
         Task<Book> GetBook(int id);
 
         List<Book> GetUserBooks(string userEmail);
+
+        Task AddUserBook(UserBook newUserBook);
+
+
+
+
+
+
+
+        
     }
 }

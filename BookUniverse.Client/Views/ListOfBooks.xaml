@@ -17,7 +17,7 @@
     </Window.Resources>
     <Grid Background="{StaticResource color5}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.2*" />
+            <ColumnDefinition Width="250" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid Height="60"
@@ -45,14 +45,15 @@
                         <Button Content="Logout" Click="ButtonLogout_Click"/>
                     </StackPanel>
                 </materialDesign:PopupBox>
-                <materialDesign:PackIcon Kind="Close"
-                                     VerticalAlignment="Top"
-                                     Width="20"
-                                     Height="20"
-                                     HorizontalAlignment="Right"
-                                     Margin="0 20 14 0"
-                                     Opacity="0.3"
-                                     MouseDoubleClick="CloseWindow" />
+                <Button Click="CloseWindow" BorderBrush="Transparent" Background="Transparent">
+                    <materialDesign:PackIcon Kind="Close"
+             VerticalAlignment="Top"
+             Width="20"
+             Height="20"
+             HorizontalAlignment="Right"
+             Margin="0 0 14 0"
+             Opacity="0.3"/>
+                </Button>
             </StackPanel>
             <TextBlock HorizontalAlignment="Center"
                    VerticalAlignment="Center"
@@ -70,13 +71,13 @@
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="1" FontSize="30" Foreground="Black">All Books</TextBlock>
 
-            <DataGrid  x:Name="dataGrid" Background="{StaticResource color5}" Margin="0,4,52,0" Grid.Row="2" PreviewMouseDown="DataGrid_PreviewMouseDown">
+            <DataGrid  x:Name="dataGrid" Background="{StaticResource color5}" RowHeight="35" Margin="0,4,52,0" Grid.Row="2" PreviewMouseDown="DataGrid_PreviewMouseDown" AutoGeneratingColumn="OnAutoGeneratingColumn">
                 
             </DataGrid>
             <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="0,23,0,0">
 
-                <Button Background="{StaticResource color8}" Content="Next" Foreground="#ffffff" FontSize="16" Height="40" Width="100" Margin="20" Click="ButtonNext_Click"/>
                 <Button Background="{StaticResource color8}" Content="Previous" Foreground="#ffffff" FontSize="16" Height="40" Width="100" Margin="20" Click="ButtonPrevious_Click"/>
+                <Button Background="{StaticResource color8}" Content="Next" Foreground="#ffffff" FontSize="16" Height="40" Width="100" Margin="20" Click="ButtonNext_Click"/>
             </StackPanel>
         </Grid>
     </Grid>

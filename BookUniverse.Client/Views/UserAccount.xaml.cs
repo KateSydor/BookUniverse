@@ -5,6 +5,7 @@ namespace BookUniverse.Client
     using System.Windows;
     using BookUniverse.BLL.DTOs.UserDTOs;
     using BookUniverse.BLL.Interfaces;
+    using BookUniverse.Client.CustomControls;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
     using BookUniverse.DAL.Enums;
@@ -20,7 +21,7 @@ namespace BookUniverse.Client
         private readonly ICategoryService _categoryService;
         private readonly IGoogleDriveService _googleDriveService;
         private readonly ISearchBook _searchBookService;
-        private User currentUser;
+        private User currentUser = new User();
         private NotifyWindow _notifyWindow = new NotifyWindow();
 
         public UserAccount(
@@ -38,14 +39,33 @@ namespace BookUniverse.Client
             _searchBookService = searchBookService;
 
             Loaded += UserAccount_Loaded;
+            Closed += Window_Closed;
+
             this.DataContext = currentUser;
             _googleDriveService = googleDriveService;
 
             InitializeComponent();
+            Menu.AllBooksClicked += MenuControl_AllBooksClicked;
+
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Menu.AllBooksClicked -= MenuControl_AllBooksClicked;
+        }
+
+        private void MenuControl_AllBooksClicked(object sender, EventArgs e)
+        {
+
+            ListOfBooks listOfBooks = new ListOfBooks(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService);
+            listOfBooks.Show();
+            Close();
         }
 
         private async void UserAccount_Loaded(object sender, RoutedEventArgs e)
         {
+            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
+            SystemCommands.MaximizeWindow(this);
             try
             {
                 string[] lines = File.ReadAllLines(UtilsConstants.FILE_PATH);
@@ -89,6 +109,15 @@ namespace BookUniverse.Client
             HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService);
             this.Visibility = Visibility.Hidden;
             homeWindow.Show();
+            Close();
+        }
+
+        private void ButtonLogout_Click(object sender, RoutedEventArgs e)
+        {
+            _authenticationService.Logout();
+            SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService);
+            signInPage.Show();
+            Close();
         }
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -102,6 +131,7 @@ namespace BookUniverse.Client
             {
                 await _authenticationService.EditUser(currentUser.Id, newUser);
                 currentUser = _authenticationService.CurrentAccount;
+                UsernameOnTop.Text = currentUser.Username;
                 _notifyWindow.ShowNotification("Changes saved successfully!");
             }
             catch
@@ -115,6 +145,7 @@ namespace BookUniverse.Client
             AddBookWindow addBook = new AddBookWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService);
             this.Visibility = Visibility.Hidden;
             addBook.Show();
+            Close();
         }
     }
 }

@@ -18,29 +18,34 @@
         private readonly IGoogleDriveService _googleDriveRepository;
         private readonly ISearchBook _searchBookService;
         private User currentUser;
+        private int bookId;
+        private NotifyWindow _notifyWindow = new NotifyWindow();
 
         public BookWindow(IAuthenticationService authenticationService,
             IUserService userService,
             IBookManagementService bookService,
             ICategoryService categoryService,
             IGoogleDriveService googleDriveRepository,
-            ISearchBook searchBookService)
+            ISearchBook searchBookService, int bookId)
         {
             _authenticationService = authenticationService;
             _userService = userService;
-            _bookService= bookService;
+            _bookService = bookService;
             _categoryService = categoryService;
             _googleDriveRepository = googleDriveRepository;
             _searchBookService = searchBookService;
 
             Loaded += Book_Loaded;
+            this.bookId = bookId;
 
-            this.DataContext = currentUser;
             InitializeComponent();
         }
 
         private async void Book_Loaded(object sender, RoutedEventArgs e)
         {
+            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
+            SystemCommands.MaximizeWindow(this);
+            this.DataContext = await _bookService.GetBook(bookId);
             try
             {
                 string[] lines = File.ReadAllLines(UtilsConstants.FILE_PATH);
@@ -86,11 +91,39 @@
             userAccount.Show();
         }
 
+        private void ReadButtonClick(object sender, RoutedEventArgs e)
+        {
+            ReadBook readBook = new ReadBook(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, bookId);
+            this.Visibility = Visibility.Hidden;
+            readBook.Show();
+        }
+
+
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
             HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
             this.Visibility = Visibility.Hidden;
             homeWindow.Show();
+        }
+
+        private async void FavButton_Click(object sender, RoutedEventArgs e)
+        {
+            UserBook newUserBook = new UserBook()
+            {
+                UserId = currentUser.Id,
+                BookId = bookId,
+                IsFavourite = true,
+            };
+
+            try
+            {
+                await _bookService.AddUserBook(newUserBook);
+                _notifyWindow.ShowNotification("Book is successfully added!");
+            }
+            catch
+            {
+                _notifyWindow.ShowNotification(UtilsConstants.ERROR);
+            }
         }
     }
 }

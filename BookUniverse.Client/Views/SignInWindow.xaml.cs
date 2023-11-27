@@ -49,8 +49,6 @@
 
         private async void Login_Click(object sender, RoutedEventArgs e)
         {
-            string pass = password.Password.Trim();
-
             try
             {
                 await _authenticationService.Login(user);

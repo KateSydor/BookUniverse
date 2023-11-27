@@ -15,6 +15,7 @@ namespace BookUniverse.Client.CustomControls
 
         public Menu()
         {
+            this.Height = SystemParameters.MaximizedPrimaryScreenHeight;
             InitializeComponent();
         }
 
@@ -34,21 +35,11 @@ namespace BookUniverse.Client.CustomControls
         private void ItemHome_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             AllBooksClicked?.Invoke(this, EventArgs.Empty);
-            CloseWindow();
         }
+
         private void ItemHome_PreviewMouseDown2(object sender, MouseButtonEventArgs e)
         {
             SearchBooksClicked?.Invoke(this, EventArgs.Empty);
-            CloseWindow();
         }
-        private void CloseWindow()
-        {
-            Window parentWindow = Window.GetWindow(this);
-            if (parentWindow != null)
-            {
-                parentWindow.Close();
-            }
-        }
-
     }
 }
