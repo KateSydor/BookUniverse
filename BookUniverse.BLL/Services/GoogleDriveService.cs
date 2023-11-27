@@ -26,10 +26,10 @@
             var credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
             new ClientSecrets
             {
-                ClientId = "948131828397-8lrmubv2rt8ju5d94ve1cv4v3rjbqpt2.apps.googleusercontent.com",
-                ClientSecret = "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"
+                ClientId = "clientid",
+                ClientSecret = "clientSecret"
             }, Scopes,
-            username, CancellationToken.None, new FileDataStore("1//04Fc0YyPBHh1KCgYIARAAGAQSNwF-L9Ir6X5Af6JQZJsHxP32CAaLTKPixznF9wLs9dFoB5ZCit3TJWVZm8A0S_oYv3uoZ1tIzxE")).Result;
+            username, CancellationToken.None, new FileDataStore("token")).Result;
 
             DriveService service = new DriveService(new BaseClientService.Initializer()
             {

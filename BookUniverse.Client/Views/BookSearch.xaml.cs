@@ -94,7 +94,7 @@
                 catch
                 {
                     _notifyWindow.ShowNotification("No book found");
-                    resultListBox.ItemsSource = "";
+                    resultListBox.Items.Clear();
                 }
             }
         }
