@@ -3,7 +3,7 @@
     using BookUniverse.BLL.DTOs.BookDTOs;
     using BookUniverse.DAL.Entities;
 
-    public interface IBookService
+    public interface IBookManagementService
     {
         void AddBook(AddBookDto newBook, Category category);
 
@@ -14,5 +14,13 @@
         List<Book> GetUserBooks(string userEmail);
 
         Task AddUserBook(UserBook newUserBook);
+
+
+
+
+
+
+
+        
     }
 }

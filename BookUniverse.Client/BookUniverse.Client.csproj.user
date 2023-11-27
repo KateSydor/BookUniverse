@@ -2,10 +2,16 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
-	<Compile Update="Views\ReadBook.xaml.cs">
-	  <SubType>Code</SubType>
+    <Compile Update="Views\BookSearch.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\ReadBook.xaml.cs">
+		<SubType>Code</SubType>
 	</Compile>
     <Compile Update="Views\AddCategoryWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\BookSearch.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Book.xaml.cs">
@@ -24,33 +30,36 @@
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
-	<ItemGroup>
-		<Page Update="Views\ReadBook.xaml">
-			<SubType>Designer</SubType>
-		</Page>
-		<Page Update="Views\AddCategoryWindow.xaml">
-			<SubType>Designer</SubType>
-		</Page>
-		<Page Update="Views\Book.xaml">
-			<SubType>Designer</SubType>
-		</Page>
-		<Page Update="Views\AddBookWindow.xaml">
-			<SubType>Designer</SubType>
-		</Page>
-		<Page Update="CustomControls\BindablePassword.xaml">
-			<SubType>Designer</SubType>
-		</Page>
-		<Page Update="CustomControls\Menu.xaml">
-			<SubType>Designer</SubType>
-		</Page>
-		<Page Update="Views\ListOfBooks.xaml">
-			<SubType>Designer</SubType>
-		</Page>
-		<Page Update="Styles\Pallete.xaml">
-			<SubType>Designer</SubType>
-		</Page>
-		<Page Update="Views\UserAccount.xaml">
-			<SubType>Designer</SubType>
-		</Page>
-	</ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\BookSearch.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ReadBook.xaml">
+		<SubType>Designer</SubType>
+	</Page>
+    <Page Update="Views\AddCategoryWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\Book.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AddBookWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="CustomControls\BindablePassword.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="CustomControls\Menu.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ListOfBooks.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\Pallete.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\UserAccount.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
 </Project>
