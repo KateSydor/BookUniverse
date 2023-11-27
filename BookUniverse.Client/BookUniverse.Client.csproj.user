@@ -40,9 +40,6 @@
     <Page Update="Views\AddCategoryWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Views\BookSearch.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="Views\Book.xaml">
       <SubType>Designer</SubType>
     </Page>
