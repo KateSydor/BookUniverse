@@ -26,8 +26,8 @@
             var credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
             new ClientSecrets
             {
-                ClientId = "clientId",
-                ClientSecret = "secret"
+                ClientId = "clientid",
+                ClientSecret = "clientSecret"
             }, Scopes,
             username, CancellationToken.None, new FileDataStore("token")).Result;
 

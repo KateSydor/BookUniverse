@@ -3,55 +3,66 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:customcontrols="clr-namespace:BookUniverse.Client.CustomControls"
-        mc:Ignorable="d" Height="750" Width="1400" Foreground="#FFE3E0" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+        mc:Ignorable="d"
+        Height="750"
+        Width="1400"
+        Foreground="#FFE3E0"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent">
 
-	<Grid Background="#FFDEDEDE">
-		<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="72*" />
-			<ColumnDefinition Width="103*" />
-		</Grid.ColumnDefinitions>
-		<Grid Height="60"
+    <Grid Background="#FFDEDEDE">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="72*" />
+            <ColumnDefinition Width="103*" />
+        </Grid.ColumnDefinitions>
+        <Grid Height="60"
               VerticalAlignment="Top"
               Background="{StaticResource color6}"
               Grid.ColumnSpan="2">
-			<Grid.Effect>
-				<DropShadowEffect BlurRadius="10"
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="10"
                                   ShadowDepth="0"
                                   Color="{StaticResource Color5}" />
-			</Grid.Effect>
-			<StackPanel Orientation="Horizontal"
+            </Grid.Effect>
+            <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right">
-				<TextBlock x:Name="username"
+                <TextBlock x:Name="username"
                            Text="{Binding Username}"
                            VerticalAlignment="Center"
                            FontSize="16" />
-				<materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges"
+                <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges"
                                          StaysOpen="False"
                                          Margin="10">
-					<StackPanel Width="150">
-						<Button Content="Home" />
-						<Button Content="Account"  Click="AccountButton_Click"/>
-						<Separator />
-						<Button Content="Logout"
+                    <StackPanel Width="150">
+                        <Button Content="Home" />
+                        <Button Content="Account"
+                                Click="AccountButton_Click" />
+                        <Separator />
+                        <Button Content="Logout"
                                 Click="ButtonLogout_Click" />
 					</StackPanel>
 				</materialDesign:PopupBox>
-				<materialDesign:PackIcon Kind="Close"
-                                         VerticalAlignment="Top"
-                                         Width="20"
-                                         Height="20"
-                                         HorizontalAlignment="Right"
-                                         Margin="0 20 14 0"
-                                         Opacity="0.3"
-                                         MouseDoubleClick="CloseWindow" />
-			</StackPanel>
+                <Button Click="CloseWindow" BorderBrush="Transparent" Background="Transparent">
+                    <materialDesign:PackIcon Kind="Close"
+                             VerticalAlignment="Top"
+                             Width="20"
+                             Height="20"
+                             HorizontalAlignment="Right"
+                             Margin="0 0 14 0"
+                             Opacity="0.3"/>
+                </Button>
+
+            </StackPanel>
 			<TextBlock HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        FontSize="22">Book Universe</TextBlock>
 
-		</Grid>
+        </Grid>
         <customcontrols:Menu />
     </Grid>
 </Window>

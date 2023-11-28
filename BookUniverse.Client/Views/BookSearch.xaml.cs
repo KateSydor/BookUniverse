@@ -1,17 +1,21 @@
 ﻿namespace BookUniverse.Client
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
+    using System.Threading.Tasks;
     using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.BLL.Services;
-    using BookUniverse.Client.CustomControls;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
+
     /// <summary>
-    /// Interaction logic for ListOfBooks.xaml.
+    /// Interaction logic for BookSearch.xaml
     /// </summary>
-    public partial class BookWindow : Window
+    public partial class BookSearch : Window
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
@@ -20,16 +24,16 @@
         private readonly IGoogleDriveService _googleDriveRepository;
         private readonly ISearchBook _searchBookService;
         private readonly IGoogleDriveService _googleDriveService;
-        private User currentUser;
-        private int bookId;
-        private NotifyWindow _notifyWindow = new NotifyWindow();
 
-        public BookWindow(IAuthenticationService authenticationService,
+        private User currentUser;
+        private NotifyWindow _notifyWindow = new NotifyWindow();
+        public BookSearch(
+            IAuthenticationService authenticationService,
             IUserService userService,
             IBookManagementService bookService,
             ICategoryService categoryService,
             IGoogleDriveService googleDriveRepository,
-            ISearchBook searchBookService, int bookId)
+            ISearchBook searchBookService)
         {
             _authenticationService = authenticationService;
             _userService = userService;
@@ -38,19 +42,18 @@
             _googleDriveRepository = googleDriveRepository;
             _searchBookService = searchBookService;
 
-            Loaded += Book_Loaded;
-            Closed += Window_Closed;
 
-            this.bookId = bookId;
+            Loaded += SearchOfBooks_Loaded;
+            this.DataContext = currentUser;
 
             InitializeComponent();
-            Menu.AllBooksClicked += MenuControl_AllBooksClicked;
+            CustomControls.Menu.AllBooksClicked += MenuControl_AllBooksClicked;
 
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            Menu.AllBooksClicked -= MenuControl_AllBooksClicked;
+            CustomControls.Menu.AllBooksClicked -= MenuControl_AllBooksClicked;
         }
 
         private void MenuControl_AllBooksClicked(object sender, EventArgs e)
@@ -60,11 +63,10 @@
             Close();
         }
 
-        private async void Book_Loaded(object sender, RoutedEventArgs e)
+        private async void SearchOfBooks_Loaded(object sender, RoutedEventArgs e)
         {
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
             SystemCommands.MaximizeWindow(this);
-            this.DataContext = await _bookService.GetBook(bookId);
             try
             {
                 string[] lines = File.ReadAllLines(UtilsConstants.FILE_PATH);
@@ -88,33 +90,43 @@
                 Hide();
             }
         }
-
-        private void CloseWindow(object sender, RoutedEventArgs e)
+        private async void Search_Click(object sender, RoutedEventArgs e)
         {
-            Application.Current.MainWindow.Close();
-            Application.Current.Shutdown();
+            string searchText = searchTextBox.Text;
+            string searchQuery = $"\"{searchText}\"";
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                try
+                {
+                    var volumes = await _searchBookService.SearchAsync(searchQuery);
+
+                    resultListBox.Items.Clear();
+
+                    foreach (var volume in volumes.Items)
+                    {
+                        resultListBox.Items.Add($"{volume.VolumeInfo.Title} by {string.Join(", ", volume.VolumeInfo.Authors)}");
+                    }
+                }
+                catch
+                {
+                    _notifyWindow.ShowNotification("No book found");
+                    resultListBox.Items.Clear();
+                }
+            }
         }
 
-        private void ButtonLogout_Click(object sender, RoutedEventArgs e)
+        private void ResultListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            _authenticationService.Logout();
-            SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
-            signInPage.Show();
-            Hide();
-        }
+            ListBox listBox = (ListBox)sender;
 
-        private void AccountButton_Click(object sender, RoutedEventArgs e)
-        {
-            UserAccount userAccount = new UserAccount(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
-            this.Visibility = Visibility.Hidden;
-            userAccount.Show();
-        }
-
-        private void ReadButtonClick(object sender, RoutedEventArgs e)
-        {
-            ReadBook readBook = new ReadBook(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, bookId);
-            this.Visibility = Visibility.Hidden;
-            readBook.Show();
+            if (listBox.SelectedItem != null)
+            {
+                string selectedText = listBox.SelectedItem.ToString();
+                Clipboard.SetText(selectedText);
+                copyPopup.IsOpen = true;
+                Task.Delay(2000).ContinueWith(_ => Dispatcher.Invoke(() => copyPopup.IsOpen = false));
+            }
         }
 
 
@@ -124,25 +136,23 @@
             this.Visibility = Visibility.Hidden;
             homeWindow.Show();
         }
-
-        private async void FavButton_Click(object sender, RoutedEventArgs e)
+        private void AccountButton_Click(object sender, RoutedEventArgs e)
         {
-            UserBook newUserBook = new UserBook()
-            {
-                UserId = currentUser.Id,
-                BookId = bookId,
-                IsFavourite = true,
-            };
-
-            try
-            {
-                await _bookService.AddUserBook(newUserBook);
-                _notifyWindow.ShowNotification("Book is successfully added!");
-            }
-            catch
-            {
-                _notifyWindow.ShowNotification(UtilsConstants.ERROR);
-            }
+            UserAccount userAccount = new UserAccount(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
+            this.Visibility = Visibility.Hidden;
+            userAccount.Show();
+        }
+        private void ButtonLogout_Click(object sender, RoutedEventArgs e)
+        {
+            _authenticationService.Logout();
+            SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
+            signInPage.Show();
+            Hide();
+        }
+        private void CloseWindow(object sender, RoutedEventArgs e)
+        {
+            Application.Current.MainWindow.Close();
+            Application.Current.Shutdown();
         }
     }
 }

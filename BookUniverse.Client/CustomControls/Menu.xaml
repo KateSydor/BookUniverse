@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
          xmlns:local="clr-namespace:BookUniverse.Client.CustomControls"
-        mc:Ignorable="d" Height="750" Width="1400" Foreground="#FFE3E0" Background="Transparent">
+        mc:Ignorable="d" Width="1400" Foreground="#FFE3E0" Background="Transparent">
 
     <UserControl.Resources>
         <Storyboard x:Key="OpenMenu">
@@ -119,8 +119,8 @@ Background="#2E294E">
                 <ListViewItem x:Name="ItemCreate" Height="60">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Category" Height="25" Width="25" Margin="10"/>
-                        <ComboBox Width="115" Margin="20 10 0 10" materialDesign:HintAssist.HelperText="Categories" materialDesign:TextFieldAssist.UnderlineBrush="#182043" >
-                            <ComboBoxItem IsSelected="True" Content="Option 1" />
+                        <ComboBox Width="115" Margin="20 10 0 10" materialDesign:HintAssist.Hint="Categories" materialDesign:TextFieldAssist.UnderlineBrush="#182043" >
+                            <ComboBoxItem Content="Option 1" />
                             <ComboBoxItem Content="Option 2" />
                             <ComboBoxItem Content="Option 3" />
                         </ComboBox>
@@ -140,14 +140,14 @@ Background="#2E294E">
                 <ListViewItem Height="60">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Folder" Height="25" Width="25" Margin="10"/>
-                        <ComboBox Width="115" Margin="20 10 0 10" materialDesign:HintAssist.HelperText="Folders" materialDesign:TextFieldAssist.UnderlineBrush="#182043" >
-                            <ComboBoxItem IsSelected="True" Content="Option 1" />
+                        <ComboBox Width="115" Margin="20 10 0 10" materialDesign:HintAssist.Hint="Folders" materialDesign:TextFieldAssist.UnderlineBrush="#182043" >
+                            <ComboBoxItem Content="Option 1" />
                             <ComboBoxItem Content="Option 2" />
                             <ComboBoxItem Content="Option 3" />
                         </ComboBox>
                     </StackPanel>
                 </ListViewItem>
-                <ListViewItem Height="60">
+                <ListViewItem Height="60"  PreviewMouseDown="ItemHome_PreviewMouseDown2">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Search"
                                        Height="25"

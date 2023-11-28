@@ -6,7 +6,9 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         Height="200"
         Width="300"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+         ResizeMode="NoResize"
+        WindowStyle="None">
 
     <Window.Style>
         <Style TargetType="Window">

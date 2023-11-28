@@ -5,7 +5,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:customcontrols="clr-namespace:BookUniverse.Client.CustomControls"
-    mc:Ignorable="d" Height="750" Width="1400" Foreground="#FFE3E0" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
+    mc:Ignorable="d" Height="750" Width="1400" Foreground="#FFE3E0" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowState="Normal" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -17,7 +17,7 @@
     </Window.Resources>
     <Grid Background="{StaticResource color5}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.4*" />
+            <ColumnDefinition Width="250" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
@@ -46,14 +46,15 @@
                         <Button Content="Logout" Click="ButtonLogout_Click"/>
                     </StackPanel>
                 </materialDesign:PopupBox>
-                <materialDesign:PackIcon Kind="Close"
-                                     VerticalAlignment="Top"
-                                     Width="20"
-                                     Height="20"
-                                     HorizontalAlignment="Right"
-                                     Margin="0 20 14 0"
-                                     Opacity="0.3"
-                                     MouseDoubleClick="CloseWindow" />
+                <Button Click="CloseWindow" BorderBrush="Transparent" Background="Transparent">
+                    <materialDesign:PackIcon Kind="Close"
+             VerticalAlignment="Top"
+             Width="20"
+             Height="20"
+             HorizontalAlignment="Right"
+             Margin="0 0 14 0"
+             Opacity="0.3"/>
+                </Button>
             </StackPanel>
             <TextBlock HorizontalAlignment="Center"
                    VerticalAlignment="Center"
@@ -67,15 +68,24 @@
                 <RowDefinition Height="0.6*"/>
                 <RowDefinition Height="0.4*"/>
                 <RowDefinition Height="2*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" FontSize="50" Margin="0,4,52,0" Foreground="Black" Text="{Binding Title}"/>
 
             <TextBlock  Grid.Row="1" FontSize="30" Foreground="Black" Margin="0,4,52,0" Text="{Binding Author}"/>
             <TextBlock  FontSize="20" Foreground="Black" Margin="0,4,52,0" Grid.Row="2" TextWrapping="Wrap" Text="{Binding Description}"/>
             <StackPanel Orientation="Horizontal" Grid.Row="3">
-                <Button Background="{StaticResource color8}" Content="Read" Foreground="#ffffff" FontSize="16" Height="40" Width="100" Margin="100, 0, 0, 0"/>
+                <Button Background="{StaticResource color8}" Content="Read" Foreground="#ffffff" FontSize="16" Height="40" Width="100" Margin="40, 0, 0, 0" Click="ReadButtonClick"/>
+                <Button Background="{StaticResource color8}" Content="Add to folder" Foreground="#ffffff" FontSize="16" Height="40" Width="150" Margin="50, 0, 0, 0"/>
+                <Button Background="{StaticResource color8}" Content="Add to favourites" Foreground="#ffffff" FontSize="16" Height="40" Width="160" Margin="50, 0, 0, 0"
+                        Click="FavButton_Click" />
+
             </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="4" >
+                <Button Background="{StaticResource color8}" Content="Add to my library" Foreground="#ffffff" FontSize="16" Height="40" Width="170" Margin="40, 0, 0, 0"/>
+            </StackPanel>
+
         </Grid>
         <Grid Grid.Column="2">
             <Image Source="\Images\book.jpg" Margin="4,66,0,0"  />

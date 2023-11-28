@@ -7,26 +7,23 @@
     using BookUniverse.DAL.Repositories.BookRepository;
     using BookUniverse.DAL.Repositories.UserBookRepository;
 
-    public class BookService : IBookService
+    public class BookManagementService : IBookManagementService
     {
         private readonly IBookRepository _bookRepository;
         private readonly IUserBookRepository _userBookRepository;
         private readonly IMapper _mapper;
-        private readonly ILoggingService _logger;
 
-        public BookService(IBookRepository bookRepository, IUserBookRepository userBookRepository, IMapper mapper, ILoggingService logger)
+        public BookManagementService(IBookRepository bookRepository, IUserBookRepository userBookRepository, IMapper mapper)
         {
             _bookRepository = bookRepository;
             _userBookRepository = userBookRepository;
             _mapper = mapper;
-            _logger = logger;
         }
 
         public async void AddBook(AddBookDto newBook, Category category)
         {
             Book book = _mapper.Map<Book>(newBook, opt => opt.Items["CategoryId"] = category.Id);
             await _bookRepository.Create(book);
-            _logger.LogInformation($"The book {newBook.Title} has been successfully created");
         }
 
         public List<Book> GetAllBooks()
@@ -42,6 +39,11 @@
         public List<Book> GetUserBooks(string userEmail)
         {
             return _userBookRepository.GetAllByUser(u => u.User.Email == userEmail).ToList();
+        }
+
+        public async Task AddUserBook(UserBook newUserBook)
+        {
+            await _userBookRepository.Create(newUserBook);
         }
     }
 }
