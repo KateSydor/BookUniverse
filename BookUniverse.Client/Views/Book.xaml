@@ -68,10 +68,10 @@
                 <RowDefinition Height="0.6*"/>
                 <RowDefinition Height="0.4*"/>
                 <RowDefinition Height="2*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.5*"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" FontSize="50" Margin="0,4,52,0" Foreground="Black" Text="{Binding Title}"/>
-            <Button Background="{StaticResource color8}" Content="Add to my library" Foreground="#ffffff" FontSize="16" Height="40" Width="170" Margin="100, 0, 0, 0"/>
 
             <TextBlock  Grid.Row="1" FontSize="30" Foreground="Black" Margin="0,4,52,0" Text="{Binding Author}"/>
             <TextBlock  FontSize="20" Foreground="Black" Margin="0,4,52,0" Grid.Row="2" TextWrapping="Wrap" Text="{Binding Description}"/>
@@ -82,6 +82,10 @@
                         Click="FavButton_Click" />
 
             </StackPanel>
+            <StackPanel Orientation="Horizontal" Grid.Row="4" >
+                <Button Background="{StaticResource color8}" Content="Add to my library" Foreground="#ffffff" FontSize="16" Height="40" Width="170" Margin="40, 0, 0, 0"/>
+            </StackPanel>
+
         </Grid>
         <Grid Grid.Column="2">
             <Image Source="\Images\book.jpg" Margin="4,66,0,0"  />
