@@ -19,7 +19,6 @@
         private readonly ICategoryService _categoryService;
         private readonly IGoogleDriveService _googleDriveRepository;
         private readonly ISearchBook _searchBookService;
-        private readonly IGoogleDriveService _googleDriveService;
         private User currentUser;
         private int bookId;
         private NotifyWindow _notifyWindow = new NotifyWindow();
@@ -55,7 +54,7 @@
 
         private void MenuControl_AllBooksClicked(object sender, EventArgs e)
         {
-            ListOfBooks listOfBooks = new ListOfBooks(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService);
+            ListOfBooks listOfBooks = new ListOfBooks(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
             listOfBooks.Show();
             Close();
         }
@@ -100,29 +99,30 @@
             _authenticationService.Logout();
             SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
             signInPage.Show();
-            Hide();
+            Close();
         }
 
         private void AccountButton_Click(object sender, RoutedEventArgs e)
         {
             UserAccount userAccount = new UserAccount(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
-            this.Visibility = Visibility.Hidden;
             userAccount.Show();
+            Close();
+
         }
 
         private void ReadButtonClick(object sender, RoutedEventArgs e)
         {
             ReadBook readBook = new ReadBook(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, bookId);
-            this.Visibility = Visibility.Hidden;
             readBook.Show();
+            Close();
         }
 
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
             HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
-            this.Visibility = Visibility.Hidden;
             homeWindow.Show();
+            Close();
         }
 
         private async void FavButton_Click(object sender, RoutedEventArgs e)
