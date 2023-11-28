@@ -4,6 +4,8 @@
     using System.IO;
     using System.Windows;
     using BookUniverse.BLL.Interfaces;
+    using BookUniverse.BLL.Services;
+    using BookUniverse.Client.CustomControls;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
     /// <summary>
@@ -17,6 +19,7 @@
         private readonly ICategoryService _categoryService;
         private readonly IGoogleDriveService _googleDriveRepository;
         private readonly ISearchBook _searchBookService;
+        private readonly IGoogleDriveService _googleDriveService;
         private User currentUser;
         private int bookId;
         private NotifyWindow _notifyWindow = new NotifyWindow();
@@ -36,9 +39,25 @@
             _searchBookService = searchBookService;
 
             Loaded += Book_Loaded;
+            Closed += Window_Closed;
+
             this.bookId = bookId;
 
             InitializeComponent();
+            Menu.AllBooksClicked += MenuControl_AllBooksClicked;
+
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Menu.AllBooksClicked -= MenuControl_AllBooksClicked;
+        }
+
+        private void MenuControl_AllBooksClicked(object sender, EventArgs e)
+        {
+            ListOfBooks listOfBooks = new ListOfBooks(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService);
+            listOfBooks.Show();
+            Close();
         }
 
         private async void Book_Loaded(object sender, RoutedEventArgs e)
