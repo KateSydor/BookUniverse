@@ -61,6 +61,7 @@
             InitializeComponent();
             dataGrid.ItemsSource = displayedBooks;
             CustomControls.Menu.SearchBooksClicked += MenuControl_SearchBooksClicked;
+            CustomControls.Menu.FavouriteBooksClicked += MenuControl_FavouriteBooksClicked;
         }
 
         private List<object> displayedBooks
@@ -78,9 +79,18 @@
             searchBooks.Show();
             Close();
         }
+
+        private void MenuControl_FavouriteBooksClicked(object sender, EventArgs e)
+        {
+            FavouriteBooksWindow listOfBooks = new FavouriteBooksWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
+            listOfBooks.Show();
+            Close();
+        }
+
         private void Window_Closed(object sender, EventArgs e)
         {
             CustomControls.Menu.SearchBooksClicked -= MenuControl_SearchBooksClicked;
+            CustomControls.Menu.FavouriteBooksClicked -= MenuControl_FavouriteBooksClicked;
         }
 
         private void DisplayBooks()
@@ -134,7 +144,7 @@
             {
                 SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
                 signInPage.Show();
-                Hide();
+                Close();
             }
         }
 
@@ -158,8 +168,8 @@
                 var numberProperty = (int)clickedItem.GetType().GetProperty("Number")?.GetValue(clickedItem, null);
 
                 BookWindow bookWindow = new BookWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, numberProperty);
-                this.Hide();
                 bookWindow.Show();
+                Close();
             }
         }
 
@@ -176,21 +186,21 @@
             _authenticationService.Logout();
             SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
             signInPage.Show();
-            Hide();
+            Close();
         }
 
         private void AccountButton_Click(object sender, RoutedEventArgs e)
         {
             UserAccount userAccount = new UserAccount(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
-            this.Visibility = Visibility.Hidden;
             userAccount.Show();
+            Close();
         }
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
             HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
-            this.Visibility = Visibility.Hidden;
             homeWindow.Show();
+            Close();
         }
         
     }

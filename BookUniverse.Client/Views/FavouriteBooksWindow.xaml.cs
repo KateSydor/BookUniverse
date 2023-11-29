@@ -9,6 +9,7 @@
     using System.Windows.Controls;
     using System.Windows.Input;
     using BookUniverse.BLL.Interfaces;
+    using BookUniverse.BLL.Services;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
 
@@ -45,12 +46,35 @@
             _searchBookService = searchBookService;
 
             Loaded += FavouriteBooksWindow_Loaded;
+            Closed += Window_Closed;
 
             this.DataContext = currentUser;
             bookList = new List<object> { };
 
             InitializeComponent();
+            CustomControls.Menu.AllBooksClicked += MenuControl_AllBooksClicked;
+            CustomControls.Menu.SearchBooksClicked += MenuControl_SearchBooksClicked;
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            CustomControls.Menu.AllBooksClicked -= MenuControl_AllBooksClicked;
+            CustomControls.Menu.SearchBooksClicked -= MenuControl_SearchBooksClicked;
+        }
+
+        private void MenuControl_AllBooksClicked(object sender, EventArgs e)
+        {
+            ListOfBooks listOfBooks = new ListOfBooks(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
+            listOfBooks.Show();
+            Close();
+        }
+        private void MenuControl_SearchBooksClicked(object sender, EventArgs e)
+        {
+            BookSearch listOfBooks = new BookSearch(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
+            listOfBooks.Show();
+            Close();
+        }
+
 
         private List<object> displayedBooks
         {
@@ -114,7 +138,7 @@
             {
                 SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
                 signInPage.Show();
-                Hide();
+                Close();
             }
         }
 
@@ -152,8 +176,8 @@
                 var numberProperty = (int)clickedItem.GetType().GetProperty("Number")?.GetValue(clickedItem, null);
 
                 BookWindow bookWindow = new BookWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, numberProperty);
-                this.Hide();
                 bookWindow.Show();
+                Close();
             }
         }
 
@@ -170,21 +194,21 @@
             _authenticationService.Logout();
             SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
             signInPage.Show();
-            Hide();
+            Close();
         }
 
         private void AccountButton_Click(object sender, RoutedEventArgs e)
         {
             UserAccount userAccount = new UserAccount(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
-            this.Visibility = Visibility.Hidden;
             userAccount.Show();
+            Close();
         }
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
             HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
-            this.Visibility = Visibility.Hidden;
             homeWindow.Show();
+            Close();
         }
         
     }
