@@ -3,6 +3,7 @@
     using System;
     using System.IO;
     using System.Reflection;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Controls;
     using BookUniverse.BLL.Interfaces;
@@ -20,8 +21,12 @@
         private readonly IGoogleDriveService _googleDriveRepository;
         private readonly ISearchBook _searchBookService;
 
+        private NotifyWindow _notifyWindow = new NotifyWindow();
+
         private User currentUser;
         private int bookId;
+
+        private Book currBook;
 
         public ReadBook(IAuthenticationService authenticationService, IUserService userService, IBookManagementService bookService, ICategoryService categoryService, IGoogleDriveService googleDriveRepository, ISearchBook searchBookService, int bookId)
         {
@@ -43,8 +48,7 @@
         {
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
             SystemCommands.MaximizeWindow(this);
-            Book currBook = await _bookService.GetBook(bookId);
-            myweb.Source = new Uri(currBook.Path, UriKind.RelativeOrAbsolute);
+            await GetCurrentBook();
             try
             {
                 string[] lines = File.ReadAllLines(UtilsConstants.FILE_PATH);
@@ -66,6 +70,19 @@
                 SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
                 signInPage.Show();
                 Hide();
+            }
+        }
+
+        private async Task GetCurrentBook()
+        {
+            try
+            {
+                currBook = await _bookService.GetBook(bookId);
+                myweb.Source = new Uri(currBook.Path, UriKind.RelativeOrAbsolute);
+            }
+            catch
+            {
+                _notifyWindow.ShowNotification("Something went wrong. Please try again later");
             }
         }
 
