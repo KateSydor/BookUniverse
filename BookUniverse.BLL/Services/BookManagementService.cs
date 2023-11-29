@@ -41,6 +41,11 @@
             return _userBookRepository.GetAllByUser(u => u.User.Email == userEmail).ToList();
         }
 
+        public List<Book> GetUserFavouriteBooks(string userEmail)
+        {
+            return _userBookRepository.GetAllByUser(u => u.User.Email == userEmail && u.IsFavourite == true).ToList();
+        }
+
         public async Task AddUserBook(UserBook newUserBook)
         {
             await _userBookRepository.Create(newUserBook);

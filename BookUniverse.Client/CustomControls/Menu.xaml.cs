@@ -12,6 +12,7 @@ namespace BookUniverse.Client.CustomControls
     {
         public static event EventHandler AllBooksClicked;
         public static event EventHandler SearchBooksClicked;
+        public static event EventHandler FavouriteBooksClicked;
 
         public Menu()
         {
@@ -40,6 +41,11 @@ namespace BookUniverse.Client.CustomControls
         private void ItemHome_PreviewMouseDown2(object sender, MouseButtonEventArgs e)
         {
             SearchBooksClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void ItemHome_PreviewMouseDown3(object sender, MouseButtonEventArgs e)
+        {
+            FavouriteBooksClicked?.Invoke(this, EventArgs.Empty);
         }
     }
 }
