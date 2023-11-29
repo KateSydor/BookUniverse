@@ -12,6 +12,12 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="\Styles\Pallete.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="DataGridColumnHeader">
+                <Setter Property="IsHitTestVisible" Value="False" />
+                <Setter Property="Background" Value="{StaticResource color5}" />
+                <Setter Property="Width" Value="150" />
+            </Style>
         </ResourceDictionary>
 
     </Window.Resources>
