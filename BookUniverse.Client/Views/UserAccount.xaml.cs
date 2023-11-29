@@ -6,6 +6,7 @@ namespace BookUniverse.Client
     using BookUniverse.BLL.DTOs.UserDTOs;
     using BookUniverse.BLL.DTOValidators.UserValidators;
     using BookUniverse.BLL.Interfaces;
+    using BookUniverse.BLL.Services;
     using BookUniverse.Client.CustomControls;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
@@ -48,12 +49,21 @@ namespace BookUniverse.Client
 
             InitializeComponent();
             Menu.AllBooksClicked += MenuControl_AllBooksClicked;
+            Menu.SearchBooksClicked += MenuControl_SearchBooksClicked;
 
+        }
+
+        private void MenuControl_SearchBooksClicked(object sender, EventArgs e)
+        {
+            BookSearch searchBooks = new BookSearch(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService);
+            searchBooks.Show();
+            Close();
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
             Menu.AllBooksClicked -= MenuControl_AllBooksClicked;
+            Menu.SearchBooksClicked -= MenuControl_SearchBooksClicked;
         }
 
         private void MenuControl_AllBooksClicked(object sender, EventArgs e)
