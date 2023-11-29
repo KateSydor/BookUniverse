@@ -3,8 +3,10 @@
     using System;
     using System.Windows;
     using BookUniverse.BLL.DTOs.UserDTOs;
+    using BookUniverse.BLL.DTOValidators.UserValidators;
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.DAL.Constants.UtilsConstants;
+    using FluentValidation.Results;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml.
@@ -19,6 +21,7 @@
         private readonly ISearchBook _searchBookService;
         private readonly RegistrationDto user;
         private NotifyWindow _notifyWindow = new NotifyWindow();
+
         public MainWindow(
             IAuthenticationService authenticationService,
             IUserService userService,
@@ -50,12 +53,22 @@
         {
             try
             {
-                await _authenticationService.Register(user);
-                if (_authenticationService.IsLoggedIn())
+                RegistrationDtoValidator validator = new RegistrationDtoValidator();
+                ValidationResult validationResult = validator.Validate(user);
+
+                if (validationResult.IsValid)
                 {
-                    HomeWindow homePage = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
-                    homePage.Show();
-                    Hide();
+                    await _authenticationService.Register(user);
+                    if (_authenticationService.IsLoggedIn())
+                    {
+                        HomeWindow homePage = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
+                        homePage.Show();
+                        Hide();
+                    }
+                }
+                else
+                {
+                    _notifyWindow.ShowNotification(UtilsConstants.INPUT_VALID_DATA);
                 }
             }
             catch (ArgumentException argEx)

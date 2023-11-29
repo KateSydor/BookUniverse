@@ -1,17 +1,17 @@
 ﻿namespace BookUniverse.Client
 {
     using System;
-    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.IO;
     using System.Linq;
     using System.Windows;
     using BookUniverse.BLL.DTOs.BookDTOs;
+    using BookUniverse.BLL.DTOValidators.BookValidators;
     using BookUniverse.BLL.Interfaces;
-    using BookUniverse.BLL.Services;
     using BookUniverse.Client.CustomControls;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
+    using FluentValidation.Results;
 
     /// <summary>
     /// Interaction logic for HomeWindow.xaml.
@@ -27,7 +27,8 @@
         private User currentUser;
         private Book currentBook;
         private string filepath;
-        ObservableCollection<string> categories;
+        private ObservableCollection<string> categories;
+        private NotifyWindow _notifyWindow = new NotifyWindow();
 
         public AddBookWindow(
             IAuthenticationService authenticationService,
@@ -156,8 +157,18 @@
                 (int pageCount, Google.Apis.Drive.v3.Data.File uploadedFile) = await _googleDriveService.UploadFile(filepath);
                 AddBookDto addBook = CreateAddBookDto(uploadedFile, pageCount);
 
-                _bookService.AddBook(addBook, findCategory);
-                MessageBox.Show("File successfully uploaded");
+                AddBookDtoValidator validator = new AddBookDtoValidator();
+                ValidationResult validationResult = validator.Validate(addBook);
+
+                if (validationResult.IsValid)
+                {
+                    _bookService.AddBook(addBook, findCategory);
+                    _notifyWindow.ShowNotification("File successfully uploaded");
+                }
+                else
+                {
+                    _notifyWindow.ShowNotification(UtilsConstants.INPUT_VALID_DATA);
+                }
             }
             catch (Exception ex)
             {

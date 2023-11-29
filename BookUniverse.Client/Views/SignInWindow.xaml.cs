@@ -3,8 +3,10 @@
     using System;
     using System.Windows;
     using BookUniverse.BLL.DTOs.UserDTOs;
+    using BookUniverse.BLL.DTOValidators.UserValidators;
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.DAL.Constants.UtilsConstants;
+    using FluentValidation.Results;
 
     /// <summary>
     /// Interaction logic for SignInWindow.xaml.
@@ -51,12 +53,22 @@
         {
             try
             {
-                await _authenticationService.Login(user);
-                if (_authenticationService.IsLoggedIn())
+                LoginDtoValidator validator = new LoginDtoValidator();
+                ValidationResult validationResult = validator.Validate(user);
+
+                if (validationResult.IsValid)
                 {
-                    HomeWindow homePage = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
-                    homePage.Show();
-                    Hide();
+                    await _authenticationService.Login(user);
+                    if (_authenticationService.IsLoggedIn())
+                    {
+                        HomeWindow homePage = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
+                        homePage.Show();
+                        Hide();
+                    }
+                }
+                else
+                {
+                    _notifyWindow.ShowNotification(UtilsConstants.INPUT_VALID_DATA);
                 }
             }
             catch (Exception ex)
