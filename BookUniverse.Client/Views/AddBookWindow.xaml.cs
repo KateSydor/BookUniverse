@@ -58,11 +58,21 @@
             category.ItemsSource = categories;
 
             Menu.AllBooksClicked += MenuControl_AllBooksClicked;
+            Menu.SearchBooksClicked += MenuControl_SearchBooksClicked;
+
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
             Menu.AllBooksClicked -= MenuControl_AllBooksClicked;
+            Menu.SearchBooksClicked -= MenuControl_SearchBooksClicked;
+        }
+
+        private void MenuControl_SearchBooksClicked(object sender, EventArgs e)
+        {
+            BookSearch searchBooks = new BookSearch(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
+            searchBooks.Show();
+            Close();
         }
 
         private void MenuControl_AllBooksClicked(object sender, EventArgs e)
