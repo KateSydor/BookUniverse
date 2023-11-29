@@ -9,5 +9,7 @@
         public static string FILE_ERROR = "File does not contain necessary information.";
 
         public static string INPUT_VALID_DATA = "Please, input valid data";
+
+        public static int BOOKS_PER_PAGE_PAGINATION = 13;
     }
 }

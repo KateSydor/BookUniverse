@@ -5,12 +5,10 @@
     using System.ComponentModel;
     using System.IO;
     using System.Linq;
-    using System.Reflection;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
     using BookUniverse.BLL.Interfaces;
-    using BookUniverse.Client.CustomControls;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
 
@@ -28,7 +26,6 @@
         private User currentUser;
         private List<object> bookList;
         private int currentPage = 1;
-        private int booksPerPage = 13;
 
         public HomeWindow(
             IAuthenticationService authenticationService,
@@ -49,30 +46,20 @@
             Closed += Window_Closed;
 
             bookList = new List<object> { };
-            List<Book> tempBookList = _bookService.GetAllBooks();
-            if (tempBookList.Count != 0)
-            {
-                for (int i = 0; i < tempBookList.Count; i++)
-                {
-                    bookList.Add(new { Number = tempBookList[i].Id, tempBookList[i].Title, tempBookList[i].Author, tempBookList[i].NumberOfPages, tempBookList[i].Rating });
-                }
-            }
-
 
             this.DataContext = currentUser;
             InitializeComponent();
             dataGrid.ItemsSource = displayedBooks;
             CustomControls.Menu.AllBooksClicked += MenuControl_AllBooksClicked;
             CustomControls.Menu.SearchBooksClicked += MenuControl_SearchBooksClicked;
-
         }
 
         private List<object> displayedBooks
         {
             get
             {
-                int startIndex = (currentPage - 1) * booksPerPage;
-                return bookList.Skip(startIndex).Take(booksPerPage).ToList();
+                int startIndex = (currentPage - 1) * UtilsConstants.BOOKS_PER_PAGE_PAGINATION;
+                return bookList.Skip(startIndex).Take(UtilsConstants.BOOKS_PER_PAGE_PAGINATION).ToList();
             }
         }
 
@@ -83,7 +70,7 @@
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
-            if (currentPage * booksPerPage > bookList.Count)
+            if (currentPage * UtilsConstants.BOOKS_PER_PAGE_PAGINATION > bookList.Count)
             {
                 return;
             }
@@ -102,7 +89,6 @@
             currentPage--;
             DisplayBooks();
         }
-
 
         private void Window_Closed(object sender, EventArgs e)
         {
@@ -138,6 +124,17 @@
 
                     currentUser = await _userService.GetUser(userEmail);
                     username.Text = currentUser.Username;
+
+                    List<Book> tempBookList = _bookService.GetUserBooks(currentUser.Email);
+                    if (tempBookList.Count != 0)
+                    {
+                        for (int i = 0; i < tempBookList.Count; i++)
+                        {
+                            bookList.Add(new { Number = tempBookList[i].Id, tempBookList[i].Title, tempBookList[i].Author, tempBookList[i].NumberOfPages, tempBookList[i].Rating });
+                        }
+                    }
+
+                    DisplayBooks();
                 }
                 else
                 {
