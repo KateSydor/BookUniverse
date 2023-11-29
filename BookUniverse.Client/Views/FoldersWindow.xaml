@@ -9,7 +9,21 @@
         
         mc:Ignorable="d"
         Title="FoldersWindow" Height="350" Width="600" 
-        WindowStartupLocation="CenterScreen" WindowStyle="None">
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Style>
+        <Style TargetType="Window">
+            <Setter Property="Background" Value="{StaticResource color5}"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="WindowChrome.WindowChrome">
+                <Setter.Value>
+                    <WindowChrome CaptionHeight="30"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderBrush" Value="Pink"/>
+            <Setter Property="BorderThickness" Value="5"/>
+        </Style>
+    </Window.Style>
 
 
     <Window.Resources>
@@ -26,7 +40,7 @@
         <!-- ContentControl to include the content from first.xaml -->
         <ContentControl>
             <ContentControl.Content>
-                <Grid Background="{StaticResource color5}">
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.6*"/>
                         <RowDefinition Height="0.4*"/>
@@ -56,7 +70,7 @@
             </ContentControl.Content>
         </ContentControl>
 
-        
+
 
     </Grid>
 

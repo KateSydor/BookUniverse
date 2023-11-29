@@ -38,7 +38,7 @@ namespace BookUniverse.Client
             ICategoryService categoryService,
             IGoogleDriveService googleDriveRepository,
             IFolderService folderService,
-            IBookFolderService bookFolderService, 
+            IBookFolderService bookFolderService,
             int book_id
             )
         {
@@ -111,7 +111,7 @@ namespace BookUniverse.Client
                 notifyWindow.ShowNotification($"Error: {ex.Message}");
             }
 
-        
+
         }
     }
 }

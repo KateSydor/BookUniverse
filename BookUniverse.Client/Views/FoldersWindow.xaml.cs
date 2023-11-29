@@ -38,7 +38,7 @@ namespace BookUniverse.Client
 
         private List<object> foldersList;
         private Book currentBook;
-        
+
 
         public FoldersWindow(
             IAuthenticationService authenticationService,
@@ -47,7 +47,7 @@ namespace BookUniverse.Client
             ICategoryService categoryService,
             IGoogleDriveService googleDriveRepository,
             IFolderService folderService,
-            IBookFolderService bookFolderService, 
+            IBookFolderService bookFolderService,
             Book book)
         {
             _authenticationService = authenticationService;
@@ -77,7 +77,7 @@ namespace BookUniverse.Client
 
         }
 
-        
+
 
         private async void ListOfFolder_Loaded(object sender, RoutedEventArgs e)
         {
@@ -115,14 +115,14 @@ namespace BookUniverse.Client
 
                 var bookFolderInstance = new BookFolder
                 {
-                    BookId = currentBook.Id, 
-                    FolderId = numberProperty 
+                    BookId = currentBook.Id,
+                    FolderId = numberProperty
                 };
 
                 await _bookFolderService.AddInFolder(bookFolderInstance);
                 this.Visibility = Visibility.Hidden;
                 _notifyWindow.ShowNotification($"Book was added in folder \n -{nameFolder}-");
-                
+
             }
         }
 
@@ -136,7 +136,7 @@ namespace BookUniverse.Client
             }
         }
 
-        private void AddFolder_Click (object sender, RoutedEventArgs e) 
+        private void AddFolder_Click(object sender, RoutedEventArgs e)
         {
             try
             {
