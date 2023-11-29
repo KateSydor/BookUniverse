@@ -106,7 +106,7 @@
 
                     foreach (var volume in volumes.Items)
                     {
-                        resultListBox.Items.Add($"{volume.VolumeInfo.Title} by {string.Join(", ", volume.VolumeInfo.Authors)}");
+                        resultListBox.Items.Add($"{volume.VolumeInfo.Title} by {string.Join(", ", volume.VolumeInfo.Authors ?? Array.Empty<string>())}");
                     }
                 }
                 catch
