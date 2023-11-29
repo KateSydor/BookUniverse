@@ -2,10 +2,10 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
-    <Compile Update="FoldersWindow.xaml.cs">
+    <Compile Update="Views\FoldersWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="NewFolderWindow.xaml.cs">
+    <Compile Update="Views\NewFolderWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\ReadBook.xaml.cs">
@@ -28,10 +28,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="FoldersWindow.xaml">
+    <Page Update="Views\FoldersWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="NewFolderWindow.xaml">
+    <Page Update="Views\NewFolderWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\ReadBook.xaml">

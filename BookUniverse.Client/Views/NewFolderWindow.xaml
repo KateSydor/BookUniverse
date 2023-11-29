@@ -35,11 +35,14 @@
     </Window.Resources>
 
     <Grid>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        
+        
 
         <TextBox x:Name="NameOfFolder"
          HorizontalAlignment="Left" Background="White" VerticalAlignment="Center" Grid.Row="1"
