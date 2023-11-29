@@ -9,6 +9,7 @@
     using System.Windows.Controls;
     using System.Windows.Input;
     using BookUniverse.BLL.Interfaces;
+    using BookUniverse.BLL.Services;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
 
@@ -45,6 +46,7 @@
             _searchBookService = searchBookService;
 
             Loaded += ListOfBooks_Loaded;
+            Closed += Window_Closed;
 
             this.DataContext = currentUser;
             bookList = new List<object> { };
@@ -58,6 +60,7 @@
 
             InitializeComponent();
             dataGrid.ItemsSource = displayedBooks;
+            CustomControls.Menu.SearchBooksClicked += MenuControl_SearchBooksClicked;
         }
 
         private List<object> displayedBooks
@@ -67,6 +70,17 @@
                 int startIndex = (currentPage - 1) * booksPerPage;
                 return bookList.Skip(startIndex).Take(booksPerPage).ToList();
             }
+        }
+
+        private void MenuControl_SearchBooksClicked(object sender, EventArgs e)
+        {
+            BookSearch searchBooks = new BookSearch(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
+            searchBooks.Show();
+            Close();
+        }
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            CustomControls.Menu.SearchBooksClicked -= MenuControl_SearchBooksClicked;
         }
 
         private void DisplayBooks()
