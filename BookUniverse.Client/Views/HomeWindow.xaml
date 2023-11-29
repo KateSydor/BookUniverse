@@ -15,54 +15,70 @@
         AllowsTransparency="True"
         Background="Transparent">
 
-    <Grid Background="#FFDEDEDE">
+    <Grid Background="{StaticResource color5}">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="72*" />
-            <ColumnDefinition Width="103*" />
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid Height="60"
-              VerticalAlignment="Top"
-              Background="{StaticResource color6}"
-              Grid.ColumnSpan="2">
+      VerticalAlignment="Top"
+      Background="{StaticResource color6}"
+      Grid.ColumnSpan="2">
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="10"
-                                  ShadowDepth="0"
-                                  Color="{StaticResource Color5}" />
+                          ShadowDepth="0"
+                          Color="{StaticResource Color5}" />
             </Grid.Effect>
             <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Right">
+                HorizontalAlignment="Right">
                 <TextBlock x:Name="username"
-                           Text="{Binding Username}"
-                           VerticalAlignment="Center"
-                           FontSize="16" />
+                   Text="{Binding Username}"
+                   VerticalAlignment="Center"
+                   FontSize="16" />
                 <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges"
-                                         StaysOpen="False"
-                                         Margin="10">
+                                 StaysOpen="False"
+                                 Margin="10">
                     <StackPanel Width="150">
-                        <Button Content="Home" />
-                        <Button Content="Account"
-                                Click="AccountButton_Click" />
+                        <Button Content="Home"/>
+                        <Button Content="Account"  Click="AccountButton_Click"/>
                         <Separator />
-                        <Button Content="Logout"
-                                Click="ButtonLogout_Click" />
-					</StackPanel>
-				</materialDesign:PopupBox>
+                        <Button Content="Logout" Click="ButtonLogout_Click"/>
+                    </StackPanel>
+                </materialDesign:PopupBox>
                 <Button Click="CloseWindow" BorderBrush="Transparent" Background="Transparent">
                     <materialDesign:PackIcon Kind="Close"
-                             VerticalAlignment="Top"
-                             Width="20"
-                             Height="20"
-                             HorizontalAlignment="Right"
-                             Margin="0 0 14 0"
-                             Opacity="0.3"/>
+         VerticalAlignment="Top"
+         Width="20"
+         Height="20"
+         HorizontalAlignment="Right"
+         Margin="0 0 14 0"
+         Opacity="0.3"/>
                 </Button>
-
             </StackPanel>
-			<TextBlock HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontSize="22">Book Universe</TextBlock>
+            <TextBlock HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               FontSize="22">Book Universe</TextBlock>
 
         </Grid>
-        <customcontrols:Menu />
+        <customcontrols:Menu/>
+        <Grid Grid.Column="2">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.6*"/>
+                <RowDefinition Height="0.4*"/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="1" FontSize="30" Foreground="Black">My library</TextBlock>
+
+            <DataGrid  x:Name="dataGrid" Background="{StaticResource color5}" RowHeight="35" Margin="0,4,52,0" Grid.Row="2" PreviewMouseDown="DataGrid_PreviewMouseDown" AutoGeneratingColumn="OnAutoGeneratingColumn">
+
+            </DataGrid>
+            <StackPanel Orientation="Horizontal" Grid.Row="3" Margin="0,23,0,0">
+
+                <Button Background="{StaticResource color8}" Content="Previous" Foreground="#ffffff" FontSize="16" Height="40" Width="100" Margin="20" Click="ButtonPrevious_Click"/>
+                <Button Background="{StaticResource color8}" Content="Next" Foreground="#ffffff" FontSize="16" Height="40" Width="100" Margin="20" Click="ButtonNext_Click"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

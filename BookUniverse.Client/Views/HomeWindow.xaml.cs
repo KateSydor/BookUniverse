@@ -1,9 +1,14 @@
 ﻿namespace BookUniverse.Client
 {
     using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
     using System.IO;
+    using System.Linq;
     using System.Reflection;
     using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
     using BookUniverse.BLL.Interfaces;
     using BookUniverse.Client.CustomControls;
     using BookUniverse.DAL.Constants.UtilsConstants;
@@ -21,6 +26,9 @@
         private readonly IGoogleDriveService _googleDriveService;
         private readonly ISearchBook _searchBookService;
         private User currentUser;
+        private List<object> bookList;
+        private int currentPage = 1;
+        private int booksPerPage = 13;
 
         public HomeWindow(
             IAuthenticationService authenticationService,
@@ -40,18 +48,66 @@
             Loaded += HomeWindow_Loaded;
             Closed += Window_Closed;
 
+            bookList = new List<object> { };
+            List<Book> tempBookList = _bookService.GetAllBooks();
+            if (tempBookList.Count != 0)
+            {
+                for (int i = 0; i < tempBookList.Count; i++)
+                {
+                    bookList.Add(new { Number = tempBookList[i].Id, tempBookList[i].Title, tempBookList[i].Author, tempBookList[i].NumberOfPages, tempBookList[i].Rating });
+                }
+            }
+
 
             this.DataContext = currentUser;
             InitializeComponent();
-            Menu.AllBooksClicked += MenuControl_AllBooksClicked;
-            Menu.SearchBooksClicked += MenuControl_SearchBooksClicked;
+            dataGrid.ItemsSource = displayedBooks;
+            CustomControls.Menu.AllBooksClicked += MenuControl_AllBooksClicked;
+            CustomControls.Menu.SearchBooksClicked += MenuControl_SearchBooksClicked;
 
         }
 
+        private List<object> displayedBooks
+        {
+            get
+            {
+                int startIndex = (currentPage - 1) * booksPerPage;
+                return bookList.Skip(startIndex).Take(booksPerPage).ToList();
+            }
+        }
+
+        private void DisplayBooks()
+        {
+            dataGrid.ItemsSource = displayedBooks;
+        }
+
+        private void ButtonNext_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentPage * booksPerPage > bookList.Count)
+            {
+                return;
+            }
+
+            currentPage++;
+            DisplayBooks();
+        }
+
+        private void ButtonPrevious_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentPage == 1)
+            {
+                return;
+            }
+
+            currentPage--;
+            DisplayBooks();
+        }
+
+
         private void Window_Closed(object sender, EventArgs e)
         {
-            Menu.AllBooksClicked -= MenuControl_AllBooksClicked;
-            Menu.SearchBooksClicked -= MenuControl_SearchBooksClicked;
+            CustomControls.Menu.AllBooksClicked -= MenuControl_AllBooksClicked;
+            CustomControls.Menu.SearchBooksClicked -= MenuControl_SearchBooksClicked;
         }
 
         private void MenuControl_AllBooksClicked(object sender, EventArgs e)
@@ -93,6 +149,31 @@
                 SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService);
                 signInPage.Show();
                 Hide();
+            }
+        }
+
+        private void OnAutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            PropertyDescriptor propertyDescriptor = (PropertyDescriptor)e.PropertyDescriptor;
+            e.Column.Header = propertyDescriptor.DisplayName;
+            if (propertyDescriptor.DisplayName == "Number")
+            {
+                e.Cancel = true;
+            }
+        }
+
+
+        private void DataGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.OriginalSource is FrameworkElement source && source.DataContext != null)
+            {
+                var clickedItem = source.DataContext;
+
+                var numberProperty = (int)clickedItem.GetType().GetProperty("Number")?.GetValue(clickedItem, null);
+
+                BookWindow bookWindow = new BookWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService, numberProperty);
+                this.Hide();
+                bookWindow.Show();
             }
         }
 
