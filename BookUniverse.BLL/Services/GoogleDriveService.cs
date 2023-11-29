@@ -5,6 +5,7 @@
     using Google.Apis.Drive.v3;
     using Google.Apis.Services;
     using Google.Apis.Util.Store;
+    using Microsoft.Extensions.Configuration;
     using PdfSharp.Pdf.IO;
 
     public class GoogleDriveService : IGoogleDriveService
@@ -12,10 +13,12 @@
         public static string[] Scopes = { DriveService.Scope.Drive, DriveService.Scope.DriveFile };
 
         private readonly ILoggingService _logger;
+        private readonly IConfiguration _configuration;
 
-        public GoogleDriveService(ILoggingService logger)
+        public GoogleDriveService(ILoggingService logger, IConfiguration configuration)
         {
             _logger = logger;
+            _configuration = configuration;
         }
 
         public DriveService GetService()
@@ -26,10 +29,10 @@
             var credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
             new ClientSecrets
             {
-                ClientId = "clientid",
-                ClientSecret = "clientSecret"
+                ClientId = _configuration["GoogleDriveClientId"],
+                ClientSecret = _configuration["GoogleDriveClientSecret"],
             }, Scopes,
-            username, CancellationToken.None, new FileDataStore("token")).Result;
+            username, CancellationToken.None, new FileDataStore(_configuration["GoogleDriveToken"])).Result;
 
             DriveService service = new DriveService(new BaseClientService.Initializer()
             {
