@@ -9,5 +9,9 @@
         public static string FILE_ERROR = "File does not contain necessary information.";
 
         public static string INPUT_VALID_DATA = "Please, input valid data";
+
+        public static string ALREADY_ADDED_BOOK = "Book has already been added";
+
+        public static string SUCCESSFULLY_ADDED_BOOK = "Book has succesffully been added";
     }
 }

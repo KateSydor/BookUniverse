@@ -45,5 +45,15 @@
         {
             await _userBookRepository.Create(newUserBook);
         }
+
+        public async Task<UserBook> GetUserBook(int userId, int bookId)
+        {
+            return await _userBookRepository.Get(ub => ub.UserId == userId && ub.BookId == bookId);
+        }
+
+        public async Task UpdateUserBook(UserBook updated)
+        {
+            await _userBookRepository.Update(updated);
+        }
     }
 }

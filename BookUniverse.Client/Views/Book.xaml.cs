@@ -2,12 +2,13 @@
 {
     using System;
     using System.IO;
+    using System.Threading.Tasks;
     using System.Windows;
     using BookUniverse.BLL.Interfaces;
-    using BookUniverse.BLL.Services;
     using BookUniverse.Client.CustomControls;
     using BookUniverse.DAL.Constants.UtilsConstants;
     using BookUniverse.DAL.Entities;
+
     /// <summary>
     /// Interaction logic for ListOfBooks.xaml.
     /// </summary>
@@ -127,17 +128,54 @@
 
         private async void FavButton_Click(object sender, RoutedEventArgs e)
         {
-            UserBook newUserBook = new UserBook()
+            UserBook existingUserBook = await _bookService.GetUserBook(currentUser.Id, bookId);
+            if (existingUserBook == null)
+            {
+                UserBook newUserBook = CreateUserBookObject(isFav: true);
+                await AddBookAndNotify(newUserBook);
+            }
+            else if (existingUserBook != null && existingUserBook.IsFavourite == false)
+            {
+                existingUserBook.IsFavourite = true;
+                await _bookService.UpdateUserBook(existingUserBook);
+                _notifyWindow.ShowNotification($"{UtilsConstants.SUCCESSFULLY_ADDED_BOOK} to favourites!");
+            }
+            else
+            {
+                _notifyWindow.ShowNotification($"{UtilsConstants.ALREADY_ADDED_BOOK} to favourites!");
+            }
+        }
+
+        private async void AddToLibButton_Click(object sender, RoutedEventArgs e)
+        {
+            UserBook existingUserBook = await _bookService.GetUserBook(currentUser.Id, bookId);
+            if (existingUserBook == null)
+            {
+                UserBook newUserBook = CreateUserBookObject();
+                await AddBookAndNotify(newUserBook);
+            }
+            else
+            {
+                _notifyWindow.ShowNotification($"{UtilsConstants.ALREADY_ADDED_BOOK} to library!");
+            }
+        }
+
+        private UserBook CreateUserBookObject(bool isFav = false)
+        {
+            return new UserBook()
             {
                 UserId = currentUser.Id,
                 BookId = bookId,
-                IsFavourite = true,
+                IsFavourite = isFav,
             };
+        }
 
+        private async Task AddBookAndNotify(UserBook userbook)
+        {
             try
             {
-                await _bookService.AddUserBook(newUserBook);
-                _notifyWindow.ShowNotification("Book is successfully added!");
+                await _bookService.AddUserBook(userbook);
+                _notifyWindow.ShowNotification(UtilsConstants.SUCCESSFULLY_ADDED_BOOK);
             }
             catch
             {
