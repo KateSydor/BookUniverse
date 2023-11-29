@@ -92,16 +92,14 @@ namespace BookUniverse.Client
                     FolderName = NameOfFolder.Text,
                     UserId = currentUser.Id
                 };
-                await _folderService.AddNewFolder(folderInstance);
+                var createdFolder = await _folderService.AddNewFolder(folderInstance, currentUser.Id);
 
-                var lastFolder = await _folderService.GetLastFolder(); ///ПЕРЕРОБИТИ 
-
-                var folderInstance2 = new BookFolder
+                var bookFolderInstance = new BookFolder
                 {
                     BookId = currentBookId,
-                    FolderId = lastFolder.Id
+                    FolderId = createdFolder.Id
                 };
-                await _bookFolderService.AddInFolder(folderInstance2);
+                await _bookFolderService.AddInFolder(bookFolderInstance);
 
                 Hide();
                 notifyWindow.ShowNotification("New folder was created \nand a book was added to it");
@@ -110,7 +108,6 @@ namespace BookUniverse.Client
             {
                 notifyWindow.ShowNotification($"Error: {ex.Message}");
             }
-
 
         }
     }

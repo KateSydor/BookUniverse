@@ -13,8 +13,7 @@ namespace BookUniverse.BLL.Interfaces
     public interface IFolderService
     {
         List<Folder> GetAllFolders();
-        Task AddNewFolder(Folder folder);
-        Task<Folder> GetLastFolder();
+        Task<Folder> AddNewFolder(Folder folder, int id);
 
     }
 }

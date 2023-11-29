@@ -9,6 +9,7 @@ using BookUniverse.DAL.Entities;
 using BookUniverse.DAL.Repositories.FolderRepository;
 using global::BookUniverse.BLL.Interfaces;
 using global::BookUniverse.DAL.Repositories.UserRepository;
+using PdfSharp.Drawing;
 
 namespace BookUniverse.BLL.Services
 {
@@ -16,8 +17,10 @@ namespace BookUniverse.BLL.Services
 
 
     public class FolderService : IFolderService
-   {
+    {
         private readonly IFolderRepository _folderRepository;
+        private int minSize = 2;
+        private int maxSize = 30;
 
         public FolderService(IFolderRepository fService)
         {
@@ -29,20 +32,20 @@ namespace BookUniverse.BLL.Services
             return _folderRepository.GetAll().ToList();
         }
 
-        public async Task AddNewFolder(Folder folder)
+        public async Task<Folder> AddNewFolder(Folder folder, int id)
         {
-            Folder newFolder = await _folderRepository.Get(u => u.FolderName == folder.FolderName);
+            Folder newFolder = await _folderRepository.Get(u => u.FolderName == folder.FolderName && u.UserId == id);
 
             if (newFolder != null)
             {
                 throw new Exception("Folder with this name already exist");
             }
-            await _folderRepository.Create(folder);
-        }
+            if (folder.FolderName.Length < minSize || folder.FolderName.Length > maxSize)
+            {
+                throw new Exception("Not valid length of folder name");
+            }
 
-        public async Task<Folder> GetLastFolder()
-        {
-            return await _folderRepository.GetLastAddedFolder();
+            return await _folderRepository.Create(folder);
         }
 
     }

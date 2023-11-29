@@ -27,6 +27,15 @@ namespace BookUniverse.BLL.Services
 
         public async Task AddInFolder(BookFolder folder)
         {
+            var bookFolders = _folderRepository.GetAll().ToList();
+            foreach (var bookFolder in bookFolders)
+            {
+                if (bookFolder.FolderId == folder.FolderId && bookFolder.BookId == folder.BookId)
+                {
+                    throw new Exception("Book is already in this folder");
+                    return;
+                }
+            }
             await _folderRepository.Create(folder);
         }
     }

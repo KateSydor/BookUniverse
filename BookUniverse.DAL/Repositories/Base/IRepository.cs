@@ -9,7 +9,7 @@
 
         Task<T> Get(Expression<Func<T, bool>> filter);
 
-        Task Create(T entity);
+        Task<T> Create(T entity);
 
         Task Delete(T entity);
 

@@ -106,24 +106,27 @@ namespace BookUniverse.Client
 
         private async void DataGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.OriginalSource is FrameworkElement source && source.DataContext != null)
-            {
-                var clickedItem = source.DataContext;
-
-                var numberProperty = (int)clickedItem.GetType().GetProperty("Number")?.GetValue(clickedItem, null);
-                var nameFolder = (string)clickedItem.GetType().GetProperty("FolderName")?.GetValue(clickedItem, null);
-
-                var bookFolderInstance = new BookFolder
+            try {
+                if (e.OriginalSource is FrameworkElement source && source.DataContext != null)
                 {
-                    BookId = currentBook.Id,
-                    FolderId = numberProperty
-                };
+                    var clickedItem = source.DataContext;
 
-                await _bookFolderService.AddInFolder(bookFolderInstance);
-                this.Visibility = Visibility.Hidden;
-                _notifyWindow.ShowNotification($"Book was added in folder \n -{nameFolder}-");
+                    var numberProperty = (int)clickedItem.GetType().GetProperty("Number")?.GetValue(clickedItem, null);
+                    var nameFolder = (string)clickedItem.GetType().GetProperty("FolderName")?.GetValue(clickedItem, null);
 
+                    var bookFolderInstance = new BookFolder
+                    {
+                        BookId = currentBook.Id,
+                        FolderId = numberProperty
+                    };
+
+                    await _bookFolderService.AddInFolder(bookFolderInstance);
+                    this.Visibility = Visibility.Hidden;
+                    _notifyWindow.ShowNotification($"Book was added in folder \n -{nameFolder}-");
+                }
             }
+            catch (Exception ex) { _notifyWindow.ShowNotification($"Error: {ex.Message}"); }
+
         }
 
         private void OnAutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
