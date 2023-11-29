@@ -46,6 +46,7 @@
             InitializeComponent();
             Menu.AllBooksClicked += MenuControl_AllBooksClicked;
             Menu.SearchBooksClicked += MenuControl_SearchBooksClicked;
+            Menu.FavouriteBooksClicked += MenuControl_FavouriteBooksClicked;
 
         }
 
@@ -53,12 +54,20 @@
         {
             Menu.AllBooksClicked -= MenuControl_AllBooksClicked;
             Menu.SearchBooksClicked -= MenuControl_SearchBooksClicked;
+            Menu.FavouriteBooksClicked -= MenuControl_FavouriteBooksClicked;
         }
 
         private void MenuControl_SearchBooksClicked(object sender, EventArgs e)
         {
             BookSearch searchBooks = new BookSearch(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
             searchBooks.Show();
+            Close();
+        }
+
+        private void MenuControl_FavouriteBooksClicked(object sender, EventArgs e)
+        {
+            FavouriteBooksWindow listOfBooks = new FavouriteBooksWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
+            listOfBooks.Show();
             Close();
         }
 

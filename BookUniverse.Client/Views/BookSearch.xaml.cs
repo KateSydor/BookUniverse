@@ -49,17 +49,26 @@
 
             InitializeComponent();
             CustomControls.Menu.AllBooksClicked += MenuControl_AllBooksClicked;
+            CustomControls.Menu.FavouriteBooksClicked += MenuControl_FavouriteBooksClicked;
 
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
             CustomControls.Menu.AllBooksClicked -= MenuControl_AllBooksClicked;
+            CustomControls.Menu.FavouriteBooksClicked -= MenuControl_FavouriteBooksClicked;
         }
 
         private void MenuControl_AllBooksClicked(object sender, EventArgs e)
         {
             ListOfBooks listOfBooks = new ListOfBooks(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
+            listOfBooks.Show();
+            Close();
+        }
+
+        private void MenuControl_FavouriteBooksClicked(object sender, EventArgs e)
+        {
+            FavouriteBooksWindow listOfBooks = new FavouriteBooksWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
             listOfBooks.Show();
             Close();
         }
@@ -88,7 +97,7 @@
             {
                 SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
                 signInPage.Show();
-                Hide();
+                Close();
             }
         }
         private async void Search_Click(object sender, RoutedEventArgs e)

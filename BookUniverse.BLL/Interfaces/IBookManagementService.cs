@@ -13,6 +13,8 @@
 
         List<Book> GetUserBooks(string userEmail);
 
+        List<Book> GetUserFavouriteBooks(string userEmail);
+
         Task AddUserBook(UserBook newUserBook);
 
         Task<UserBook> GetUserBook(int userId, int bookId);

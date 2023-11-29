@@ -16,7 +16,7 @@
     /// <summary>
     /// Interaction logic for ListOfBooks.xaml.
     /// </summary>
-    public partial class ListOfBooks : Window
+    public partial class FavouriteBooksWindow : Window
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
@@ -30,7 +30,7 @@
         private int booksPerPage = 13;
 
 
-        public ListOfBooks(
+        public FavouriteBooksWindow(
             IAuthenticationService authenticationService,
             IUserService userService,
             IBookManagementService bookService,
@@ -45,24 +45,36 @@
             _googleDriveRepository = googleDriveRepository;
             _searchBookService = searchBookService;
 
-            Loaded += ListOfBooks_Loaded;
+            Loaded += FavouriteBooksWindow_Loaded;
             Closed += Window_Closed;
 
             this.DataContext = currentUser;
             bookList = new List<object> { };
-            List<Book> tempBookList = _bookService.GetAllBooks();
-            if(tempBookList.Count != 0) {
-                for (int i = 0; i < tempBookList.Count; i++)
-                {
-                    bookList.Add(new { Number = tempBookList[i].Id, tempBookList[i].Title, tempBookList[i].Author, tempBookList[i].NumberOfPages, tempBookList[i].Rating });
-                }
-            } 
 
             InitializeComponent();
-            dataGrid.ItemsSource = displayedBooks;
+            CustomControls.Menu.AllBooksClicked += MenuControl_AllBooksClicked;
             CustomControls.Menu.SearchBooksClicked += MenuControl_SearchBooksClicked;
-            CustomControls.Menu.FavouriteBooksClicked += MenuControl_FavouriteBooksClicked;
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            CustomControls.Menu.AllBooksClicked -= MenuControl_AllBooksClicked;
+            CustomControls.Menu.SearchBooksClicked -= MenuControl_SearchBooksClicked;
+        }
+
+        private void MenuControl_AllBooksClicked(object sender, EventArgs e)
+        {
+            ListOfBooks listOfBooks = new ListOfBooks(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
+            listOfBooks.Show();
+            Close();
+        }
+        private void MenuControl_SearchBooksClicked(object sender, EventArgs e)
+        {
+            BookSearch listOfBooks = new BookSearch(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
+            listOfBooks.Show();
+            Close();
+        }
+
 
         private List<object> displayedBooks
         {
@@ -71,26 +83,6 @@
                 int startIndex = (currentPage - 1) * booksPerPage;
                 return bookList.Skip(startIndex).Take(booksPerPage).ToList();
             }
-        }
-
-        private void MenuControl_SearchBooksClicked(object sender, EventArgs e)
-        {
-            BookSearch searchBooks = new BookSearch(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
-            searchBooks.Show();
-            Close();
-        }
-
-        private void MenuControl_FavouriteBooksClicked(object sender, EventArgs e)
-        {
-            FavouriteBooksWindow listOfBooks = new FavouriteBooksWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
-            listOfBooks.Show();
-            Close();
-        }
-
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            CustomControls.Menu.SearchBooksClicked -= MenuControl_SearchBooksClicked;
-            CustomControls.Menu.FavouriteBooksClicked -= MenuControl_FavouriteBooksClicked;
         }
 
         private void DisplayBooks()
@@ -120,7 +112,7 @@
             DisplayBooks();
         }
 
-        private async void ListOfBooks_Loaded(object sender, RoutedEventArgs e)
+        private async void FavouriteBooksWindow_Loaded(object sender, RoutedEventArgs e)
         {
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
             SystemCommands.MaximizeWindow(this);
@@ -134,6 +126,8 @@
 
                     currentUser = await _userService.GetUser(userEmail);
                     username.Text = currentUser.Username;
+
+                    GetBooks();
                 }
                 else
                 {
@@ -146,6 +140,20 @@
                 signInPage.Show();
                 Close();
             }
+        }
+
+        private void GetBooks()
+        {
+            List<Book> tempBookList = _bookService.GetUserFavouriteBooks(currentUser.Email);
+            if (tempBookList.Count != 0)
+            {
+                for (int i = 0; i < tempBookList.Count; i++)
+                {
+                    bookList.Add(new { Number = tempBookList[i].Id, tempBookList[i].Title, tempBookList[i].Author, tempBookList[i].NumberOfPages, tempBookList[i].Rating });
+                }
+            }
+
+            dataGrid.ItemsSource = displayedBooks;
         }
 
         private void OnAutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
