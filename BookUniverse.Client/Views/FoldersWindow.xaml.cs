@@ -100,7 +100,7 @@ namespace BookUniverse.Client
             {
                 SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _folderService, _bookFolderService);
                 signInPage.Show();
-                Hide();
+                Close();
             }
         }
 
@@ -145,14 +145,14 @@ namespace BookUniverse.Client
             {
                 NewFolderWindow newFolderWindow = new NewFolderWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _folderService, _bookFolderService, currentBook.Id);
                 newFolderWindow.Show();
-                Hide();
+                Close();
             }
             catch (Exception ex) { _notifyWindow.ShowNotification($"Error:\n{ex.Message}"); }
         }
 
         private void CloseWindow(object sender, RoutedEventArgs e)
         {
-            Application.Current.MainWindow.Close();
+            Close();
         }
     }
 }

@@ -79,7 +79,7 @@ namespace BookUniverse.Client
             {
                 SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _folderService, _bookFolderService);
                 signInPage.Show();
-                Hide();
+                Close();
             }
         }
 
@@ -101,7 +101,7 @@ namespace BookUniverse.Client
                 };
                 await _bookFolderService.AddInFolder(bookFolderInstance);
 
-                Hide();
+                Close();
                 notifyWindow.ShowNotification("New folder was created \nand a book was added to it");
             }
             catch (Exception ex)
@@ -109,6 +109,11 @@ namespace BookUniverse.Client
                 notifyWindow.ShowNotification($"Error: {ex.Message}");
             }
 
+        }
+
+        private void CloseWindow(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }
