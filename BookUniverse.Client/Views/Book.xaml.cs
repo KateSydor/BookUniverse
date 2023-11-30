@@ -1,7 +1,9 @@
 ﻿namespace BookUniverse.Client
 {
     using System;
+    using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Threading.Tasks;
     using System.Windows;
     using BookUniverse.BLL.Interfaces;
@@ -47,7 +49,19 @@
             Menu.AllBooksClicked += MenuControl_AllBooksClicked;
             Menu.SearchBooksClicked += MenuControl_SearchBooksClicked;
             Menu.FavouriteBooksClicked += MenuControl_FavouriteBooksClicked;
+            GetCategories();
+        }
 
+        private void GetCategories()
+        {
+            try
+            {
+                Menu_Control.Menu_Categories.ItemsSource = _categoryService.GetAllCategories().Select(category => category.CategoryName).ToList();
+            }
+            catch
+            {
+                Menu_Control.Menu_Categories.ItemsSource = new List<string>() { "No categories found" };
+            }
         }
 
         private void Window_Closed(object sender, EventArgs e)

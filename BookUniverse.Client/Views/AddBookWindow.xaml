@@ -215,7 +215,7 @@
 
         </Grid>
         <Grid>
-            <customcontrols:Menu />
+            <customcontrols:Menu x:Name="Menu_Control"/>
         </Grid>
 
     </Grid>

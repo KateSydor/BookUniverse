@@ -69,6 +69,19 @@
             dataGrid.ItemsSource = displayedBooks;
             CustomControls.Menu.SearchBooksClicked += MenuControl_SearchBooksClicked;
             CustomControls.Menu.FavouriteBooksClicked += MenuControl_FavouriteBooksClicked;
+            GetCategories();
+        }
+
+        private void GetCategories()
+        {
+            try
+            {
+                Menu_Control.Menu_Categories.ItemsSource = _categoryService.GetAllCategories().Select(category => category.CategoryName).ToList();
+            }
+            catch
+            {
+                Menu_Control.Menu_Categories.ItemsSource = new List<string>() { "No categories found" };
+            }
         }
 
         private List<object> displayedBooks

@@ -76,7 +76,7 @@
                        FontSize="22">Book Universe</TextBlock>
 
         </Grid>
-        <customcontrols:Menu />
+        <customcontrols:Menu x:Name="Menu_Control"/>
         
         <Grid Grid.Column="2">
 

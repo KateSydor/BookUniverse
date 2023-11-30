@@ -80,8 +80,6 @@ namespace BookUniverse.Client
 
         }
 
-
-
         private async void ListOfFolder_Loaded(object sender, RoutedEventArgs e)
         {
             try

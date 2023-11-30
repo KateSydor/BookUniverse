@@ -60,6 +60,19 @@
             InitializeComponent();
             CustomControls.Menu.AllBooksClicked += MenuControl_AllBooksClicked;
             CustomControls.Menu.SearchBooksClicked += MenuControl_SearchBooksClicked;
+            GetCategories();
+        }
+
+        private void GetCategories()
+        {
+            try
+            {
+                Menu_Control.Menu_Categories.ItemsSource = _categoryService.GetAllCategories().Select(category => category.CategoryName).ToList();
+            }
+            catch
+            {
+                Menu_Control.Menu_Categories.ItemsSource = new List<string>() { "No categories found" };
+            }
         }
 
         private void Window_Closed(object sender, EventArgs e)
