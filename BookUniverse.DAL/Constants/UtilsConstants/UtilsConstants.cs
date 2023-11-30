@@ -10,6 +10,8 @@
 
         public static string INPUT_VALID_DATA = "Please, input valid data";
 
+        public static int BOOKS_PER_PAGE_PAGINATION = 13;
+      
         public static string ALREADY_ADDED_BOOK = "Book has already been added";
 
         public static string SUCCESSFULLY_ADDED_BOOK = "Book has succesffully been added";

@@ -31,8 +31,6 @@
         private User currentUser;
         private List<object> bookList;
         private int currentPage = 1;
-        private int booksPerPage = 13;
-
 
         public ListOfBooks(
             IAuthenticationService authenticationService,
@@ -59,12 +57,13 @@
             this.DataContext = currentUser;
             bookList = new List<object> { };
             List<Book> tempBookList = _bookService.GetAllBooks();
-            if(tempBookList.Count != 0) {
+            if (tempBookList.Count != 0)
+            {
                 for (int i = 0; i < tempBookList.Count; i++)
                 {
                     bookList.Add(new { Number = tempBookList[i].Id, tempBookList[i].Title, tempBookList[i].Author, tempBookList[i].NumberOfPages, tempBookList[i].Rating });
                 }
-            } 
+            }
 
             InitializeComponent();
             dataGrid.ItemsSource = displayedBooks;
@@ -76,8 +75,8 @@
         {
             get
             {
-                int startIndex = (currentPage - 1) * booksPerPage;
-                return bookList.Skip(startIndex).Take(booksPerPage).ToList();
+                int startIndex = (currentPage - 1) * UtilsConstants.BOOKS_PER_PAGE_PAGINATION;
+                return bookList.Skip(startIndex).Take(UtilsConstants.BOOKS_PER_PAGE_PAGINATION).ToList();
             }
         }
 
@@ -108,7 +107,7 @@
 
         private void ButtonNext_Click(object sender, RoutedEventArgs e)
         {
-            if (currentPage * booksPerPage > bookList.Count)
+            if (currentPage * UtilsConstants.BOOKS_PER_PAGE_PAGINATION > bookList.Count)
             {
                 return;
             }
@@ -210,6 +209,5 @@
             homeWindow.Show();
             Close();
         }
-        
     }
 }
