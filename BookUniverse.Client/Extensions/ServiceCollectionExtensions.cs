@@ -31,6 +31,7 @@
             services.AddScoped<IFolderRepository, FolderRepository>();
             services.AddScoped<IUserBookRepository, UserBookRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            
         }
 
         public static void AddServices(this IServiceCollection services)
@@ -42,6 +43,8 @@
             services.AddScoped<IGoogleDriveService, GoogleDriveService>();
             services.AddScoped<IBookManagementService, BookManagementService>();
             services.AddScoped<ICategoryService, CategoryService>();
+            services.AddScoped<IFolderService, FolderService>();
+            services.AddScoped<IBookFolderService, BookFolderService>();
             services.AddScoped<ILoggingService, LoggingService>();
             services.AddScoped<ISearchBook, SearchBook>();
         }

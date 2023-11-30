@@ -23,6 +23,8 @@
         private readonly ICategoryService _categoryService;
         private readonly IGoogleDriveService _googleDriveRepository;
         private readonly ISearchBook _searchBookService;
+        private readonly IFolderService _folderService;
+        private readonly IBookFolderService _bookFolderService;
 
         private User currentUser;
         private NotifyWindow _notifyWindow = new NotifyWindow();
@@ -32,7 +34,9 @@
             IBookManagementService bookService,
             ICategoryService categoryService,
             IGoogleDriveService googleDriveRepository,
-            ISearchBook searchBookService)
+            ISearchBook searchBookService,
+            IFolderService folderService,
+            IBookFolderService bookFolderService)
         {
             _authenticationService = authenticationService;
             _userService = userService;
@@ -40,6 +44,8 @@
             _categoryService = categoryService;
             _googleDriveRepository = googleDriveRepository;
             _searchBookService = searchBookService;
+            _folderService = folderService;
+            _bookFolderService = bookFolderService;
 
 
             Loaded += SearchOfBooks_Loaded;
@@ -49,17 +55,26 @@
 
             InitializeComponent();
             CustomControls.Menu.AllBooksClicked += MenuControl_AllBooksClicked;
+            CustomControls.Menu.FavouriteBooksClicked += MenuControl_FavouriteBooksClicked;
 
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {
             CustomControls.Menu.AllBooksClicked -= MenuControl_AllBooksClicked;
+            CustomControls.Menu.FavouriteBooksClicked -= MenuControl_FavouriteBooksClicked;
         }
 
         private void MenuControl_AllBooksClicked(object sender, EventArgs e)
         {
-            ListOfBooks listOfBooks = new ListOfBooks(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
+            ListOfBooks listOfBooks = new ListOfBooks(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, _folderService, _bookFolderService);
+            listOfBooks.Show();
+            Close();
+        }
+
+        private void MenuControl_FavouriteBooksClicked(object sender, EventArgs e)
+        {
+            FavouriteBooksWindow listOfBooks = new FavouriteBooksWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, _folderService, _bookFolderService);
             listOfBooks.Show();
             Close();
         }
@@ -86,9 +101,9 @@
             }
             catch
             {
-                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
+                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, _folderService, _bookFolderService);
                 signInPage.Show();
-                Hide();
+                Close();
             }
         }
         private async void Search_Click(object sender, RoutedEventArgs e)
@@ -133,20 +148,20 @@
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
+            HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, _folderService, _bookFolderService);
             homeWindow.Show();
             Close();
         }
         private void AccountButton_Click(object sender, RoutedEventArgs e)
         {
-            UserAccount userAccount = new UserAccount(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
+            UserAccount userAccount = new UserAccount(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, _folderService, _bookFolderService);
             userAccount.Show();
             Close();
         }
         private void ButtonLogout_Click(object sender, RoutedEventArgs e)
         {
             _authenticationService.Logout();
-            SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
+            SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, _folderService, _bookFolderService);
             signInPage.Show();
             Close();
         }

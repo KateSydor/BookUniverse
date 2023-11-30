@@ -16,10 +16,11 @@
             dbSet = _db.Set<T>();
         }
 
-        public async Task Create(T entity)
+        public async Task<T> Create(T entity)
         {
             _db.Add(entity);
             await _db.SaveChangesAsync();
+            return entity;
         }
 
         public async Task Delete(T entity)
