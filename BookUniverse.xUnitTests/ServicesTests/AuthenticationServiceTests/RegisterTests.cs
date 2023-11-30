@@ -22,7 +22,7 @@ namespace BookUniverse.xUnitTests.ServicesTests.AuthenticationServiceTests
         public async Task Register_ValidUser_CallsRepositoryCreate()
         {
             // Arrange
-            CreateDTO();
+            RegistrationDto registrationDto = CreateDTO();
 
             _userRepositoryMock.Setup(repo => repo.Create(It.IsAny<User>()));
             _authenticationService.Setup(auth => auth.Register(It.IsAny<RegistrationDto>()))
@@ -39,7 +39,7 @@ namespace BookUniverse.xUnitTests.ServicesTests.AuthenticationServiceTests
         public async Task Register_PasswordsDoNotMatch_ThrowsArgumentException()
         {
             // Arrange
-            CreateDTO("CreateDTO");
+            RegistrationDto registrationDto = CreateDTO("CreateDTO");
 
             string expectedMessage = "Passwords don't match";
             _authenticationService.Setup(auth => auth.Register(It.IsAny<RegistrationDto>()))
