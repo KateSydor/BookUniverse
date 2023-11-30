@@ -19,6 +19,8 @@
         private readonly IBookManagementService _bookService;
         private readonly ICategoryService _categoryService;
         private readonly IGoogleDriveService _googleDriveService;
+        private readonly IFolderService _folderService;
+        private readonly IBookFolderService _bookFolderService;
         private readonly ISearchBook _searchBookService;
         private User currentUser;
 
@@ -28,13 +30,17 @@
             IBookManagementService bookService,
             ICategoryService categoryService,
             IGoogleDriveService googleDriveService,
-            ISearchBook searchBookService)
+            ISearchBook searchBookService,
+            IFolderService folderService,
+            IBookFolderService bookFolderService)
         {
             _authenticationService = authenticationService;
             _userService = userService;
             _bookService = bookService;
             _categoryService = categoryService;
             _googleDriveService = googleDriveService;
+            _folderService = folderService;
+            _bookFolderService = bookFolderService;
             _searchBookService = searchBookService;
 
             Loaded += HomeWindow_Loaded;
@@ -57,21 +63,21 @@
 
         private void MenuControl_AllBooksClicked(object sender, EventArgs e)
         {
-            ListOfBooks listOfBooks = new ListOfBooks(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService);
+            ListOfBooks listOfBooks = new ListOfBooks(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService, _folderService, _bookFolderService);
             listOfBooks.Show();
             Close();
         }
 
         private void MenuControl_FavouriteBooksClicked(object sender, EventArgs e)
         {
-            FavouriteBooksWindow listOfBooks = new FavouriteBooksWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService);
+            FavouriteBooksWindow listOfBooks = new FavouriteBooksWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService, _folderService, _bookFolderService);
             listOfBooks.Show();
             Close();
         }
 
         private void MenuControl_SearchBooksClicked(object sender, EventArgs e)
         {
-            BookSearch listOfBooks = new BookSearch(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService);
+            BookSearch listOfBooks = new BookSearch(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService, _folderService, _bookFolderService);
             listOfBooks.Show();
             Close();
         }
@@ -98,7 +104,7 @@
             }
             catch
             {
-                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService);
+                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService, _folderService, _bookFolderService);
                 signInPage.Show();
                 Hide();
             }
@@ -113,15 +119,14 @@
         private void ButtonLogout_Click(object sender, RoutedEventArgs e)
         {
             _authenticationService.Logout();
-            SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService);
+            SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService, _folderService, _bookFolderService);
             signInPage.Show();
             Close();
         }
 
         private void AccountButton_Click(object sender, RoutedEventArgs e)
         {
-            UserAccount userAccount = new UserAccount(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService);
-            this.Visibility = Visibility.Hidden;
+            UserAccount userAccount = new UserAccount(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService, _folderService, _bookFolderService);
             userAccount.Show();
             Close();
         }

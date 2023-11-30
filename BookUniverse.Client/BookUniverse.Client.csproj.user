@@ -2,6 +2,12 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <ItemGroup>
+    <Compile Update="Views\FoldersWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\NewFolderWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\BookSearch.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -31,6 +37,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Views\FoldersWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\NewFolderWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\BookSearch.xaml">
       <SubType>Designer</SubType>
     </Page>

@@ -18,6 +18,8 @@
         private readonly IBookManagementService _bookService;
         private readonly ICategoryService _categoryService;
         private readonly IGoogleDriveService _googleDriveRepository;
+        private readonly IFolderService _folderService;
+        private readonly IBookFolderService _bookFolderService;
         private readonly ISearchBook _searchBookService;
         private readonly RegistrationDto user;
         private NotifyWindow _notifyWindow = new NotifyWindow();
@@ -28,7 +30,9 @@
             IBookManagementService bookService,
             ICategoryService categoryService,
             IGoogleDriveService googleDriveRepository,
-            ISearchBook searchBookService)
+            ISearchBook searchBookService,
+            IFolderService folderService,
+            IBookFolderService bookFolderService)
         {
             InitializeComponent();
             _authenticationService = authenticationService;
@@ -36,6 +40,8 @@
             _bookService = bookService;
             _categoryService = categoryService;
             _googleDriveRepository = googleDriveRepository;
+            _folderService = folderService;
+            _bookFolderService = bookFolderService;
             _searchBookService = searchBookService;
 
             user = new RegistrationDto();
@@ -44,7 +50,7 @@
 
         private void Redirect_Signin_Button_Click(object sender, RoutedEventArgs e)
         {
-            SignInWindow signInWindow = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
+            SignInWindow signInWindow = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, _folderService, _bookFolderService);
             this.Visibility = Visibility.Hidden;
             signInWindow.Show();
         }
@@ -61,13 +67,16 @@
                     await _authenticationService.Register(user);
                     if (_authenticationService.IsLoggedIn())
                     {
-                        HomeWindow homePage = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
+                        HomeWindow homePage = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, _folderService, _bookFolderService);
                         homePage.Show();
                         Hide();
                     }
                 }
                 else
                 {
+                    HomeWindow homePage = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, _folderService, _bookFolderService);
+                    homePage.Show();
+                    Hide();
                     _notifyWindow.ShowNotification(UtilsConstants.INPUT_VALID_DATA);
                 }
             }
