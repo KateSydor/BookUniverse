@@ -69,14 +69,14 @@
                     {
                         HomeWindow homePage = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, _folderService, _bookFolderService);
                         homePage.Show();
-                        Hide();
+                        Close();
                     }
                 }
                 else
                 {
                     HomeWindow homePage = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, _folderService, _bookFolderService);
                     homePage.Show();
-                    Hide();
+                    Close();
                     _notifyWindow.ShowNotification(UtilsConstants.INPUT_VALID_DATA);
                 }
             }

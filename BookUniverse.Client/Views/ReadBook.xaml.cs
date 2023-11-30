@@ -70,7 +70,7 @@
             {
                 SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, _folderService, _bookFolderService);
                 signInPage.Show();
-                Hide();
+                Close();
             }
         }
 
@@ -98,7 +98,7 @@
             _authenticationService.Logout();
             SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, _folderService, _bookFolderService);
             signInPage.Show();
-            Hide();
+            Close();
         }
 
         private void AccountButton_Click(object sender, RoutedEventArgs e)

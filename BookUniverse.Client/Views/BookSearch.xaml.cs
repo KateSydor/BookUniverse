@@ -76,6 +76,7 @@
         {
             CustomControls.Menu.AllBooksClicked -= MenuControl_AllBooksClicked;
             CustomControls.Menu.FavouriteBooksClicked -= MenuControl_FavouriteBooksClicked;
+            _notifyWindow.Close();
         }
 
         private void MenuControl_AllBooksClicked(object sender, EventArgs e)

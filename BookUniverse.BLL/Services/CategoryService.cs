@@ -38,6 +38,5 @@
             Category newCategory = new Category() { CategoryName = categoryName };
             await _categoryRepository.Create(newCategory);
         }
-
     }
 }

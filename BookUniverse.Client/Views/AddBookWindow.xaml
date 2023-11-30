@@ -90,7 +90,23 @@
                          materialDesign:HintAssist.FloatingOffset="0,-20"
                          materialDesign:HintAssist.Hint="Title"
                          Width="426"
-                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+                    <TextBox.Text>
+                        <Binding Path="Title"
+             UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <local:TitleValidationRules />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                    <Validation.ErrorTemplate>
+                        <ControlTemplate>
+                            <StackPanel>
+                                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="DarkRed" FontSize="10" Margin="0,52,0,0" />
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Validation.ErrorTemplate>
+                </TextBox>
                 <TextBox x:Name="author"
                          HorizontalAlignment="Center"
                          Margin="0,20,0,0"
