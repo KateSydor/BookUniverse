@@ -153,13 +153,11 @@
                                                  Height="25"
                                                  Width="25"
                                                  Margin="10" />
-                        <ComboBox Width="115"
+                        <ComboBox x:Name="Menu_Folders"
+                                  Width="115"
                                   Margin="20 10 0 10"
                                   materialDesign:HintAssist.Hint="Folders"
                                   materialDesign:TextFieldAssist.UnderlineBrush="#182043">
-                            <ComboBoxItem Content="Option 1" />
-                            <ComboBoxItem Content="Option 2" />
-                            <ComboBoxItem Content="Option 3" />
                         </ComboBox>
                     </StackPanel>
                 </ListViewItem>

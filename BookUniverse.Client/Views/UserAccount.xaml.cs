@@ -62,6 +62,7 @@ namespace BookUniverse.Client
             Menu.SearchBooksClicked += MenuControl_SearchBooksClicked;
             Menu.FavouriteBooksClicked += MenuControl_FavouriteBooksClicked;
             GetCategories();
+            GetFolders();
         }
 
         private void GetCategories()
@@ -73,6 +74,17 @@ namespace BookUniverse.Client
             catch
             {
                 Menu_Control.Menu_Categories.ItemsSource = new List<string>() { "No categories found" };
+            }
+        }
+        private void GetFolders()
+        {
+            try
+            {
+                Menu_Control.Menu_Folders.ItemsSource = _folderService.GetAllFolders().Select(category => category.FolderName).ToList();
+            }
+            catch
+            {
+                Menu_Control.Menu_Folders.ItemsSource = new List<string>() { "No folders found" };
             }
         }
 
