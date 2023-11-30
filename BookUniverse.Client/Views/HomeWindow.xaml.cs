@@ -70,14 +70,14 @@
 
         private void MenuControl_FavouriteBooksClicked(object sender, EventArgs e)
         {
-            FavouriteBooksWindow listOfBooks = new FavouriteBooksWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService);
+            FavouriteBooksWindow listOfBooks = new FavouriteBooksWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService, _folderService, _bookFolderService);
             listOfBooks.Show();
             Close();
         }
 
         private void MenuControl_SearchBooksClicked(object sender, EventArgs e)
         {
-            BookSearch listOfBooks = new BookSearch(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService);
+            BookSearch listOfBooks = new BookSearch(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService, _folderService, _bookFolderService);
             listOfBooks.Show();
             Close();
         }

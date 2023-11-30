@@ -27,7 +27,7 @@
         private int bookId;
         private Book currBook;
 
-        public ReadBook(IAuthenticationService authenticationService, IUserService userService, IBookService bookService, ICategoryService categoryService, IGoogleDriveService googleDriveRepository, ISearchBook searchBookService, int bookId, IFolderService folderService, IBookFolderService bookFolderService)
+        public ReadBook(IAuthenticationService authenticationService, IUserService userService, IBookManagementService bookService, ICategoryService categoryService, IGoogleDriveService googleDriveRepository, ISearchBook searchBookService, int bookId, IFolderService folderService, IBookFolderService bookFolderService)
         {
             _authenticationService = authenticationService;
             _userService = userService;

@@ -28,9 +28,10 @@ namespace BookUniverse.Client
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
-        private readonly IBookService _bookService;
+        private readonly IBookManagementService _bookService;
         private readonly IFolderService _folderService;
         private readonly ICategoryService _categoryService;
+        private readonly ISearchBook _searchBookService;
         private readonly IGoogleDriveService _googleDriveRepository;
         private readonly IBookFolderService _bookFolderService;
         private User currentUser;
@@ -43,11 +44,12 @@ namespace BookUniverse.Client
         public FoldersWindow(
             IAuthenticationService authenticationService,
             IUserService userService,
-            IBookService bookService,
+            IBookManagementService bookService,
             ICategoryService categoryService,
             IGoogleDriveService googleDriveRepository,
             IFolderService folderService,
             IBookFolderService bookFolderService,
+            ISearchBook searchBookService,
             Book book)
         {
             _authenticationService = authenticationService;
@@ -57,6 +59,7 @@ namespace BookUniverse.Client
             _googleDriveRepository = googleDriveRepository;
             _folderService = folderService;
             _bookFolderService = bookFolderService;
+            _searchBookService = searchBookService;
             currentBook = book;
 
             Loaded += ListOfFolder_Loaded;
@@ -98,7 +101,7 @@ namespace BookUniverse.Client
             }
             catch
             {
-                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _folderService, _bookFolderService);
+                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, _folderService, _bookFolderService);
                 signInPage.Show();
                 Close();
             }
@@ -143,7 +146,7 @@ namespace BookUniverse.Client
         {
             try
             {
-                NewFolderWindow newFolderWindow = new NewFolderWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _folderService, _bookFolderService, currentBook.Id);
+                NewFolderWindow newFolderWindow = new NewFolderWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _folderService, _bookFolderService,_searchBookService, currentBook.Id);
                 newFolderWindow.Show();
                 Close();
             }

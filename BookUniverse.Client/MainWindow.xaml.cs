@@ -67,14 +67,14 @@
                     await _authenticationService.Register(user);
                     if (_authenticationService.IsLoggedIn())
                     {
-                        HomeWindow homePage = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
+                        HomeWindow homePage = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, _folderService, _bookFolderService);
                         homePage.Show();
                         Hide();
                     }
                 }
                 else
                 {
-                    HomeWindow homePage = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _folderService, _bookFolderService);
+                    HomeWindow homePage = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, _folderService, _bookFolderService);
                     homePage.Show();
                     Hide();
                     _notifyWindow.ShowNotification(UtilsConstants.INPUT_VALID_DATA);

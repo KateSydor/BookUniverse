@@ -27,7 +27,7 @@
         private int bookId;
         private NotifyWindow _notifyWindow = new NotifyWindow();
 
-        public BookWindow(IAuthenticationService authenticationService, IUserService userService, IBookService bookService, ICategoryService categoryService, IGoogleDriveService googleDriveRepository, ISearchBook searchBookService, int bookId, IFolderService folderService, IBookFolderService bookFolderService)
+        public BookWindow(IAuthenticationService authenticationService, IUserService userService, IBookManagementService bookService, ICategoryService categoryService, IGoogleDriveService googleDriveRepository, ISearchBook searchBookService, int bookId, IFolderService folderService, IBookFolderService bookFolderService)
         {
             _authenticationService = authenticationService;
             _userService = userService;
@@ -59,21 +59,21 @@
 
         private void MenuControl_SearchBooksClicked(object sender, EventArgs e)
         {
-            BookSearch searchBooks = new BookSearch(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
+            BookSearch searchBooks = new BookSearch(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, _folderService, _bookFolderService);
             searchBooks.Show();
             Close();
         }
 
         private void MenuControl_FavouriteBooksClicked(object sender, EventArgs e)
         {
-            FavouriteBooksWindow listOfBooks = new FavouriteBooksWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
+            FavouriteBooksWindow listOfBooks = new FavouriteBooksWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, _folderService, _bookFolderService);
             listOfBooks.Show();
             Close();
         }
 
         private void MenuControl_AllBooksClicked(object sender, EventArgs e)
         {
-            ListOfBooks listOfBooks = new ListOfBooks(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService);
+            ListOfBooks listOfBooks = new ListOfBooks(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, _folderService, _bookFolderService);
             listOfBooks.Show();
             Close();
         }
@@ -122,7 +122,7 @@
             _bookService,
             _categoryService,
             _googleDriveRepository,
-            _folderService, _bookFolderService, book);
+            _folderService, _bookFolderService, _searchBookService, book);
 
             
 
