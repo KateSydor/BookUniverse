@@ -160,7 +160,7 @@
             {
                 SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService, _folderService, _bookFolderService);
                 signInPage.Show();
-                Hide();
+                Close();
             }
         }
 
@@ -184,8 +184,8 @@
                 var numberProperty = (int)clickedItem.GetType().GetProperty("Number")?.GetValue(clickedItem, null);
 
                 BookWindow bookWindow = new BookWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService, numberProperty, _folderService, _bookFolderService);
-                this.Hide();
                 bookWindow.Show();
+                Close();
             }
         }
 

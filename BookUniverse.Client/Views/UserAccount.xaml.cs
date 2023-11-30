@@ -75,6 +75,7 @@ namespace BookUniverse.Client
             Menu.AllBooksClicked -= MenuControl_AllBooksClicked;
             Menu.SearchBooksClicked -= MenuControl_SearchBooksClicked;
             Menu.FavouriteBooksClicked -= MenuControl_FavouriteBooksClicked;
+            _notifyWindow.Close();
         }
 
         private void MenuControl_AllBooksClicked(object sender, EventArgs e)
@@ -124,7 +125,7 @@ namespace BookUniverse.Client
             {
                 SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService, _folderService, _bookFolderService);
                 signInPage.Show();
-                Hide();
+                Close();
             }
         }
 
