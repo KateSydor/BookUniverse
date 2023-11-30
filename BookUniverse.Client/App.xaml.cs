@@ -27,6 +27,8 @@
 
                     services.AddDatabaseContext(sqlConnectionString);
 
+                    services.AddSingleton(configuration);
+
                     services.AddRepositories();
 
                     services.AddServices();
