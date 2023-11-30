@@ -58,7 +58,7 @@
             dataGrid.ItemsSource = displayedBooks;
             CustomControls.Menu.AllBooksClicked += MenuControl_AllBooksClicked;
             CustomControls.Menu.SearchBooksClicked += MenuControl_SearchBooksClicked;
-            Menu.FavoriteBooksClicked += MenuControl_FavoriteBooksClicked;
+            CustomControls.Menu.FavouriteBooksClicked += MenuControl_FavouriteBooksClicked;
         }
 
         private List<object> displayedBooks
@@ -99,9 +99,9 @@
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            Menu.AllBooksClicked -= MenuControl_AllBooksClicked;
-            Menu.SearchBooksClicked -= MenuControl_SearchBooksClicked;
-            Menu.FavouriteBooksClicked -= MenuControl_FavouriteBooksClicked;
+            CustomControls.Menu.AllBooksClicked -= MenuControl_AllBooksClicked;
+            CustomControls.Menu.SearchBooksClicked -= MenuControl_SearchBooksClicked;
+            CustomControls.Menu.FavouriteBooksClicked -= MenuControl_FavouriteBooksClicked;
         }
 
         private void MenuControl_AllBooksClicked(object sender, EventArgs e)
@@ -183,7 +183,7 @@
 
                 var numberProperty = (int)clickedItem.GetType().GetProperty("Number")?.GetValue(clickedItem, null);
 
-                BookWindow bookWindow = new BookWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService, numberProperty);
+                BookWindow bookWindow = new BookWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService, numberProperty, _folderService, _bookFolderService);
                 this.Hide();
                 bookWindow.Show();
             }
