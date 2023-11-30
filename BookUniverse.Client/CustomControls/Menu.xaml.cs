@@ -11,9 +11,12 @@ namespace BookUniverse.Client.CustomControls
     public partial class Menu : UserControl
     {
         public static event EventHandler AllBooksClicked;
+        public static event EventHandler SearchBooksClicked;
+        public static event EventHandler FavouriteBooksClicked;
 
         public Menu()
         {
+            this.Height = SystemParameters.MaximizedPrimaryScreenHeight;
             InitializeComponent();
         }
 
@@ -35,6 +38,14 @@ namespace BookUniverse.Client.CustomControls
             AllBooksClicked?.Invoke(this, EventArgs.Empty);
         }
 
+        private void ItemHome_PreviewMouseDown2(object sender, MouseButtonEventArgs e)
+        {
+            SearchBooksClicked?.Invoke(this, EventArgs.Empty);
+        }
 
+        private void ItemHome_PreviewMouseDown3(object sender, MouseButtonEventArgs e)
+        {
+            FavouriteBooksClicked?.Invoke(this, EventArgs.Empty);
+        }
     }
 }

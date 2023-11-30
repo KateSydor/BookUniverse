@@ -1,22 +1,24 @@
 ﻿namespace BookUniverse.BLL.Services
 {
     using BookUniverse.BLL.Interfaces;
-    using BookUniverse.DAL.Repositories.BookRepository;
     using Google.Apis.Auth.OAuth2;
     using Google.Apis.Drive.v3;
     using Google.Apis.Services;
     using Google.Apis.Util.Store;
+    using Microsoft.Extensions.Configuration;
     using PdfSharp.Pdf.IO;
 
     public class GoogleDriveService : IGoogleDriveService
     {
         public static string[] Scopes = { DriveService.Scope.Drive, DriveService.Scope.DriveFile };
 
-        private readonly IBookRepository _bookRepository;
+        private readonly ILoggingService _logger;
+        private readonly IConfiguration _configuration;
 
-        public GoogleDriveService(IBookRepository bookRepository)
+        public GoogleDriveService(ILoggingService logger, IConfiguration configuration)
         {
-            _bookRepository = bookRepository;
+            _logger = logger;
+            _configuration = configuration;
         }
 
         public DriveService GetService()
@@ -27,10 +29,10 @@
             var credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
             new ClientSecrets
             {
-                ClientId = "clientId",
-                ClientSecret = "secret"
+                ClientId = _configuration["GoogleDriveClientId"],
+                ClientSecret = _configuration["GoogleDriveClientSecret"],
             }, Scopes,
-            username, CancellationToken.None, new FileDataStore("token")).Result;
+            username, CancellationToken.None, new FileDataStore(_configuration["GoogleDriveToken"])).Result;
 
             DriveService service = new DriveService(new BaseClientService.Initializer()
             {
@@ -59,16 +61,21 @@
                     await request.UploadAsync();
                     await SetPublicReadPermission(request.ResponseBody.Id, _service);
                     Google.Apis.Drive.v3.Data.File shareableFile = await GetShareableLink(request.ResponseBody.Id, _service);
+                    _logger.LogInformation($"File {body.Name} has been uploaded successfully to the Google Drive");
                     return (pageCount, shareableFile);
                 }
                 catch
                 {
-                    throw new Exception("Error during uppload");
+                    string errMsg = "Error during upload";
+                    _logger.LogError(null, errMsg);
+                    throw new Exception(errMsg);
                 }
             }
             else
             {
-                throw new Exception("File doesn't exist");
+                string errMsg = "File doesn't exist";
+                _logger.LogError(null, errMsg);
+                throw new Exception(errMsg);
             }
         }
 

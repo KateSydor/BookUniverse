@@ -22,6 +22,7 @@
     <PackageReference Include="AsyncAwaitBestPractices.MVVM" Version="6.0.6" />
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+    <PackageReference Include="Google.Apis.Books.v1" Version="1.64.0.2955" />
     <PackageReference Include="Google.Apis.Drive.v3" Version="1.63.0.3155" />
     <PackageReference Include="MaterialDesignThemes" Version="4.9.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.11">
@@ -36,6 +37,7 @@
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
     <PackageReference Include="Npgsql" Version="7.0.6" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
+    <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -57,6 +59,9 @@
 
   <ItemGroup>
     <Compile Update="CustomControls\BindablePassword.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\FavouriteBooksWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

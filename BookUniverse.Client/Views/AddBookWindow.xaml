@@ -72,11 +72,12 @@
         </Grid>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="137*" />
-                <RowDefinition Height="13*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="670" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <StackPanel Background="{StaticResource color4}"
-                        Margin="65,130,65,8">
+            <StackPanel Width="550" Background="{StaticResource color4}" Grid.Row="1"
+                        Margin="75,90,75,41">
                 <TextBlock Margin="0 20 0 0"
                            Foreground="{StaticResource color8}"
                            HorizontalAlignment="Center"
@@ -148,6 +149,8 @@
                           FontSize="20"
                           Margin="0 20 0 0"
                           materialDesign:HintAssist.Hint="Categories"
+                          SelectionChanged="CategoryComboBox_SelectionChanged"
+                          ItemsSource="{Binding CategoryCollection}"
                           Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                 </ComboBox>
                 <TextBox x:Name="tbFilepath"

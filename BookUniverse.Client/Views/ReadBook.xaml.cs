@@ -3,6 +3,7 @@
     using System;
     using System.IO;
     using System.Reflection;
+    using System.Threading.Tasks;
     using System.Windows;
     using System.Windows.Controls;
     using BookUniverse.BLL.Interfaces;
@@ -15,21 +16,26 @@
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IUserService _userService;
-        private readonly IBookService _bookService;
+        private readonly IBookManagementService _bookService;
         private readonly ICategoryService _categoryService;
         private readonly IGoogleDriveService _googleDriveRepository;
+        private readonly ISearchBook _searchBookService;
         private readonly IFolderService _folderService;
         private readonly IBookFolderService _bookFolderService;
+        private readonly NotifyWindow _notifyWindow = new NotifyWindow();
         private User currentUser;
         private int bookId;
+        private Book currBook;
 
-        public ReadBook(IAuthenticationService authenticationService, IUserService userService, IBookService bookService, ICategoryService categoryService, IGoogleDriveService googleDriveRepository, int bookId, IFolderService folderService, IBookFolderService bookFolderService)
+        public ReadBook(IAuthenticationService authenticationService, IUserService userService, IBookService bookService, ICategoryService categoryService, IGoogleDriveService googleDriveRepository, ISearchBook searchBookService, int bookId, IFolderService folderService, IBookFolderService bookFolderService)
         {
             _authenticationService = authenticationService;
             _userService = userService;
             _bookService = bookService;
             _categoryService = categoryService;
             _googleDriveRepository = googleDriveRepository;
+            _searchBookService = searchBookService;
+
             this.bookId = bookId;
             _folderService = folderService;
             _bookFolderService = bookFolderService;
@@ -41,8 +47,9 @@
 
         private async void Book_Loaded(object sender, RoutedEventArgs e)
         {
-            Book currBook = await _bookService.GetBook(bookId);
-            myweb.Source = new Uri(currBook.Path, UriKind.RelativeOrAbsolute);
+            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
+            SystemCommands.MaximizeWindow(this);
+            await GetCurrentBook();
             try
             {
                 string[] lines = File.ReadAllLines(UtilsConstants.FILE_PATH);
@@ -61,9 +68,22 @@
             }
             catch
             {
-                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _folderService, _bookFolderService);
+                SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, _folderService, _bookFolderService);
                 signInPage.Show();
                 Hide();
+            }
+        }
+
+        private async Task GetCurrentBook()
+        {
+            try
+            {
+                currBook = await _bookService.GetBook(bookId);
+                myweb.Source = new Uri(currBook.Path, UriKind.RelativeOrAbsolute);
+            }
+            catch
+            {
+                _notifyWindow.ShowNotification("Something went wrong. Please try again later");
             }
         }
 
@@ -76,21 +96,21 @@
         private void ButtonLogout_Click(object sender, RoutedEventArgs e)
         {
             _authenticationService.Logout();
-            SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _folderService, _bookFolderService);
+            SignInWindow signInPage = new SignInWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, _folderService, _bookFolderService);
             signInPage.Show();
             Hide();
         }
 
         private void AccountButton_Click(object sender, RoutedEventArgs e)
         {
-            UserAccount userAccount = new UserAccount(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _folderService, _bookFolderService);
+            UserAccount userAccount = new UserAccount(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, _folderService, _bookFolderService);
             this.Visibility = Visibility.Hidden;
             userAccount.Show();
         }
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _folderService, _bookFolderService);
+            HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, _folderService, _bookFolderService);
             this.Visibility = Visibility.Hidden;
             homeWindow.Show();
         }

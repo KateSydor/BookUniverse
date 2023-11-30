@@ -8,7 +8,16 @@
     <Compile Update="Views\NewFolderWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\BookSearch.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\ReadBook.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\AddCategoryWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\BookSearch.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\Book.xaml.cs">
@@ -34,7 +43,16 @@
     <Page Update="Views\NewFolderWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Views\BookSearch.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\FavouriteBooksWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Views\ReadBook.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\AddCategoryWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\Book.xaml">
