@@ -1,26 +1,16 @@
-﻿using BookUniverse.BLL.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using BookUniverse.DAL.Entities;
-using BookUniverse.DAL.Constants.UtilsConstants;
-using MaterialDesignThemes.Wpf;
-
-namespace BookUniverse.Client
+﻿namespace BookUniverse.Client
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.IO;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+    using BookUniverse.BLL.Interfaces;
+    using BookUniverse.DAL.Constants.UtilsConstants;
+    using BookUniverse.DAL.Entities;
+
     /// <summary>
     /// Interaction logic for FoldersWindow.xaml
     /// </summary>
@@ -39,7 +29,6 @@ namespace BookUniverse.Client
 
         private List<object> foldersList;
         private Book currentBook;
-
 
         public FoldersWindow(
             IAuthenticationService authenticationService,
@@ -77,7 +66,6 @@ namespace BookUniverse.Client
 
             InitializeComponent();
             dataGrid.ItemsSource = foldersList;
-
         }
 
         private async void ListOfFolder_Loaded(object sender, RoutedEventArgs e)
@@ -127,7 +115,6 @@ namespace BookUniverse.Client
                 }
             }
             catch (Exception ex) { _notifyWindow.ShowNotification($"Error: {ex.Message}"); }
-
         }
 
         private void OnAutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)

@@ -74,6 +74,7 @@
                 Menu_Control.Menu_Categories.ItemsSource = new List<string>() { "No categories found" };
             }
         }
+
         private void GetFolders()
         {
             try
@@ -198,7 +199,6 @@
                 e.Cancel = true;
             }
         }
-
 
         private void DataGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {

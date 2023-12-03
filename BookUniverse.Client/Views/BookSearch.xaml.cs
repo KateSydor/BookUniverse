@@ -29,6 +29,7 @@
 
         private User currentUser;
         private NotifyWindow _notifyWindow = new NotifyWindow();
+
         public BookSearch(
             IAuthenticationService authenticationService,
             IUserService userService,
@@ -47,7 +48,6 @@
             _searchBookService = searchBookService;
             _folderService = folderService;
             _bookFolderService = bookFolderService;
-
 
             Loaded += SearchOfBooks_Loaded;
             Closed += Window_Closed;
@@ -72,6 +72,7 @@
                 Menu_Control.Menu_Categories.ItemsSource = new List<string>() { "No categories found" };
             }
         }
+
         private void GetFolders()
         {
             try
@@ -132,6 +133,7 @@
                 Close();
             }
         }
+
         private async void Search_Click(object sender, RoutedEventArgs e)
         {
             string searchText = searchTextBox.Text;
@@ -171,19 +173,20 @@
             }
         }
 
-
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
             HomeWindow homeWindow = new HomeWindow(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, _folderService, _bookFolderService);
             homeWindow.Show();
             Close();
         }
+
         private void AccountButton_Click(object sender, RoutedEventArgs e)
         {
             UserAccount userAccount = new UserAccount(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, _folderService, _bookFolderService);
             userAccount.Show();
             Close();
         }
+
         private void ButtonLogout_Click(object sender, RoutedEventArgs e)
         {
             _authenticationService.Logout();
@@ -191,6 +194,7 @@
             signInPage.Show();
             Close();
         }
+
         private void CloseWindow(object sender, RoutedEventArgs e)
         {
             Application.Current.MainWindow.Close();

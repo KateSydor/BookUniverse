@@ -1,6 +1,7 @@
 ﻿namespace BookUniverse.Client
 {
     using System.Windows;
+
     /// <summary>
     /// Interaction logic for NotifyWindow.xaml.
     /// </summary>

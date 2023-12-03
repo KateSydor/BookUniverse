@@ -10,10 +10,10 @@
 
     public class AuthenticationService : IAuthenticationService
     {
+        private const string Error = "Not valid credentials.";
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly ILoggingService _logger;
-        const string error = "Not valid credentials.";
 
         public AuthenticationService(IUserRepository userService, IMapper mapper, ILoggingService logger)
         {
@@ -53,14 +53,14 @@
             if (storedAccount == null)
             {
                 _logger.LogError(user, $"There is no user with username: {user.Username} in the database");
-                throw new Exception(error);
+                throw new Exception(Error);
             }
 
             string storedHashedPassword = Hasher.ComputeHash(user.Password);
             if (storedHashedPassword != storedAccount.Password)
             {
-                _logger.LogError(user, error);
-                throw new Exception(error);
+                _logger.LogError(user, Error);
+                throw new Exception(Error);
             }
 
             CurrentAccount = storedAccount;

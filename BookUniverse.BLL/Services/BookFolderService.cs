@@ -1,18 +1,15 @@
-﻿using BookUniverse.BLL.Interfaces;
-using BookUniverse.DAL.Repositories.BookFolderRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BookUniverse.DAL.Entities;
-using System.ComponentModel.DataAnnotations;
-
-namespace BookUniverse.BLL.Services
+﻿namespace BookUniverse.BLL.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using BookUniverse.BLL.Interfaces;
+    using BookUniverse.DAL.Entities;
+    using BookUniverse.DAL.Repositories.BookFolderRepository;
+
     public class BookFolderService : IBookFolderService
     {
-
         private readonly IBookFolderRepository _folderRepository;
 
         public BookFolderService(IBookFolderRepository fService)
@@ -33,11 +30,10 @@ namespace BookUniverse.BLL.Services
                 if (bookFolder.FolderId == folder.FolderId && bookFolder.BookId == folder.BookId)
                 {
                     throw new Exception("Book is already in this folder");
-                    return;
                 }
             }
+
             await _folderRepository.Create(folder);
         }
     }
-    
 }

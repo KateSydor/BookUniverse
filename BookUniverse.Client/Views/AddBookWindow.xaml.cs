@@ -82,6 +82,7 @@
                 Menu_Control.Menu_Categories.ItemsSource = new List<string>() { "No categories found" };
             }
         }
+
         private void GetFolders()
         {
             try

@@ -1,20 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Threading.Tasks;
-using BookUniverse.BLL.Interfaces;
-using BookUniverse.DAL.Entities;
-using BookUniverse.DAL.Repositories.FolderRepository;
-using global::BookUniverse.BLL.Interfaces;
-using global::BookUniverse.DAL.Repositories.UserRepository;
-using PdfSharp.Drawing;
-
-namespace BookUniverse.BLL.Services
+﻿namespace BookUniverse.BLL.Services
 {
-
-
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using BookUniverse.BLL.Interfaces;
+    using BookUniverse.DAL.Entities;
+    using BookUniverse.DAL.Repositories.FolderRepository;
 
     public class FolderService : IFolderService
     {
@@ -47,8 +39,5 @@ namespace BookUniverse.BLL.Services
 
             return await _folderRepository.Create(folder);
         }
-
     }
 }
-
-

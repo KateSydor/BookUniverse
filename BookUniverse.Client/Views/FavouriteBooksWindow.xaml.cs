@@ -31,7 +31,6 @@
         private int currentPage = 1;
         private int booksPerPage = 13;
 
-
         public FavouriteBooksWindow(
             IAuthenticationService authenticationService,
             IUserService userService,
@@ -75,6 +74,7 @@
                 Menu_Control.Menu_Categories.ItemsSource = new List<string>() { "No categories found" };
             }
         }
+
         private void GetFolders()
         {
             try
@@ -99,13 +99,13 @@
             listOfBooks.Show();
             Close();
         }
+
         private void MenuControl_SearchBooksClicked(object sender, EventArgs e)
         {
             BookSearch listOfBooks = new BookSearch(_authenticationService, _userService, _bookService, _categoryService, _googleDriveRepository, _searchBookService, _folderService, _bookFolderService);
             listOfBooks.Show();
             Close();
         }
-
 
         private List<object> displayedBooks
         {
@@ -197,7 +197,6 @@
             }
         }
 
-
         private void DataGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.OriginalSource is FrameworkElement source && source.DataContext != null)
@@ -211,8 +210,6 @@
                 Close();
             }
         }
-
-
 
         private void CloseWindow(object sender, RoutedEventArgs e)
         {
@@ -241,6 +238,5 @@
             homeWindow.Show();
             Close();
         }
-        
     }
 }

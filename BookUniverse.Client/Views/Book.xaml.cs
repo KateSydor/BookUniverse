@@ -64,6 +64,7 @@
                 Menu_Control.Menu_Categories.ItemsSource = new List<string>() { "No categories found" };
             }
         }
+
         private void GetFolders()
         {
             try
@@ -132,7 +133,6 @@
                 signInPage.Show();
                 Close();
             }
-
         }
 
         private void CloseWindow(object sender, RoutedEventArgs e)
@@ -140,6 +140,7 @@
             Application.Current.MainWindow.Close();
             Application.Current.Shutdown();
         }
+
         private void AddFolderClick(object sender, RoutedEventArgs e)
         {
             var book = this.DataContext as Book;
@@ -151,11 +152,8 @@
             _googleDriveRepository,
             _folderService, _bookFolderService, _searchBookService, book);
 
-            
-
             //folderwindow.Show();
             folderwindow.ShowDialog();
-            
 
         }
 

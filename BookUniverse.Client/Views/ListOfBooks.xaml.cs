@@ -191,7 +191,6 @@
             }
         }
 
-
         private void DataGrid_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.OriginalSource is FrameworkElement source && source.DataContext != null)
@@ -205,8 +204,6 @@
                 Close();
             }
         }
-
-
 
         private void CloseWindow(object sender, RoutedEventArgs e)
         {

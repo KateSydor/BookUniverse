@@ -1,22 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.IO;
-using BookUniverse.DAL.Constants.UtilsConstants;
-using BookUniverse.DAL.Entities;
-using BookUniverse.BLL.Interfaces;
-
-namespace BookUniverse.Client
+﻿namespace BookUniverse.Client
 {
+    using System;
+    using System.IO;
+    using System.Windows;
+    using BookUniverse.BLL.Interfaces;
+    using BookUniverse.DAL.Constants.UtilsConstants;
+    using BookUniverse.DAL.Entities;
+
     public partial class NewFolderWindow : Window
     {
         private readonly IAuthenticationService _authenticationService;
@@ -53,7 +43,6 @@ namespace BookUniverse.Client
             _folderService = folderService;
             _bookFolderService = bookFolderService;
             _searchBookService = searchBookService;
-
 
             currentBookId = book_id;
 
@@ -113,7 +102,6 @@ namespace BookUniverse.Client
             {
                 notifyWindow.ShowNotification($"Error: {ex.Message}");
             }
-
         }
 
         private void CloseWindow(object sender, RoutedEventArgs e)

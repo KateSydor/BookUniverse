@@ -1,17 +1,19 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-
-namespace BookUniverse.Client.CustomControls
+﻿namespace BookUniverse.Client.CustomControls
 {
+    using System;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+
     /// <summary>
     /// Interaction logic for Menu.xaml
     /// </summary>
     public partial class Menu : UserControl
     {
         public static event EventHandler AllBooksClicked;
+
         public static event EventHandler SearchBooksClicked;
+
         public static event EventHandler FavouriteBooksClicked;
 
         public Menu()
