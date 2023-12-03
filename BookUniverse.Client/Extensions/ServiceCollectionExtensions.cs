@@ -31,7 +31,6 @@
             services.AddScoped<IFolderRepository, FolderRepository>();
             services.AddScoped<IUserBookRepository, UserBookRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
-            
         }
 
         public static void AddServices(this IServiceCollection services)

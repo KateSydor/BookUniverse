@@ -114,7 +114,10 @@
                     _notifyWindow.ShowNotification($"Book was added in folder \n -{nameFolder}-");
                 }
             }
-            catch (Exception ex) { _notifyWindow.ShowNotification($"Error: {ex.Message}"); }
+            catch (Exception ex)
+            {
+                _notifyWindow.ShowNotification($"Error: {ex.Message}");
+            }
         }
 
         private void OnAutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -135,7 +138,10 @@
                 newFolderWindow.Show();
                 Close();
             }
-            catch (Exception ex) { _notifyWindow.ShowNotification($"Error:\n{ex.Message}"); }
+            catch (Exception ex)
+            {
+                _notifyWindow.ShowNotification($"Error:\n{ex.Message}");
+            }
         }
 
         private void CloseWindow(object sender, RoutedEventArgs e)

@@ -119,7 +119,6 @@
 
         private void MenuControl_AllBooksClicked(object sender, EventArgs e)
         {
-
             ListOfBooks listOfBooks = new ListOfBooks(_authenticationService, _userService, _bookService, _categoryService, _googleDriveService, _searchBookService, _folderService, _bookFolderService);
             listOfBooks.Show();
             Close();

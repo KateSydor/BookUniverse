@@ -18,7 +18,6 @@
         private readonly IBookFolderService _bookFolderService;
         private readonly ISearchBook _searchBookService;
 
-
         private NotifyWindow notifyWindow = new NotifyWindow();
         private User currentUser;
         private int currentBookId;

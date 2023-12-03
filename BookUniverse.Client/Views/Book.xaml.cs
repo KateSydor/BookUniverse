@@ -145,16 +145,19 @@
         {
             var book = this.DataContext as Book;
 
-            FoldersWindow folderwindow = new FoldersWindow(_authenticationService,
+            FoldersWindow folderwindow = new FoldersWindow(
+            _authenticationService,
             _userService,
             _bookService,
             _categoryService,
             _googleDriveRepository,
-            _folderService, _bookFolderService, _searchBookService, book);
+            _folderService, 
+            _bookFolderService, 
+            _searchBookService, 
+            book);
 
             //folderwindow.Show();
             folderwindow.ShowDialog();
-
         }
 
         private void ButtonLogout_Click(object sender, RoutedEventArgs e)
